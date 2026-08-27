@@ -1,0 +1,32 @@
+/* ---------- Prototype notes (팀 공유용) ---------- */
+.note-btn{position:fixed;right:22px;bottom:22px;display:flex;align-items:center;gap:7px;height:40px;padding:0 15px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:0 6px 18px rgba(0,0,0,.10);font-size:13px;font-weight:500;color:#2C2C2A;z-index:150}
+.note-btn:hover{background:var(--hover)}
+.note-btn::after{content:"";position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--brand);border:2px solid #fff}
+.note-drawer{position:fixed;top:0;right:0;bottom:0;width:404px;background:#fff;border-left:1px solid var(--border-soft);box-shadow:-18px 0 44px rgba(0,0,0,.10);z-index:250;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .22s ease}
+.note-drawer.on{transform:translateX(0)}
+.note-h{display:flex;align-items:center;gap:9px;padding:16px 16px 12px 20px;border-bottom:1px solid var(--border-soft)}
+.note-h b{font-size:15px}
+.note-ver{font-size:11px;background:#FDEEE0;color:#D8681B;border-radius:99px;padding:3px 9px;font-weight:600}
+.note-h .icbtn{margin-left:auto}
+.note-body{flex:1;overflow-y:auto;padding:18px 20px 40px}
+.note-sec{margin-bottom:22px}
+.note-sec h4{font-size:13.5px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.note-sec h4::before{content:"";width:3px;height:13px;border-radius:2px;background:var(--brand)}
+.note-sec p{font-size:13px;line-height:1.75;color:#3C3C3A;margin-bottom:6px}
+.note-sec ul{margin:0;padding-left:2px;list-style:none}
+.note-sec li{font-size:13px;line-height:1.75;color:#3C3C3A;padding-left:14px;position:relative;margin-bottom:4px}
+.note-sec li::before{content:"·";position:absolute;left:2px;color:#9C9C9A}
+.note-dim{color:#9C9C9A!important;font-size:12px!important}
+.note-sec code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:#F5F5F3;border:1px solid var(--border-soft);border-radius:5px;padding:2px 6px;color:#2C2C2A;display:inline-block;margin:0 3px 5px 0}
+.note-ctx{background:#FAFAF8;border:1px solid var(--border-soft);border-radius:12px;padding:14px 14px 12px}
+.note-ctx h4 .ctx-name{color:var(--brand)}
+.note-ask{background:#FDF1E7;border-radius:8px;padding:9px 12px;color:#B45816!important;font-size:12.5px!important;line-height:1.65!important;margin-top:10px}
+.note-lbl{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8A8A88;background:#F1F1EF;border-radius:4px;padding:2px 7px;margin:12px 0 5px}
+.note-why{font-size:12.5px!important;line-height:1.7!important;color:#4A4A48!important;border-left:2px solid #E7E7E5;padding-left:11px;margin-bottom:2px!important}
+.note-sec h4{margin-top:2px}
+.note-sec+.note-sec{padding-top:18px;border-top:1px solid #F4F4F2}
+.note-tier{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.6;color:#3C3C3A;margin-bottom:9px}
+.note-tier i{font-style:normal;flex:none;width:19px;height:19px;border-radius:5px;background:#F1F1EF;color:#6B6B69;font-size:10px;font-weight:700;display:grid;place-items:center;margin-top:1px}
+.note-tier.t1 i{background:#FDEEE0;color:#B45816}
+.note-tier b{color:#1F1F1D}
+

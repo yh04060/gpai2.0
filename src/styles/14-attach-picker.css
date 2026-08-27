@@ -1,0 +1,39 @@
+/* ---------- Attach menu & AI Drive picker ---------- */
+.attmenu{position:fixed;z-index:200;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.14);padding:5px;display:none;width:256px}
+.attmenu.open{display:block}
+.attitem{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:9px;text-align:left;transition:background .15s}
+.attitem:hover{background:var(--hover)}
+.attitem .aic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none;background:#F1F1EF;color:#55554F}
+.attitem .aic.brand{background:#FDEEE0;color:#D8681B}
+.attitem b{display:block;font-size:13px;font-weight:500;color:#1F1F1D}
+.attitem span{display:block;font-size:11.5px;color:#9C9C9A;margin-top:2px}
+.att-row{display:flex;flex-wrap:wrap;gap:8px}
+.att-row:not(:empty){margin-bottom:10px}
+.dz .att-row:not(:empty),.vdz .att-row:not(:empty){margin-top:12px;margin-bottom:0;justify-content:center}
+.att-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:9px;padding:6px 10px;font-size:12.5px;background:#FAFAF9;color:#2C2C2A}
+.att-name{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.att-x{color:#9C9C9A;font-size:14px;line-height:1;padding:0 2px;border-radius:4px}
+.att-x:hover{color:#55554F;background:#ECECEA}
+.modal-dim{position:fixed;inset:0;z-index:300;background:rgba(20,20,20,.35);display:none;place-items:center}
+.modal-dim.on{display:grid}
+.pickbox{width:680px;max-height:76vh;background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow:hidden}
+.pick-h{display:flex;align-items:center;gap:10px;padding:16px 18px 12px;font-size:15px;font-weight:600}
+.pick-h .icbtn{margin-left:auto}
+.pick-search{display:flex;align-items:center;gap:9px;margin:0 18px 12px;height:38px;border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--ink-3);flex:none}
+.pick-search input{flex:1;font-size:14px;color:var(--ink)}
+.pick-list{flex:1;overflow-y:auto;padding:0 10px 8px;min-height:250px}
+.pick-row{display:flex;align-items:center;gap:12px;padding:10px;border-radius:9px;cursor:pointer;font-size:14px}
+.pick-row:hover{background:var(--hover)}
+.pick-row.on{background:#FDEEE0}
+.pick-ic{width:24px;display:grid;place-items:center;flex:none}
+.pick-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.pick-meta{font-size:12px;color:#9C9C9A;flex:none}
+.pick-row .pck{color:var(--brand);visibility:hidden;flex:none}
+.pick-row.on .pck{visibility:visible}
+.pick-f{display:flex;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid var(--border-soft)}
+.pick-f .hint{font-size:12.5px;color:#9C9C9A}
+.btn-ghost{margin-left:auto;border:1px solid var(--border);border-radius:9px;height:36px;padding:0 16px;font-size:13.5px;transition:background .15s;flex:none;white-space:nowrap}
+.btn-ghost:hover{background:var(--hover)}
+.btn-primary{background:var(--brand);color:#fff;border-radius:9px;height:36px;padding:0 18px;font-size:13.5px;font-weight:500;flex:none;white-space:nowrap}
+.btn-primary:disabled{background:#F1F1EF;color:#ABABA9;cursor:default}
+

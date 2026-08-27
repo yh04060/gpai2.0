@@ -1,0 +1,6 @@
+/* ---------- Generic placeholder ---------- */
+#view-generic.on{display:grid;place-items:center;height:100%}
+.g-inner{text-align:center;padding-bottom:60px}
+.g-ic{width:56px;height:56px;border-radius:16px;background:var(--tile);display:grid;place-items:center;margin:0 auto;color:#9C9C9A}
+.g-inner h2{margin-top:16px;font-size:18px;font-weight:600}
+.g-inner p{margin-top:8px;font-size:14px;color:#8A8A88;line-height:1.6}

@@ -1,0 +1,4 @@
+/* ---------- Confidential watermark ---------- */
+.confid-bar{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:401;pointer-events:none;font-size:12.5px;font-weight:600;letter-spacing:-.01em;color:#fff;background:#B23C17;border:1px solid #8F2E10;border-radius:99px;padding:8px 18px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 4px 16px rgba(140,45,15,.32),0 0 0 4px rgba(255,255,255,.72)}
+.confid-bar svg{flex:none;opacity:.92}
+

@@ -1,0 +1,49 @@
+    <section class="view on" id="view-drive">
+      <div class="drive">
+        <div class="drive-top">
+          <div class="search">
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.2 13.2 3.3 3.3"/></svg>
+            <input id="driveSearch" placeholder="드라이브에서 검색">
+          </div>
+          <button class="btn-new" id="btnNew">
+            <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg>
+            <span>신규</span>
+          </button>
+        </div>
+
+        <div class="banner">
+          <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M10 9.2v4.3"/><circle cx="10" cy="6.7" r="0.6" fill="currentColor" stroke="none"/></svg>
+          <div>
+            <b>저장 공간이 얼마 남지 않았어요.</b>
+            <span>85% 사용 중 — 공간을 확보하거나 플랜을 업그레이드하세요.</span>
+          </div>
+        </div>
+
+        <div class="crumb">AI 드라이브</div>
+        <div class="drive-head">
+          <h1>AI 드라이브</h1>
+          <div class="viewtg">
+            <button id="tgGrid" class="on" title="그리드 보기">
+              <svg class="ck" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
+              <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5"/></svg>
+            </button>
+            <button id="tgList" title="리스트 보기">
+              <svg class="ck" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
+              <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 5.5h9M7 10h9M7 14.5h9"/><path d="M3.5 5.5h.01M3.5 10h.01M3.5 14.5h.01"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="sortrow">
+          <span class="cb"></span>
+          <span class="sort-name">이름
+            <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4.5v11M5.5 11 10 15.5 14.5 11"/></svg>
+          </span>
+        </div>
+
+        <div id="driveItems" class="grid"></div>
+        <div id="driveEmpty" class="drive-empty" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- Problem Solver -->

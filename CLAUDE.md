@@ -15,28 +15,41 @@ Q는 컴퓨터공학 전공자이므로 기술적 설명은 추상적 비유 대
 
 ---
 
-## 시작하기
+## 프로젝트 구조 — 모듈 소스, 단일 파일 산출물
 
-```bash
-git clone https://github.com/yh04060/gpai2.0.git
-cd gpai2.0
+**소스는 `src/`에 모듈로 나뉘어 있고, `build.py`가 단일 HTML로 조립합니다.**
+"파일 하나를 슬랙에 던지면 누구든 더블클릭으로 열 수 있는" **공유 마찰 제로**는
+산출물이 담당하고, 개발 효율은 모듈 소스가 담당합니다.
+
+```
+gpai2.0/
+├── CLAUDE.md              이 문서
+├── build.py               조립 스크립트 (python3 표준 라이브러리만, 의존성 없음)
+├── gpai-prototype.html    ★ 빌드 산출물 — 직접 수정 금지. 공유용으로 커밋해 둠
+└── src/
+    ├── manifest.txt       조립 순서의 정본 — build.py가 위에서 아래로 이어붙임
+    ├── page/              문서 뼈대 5개 (head · body 여닫이 · script 여닫이 · tail)
+    ├── styles/            CSS 16개 — 화면/컴포넌트 섹션별
+    ├── views/             마크업 19개 — 사이드바 · 화면 8종 · 편집기 · 오버레이들
+    └── js/                스크립트 15개 — 데이터 · 라우팅 · 화면별 로직
 ```
 
-`gpai-prototype.html`을 **브라우저에서 더블클릭**하면 끝입니다.
-빌드도, 서버도, 의존성 설치도 필요 없습니다.
+```bash
+python3 build.py           # src/ → gpai-prototype.html 생성
+python3 build.py --check   # 산출물이 src/와 일치하는지 검사 (생성 안 함)
+```
 
-- 기준 환경: **1920×1080 PC 크롬**
-- 외부 의존은 Google Fonts 링크 하나뿐 (오프라인에서도 폴백 폰트로 정상 렌더)
+### 규칙
 
-### 저장소 구조
-
-| 파일 | 설명 |
-|---|---|
-| `gpai-prototype.html` | **정본.** 단일 파일 프로토타입 (약 3,300줄). CSS·JS·SVG 전부 인라인 |
-| `CLAUDE.md` | 이 문서. 제품 맥락과 작업 지침 |
-
-파일이 적은 것은 의도된 설계입니다. **파일 하나를 슬랙에 던지면 누구든 더블클릭으로
-열 수 있는 "공유 마찰 제로"**가 이 프로토타입의 운영 방식입니다.
+1. **`gpai-prototype.html`을 직접 수정하지 마세요.** 항상 `src/`를 고치고 빌드합니다.
+   산출물 최상단 주석에도 같은 경고가 있습니다
+2. **산출물도 커밋합니다.** 슬랙 공유·더블클릭 실행이 이 프로토타입의 배포 방식이므로,
+   src와 산출물이 함께 커밋되어야 합니다. 커밋 전 `--check`로 동기화를 확인하세요
+3. **파일을 추가·삭제·이동하면 `src/manifest.txt`를 갱신합니다.** manifest 순서가
+   곧 문서 내 등장 순서이고, JS는 전역 스코프를 공유하므로 **정의가 사용보다 먼저**
+   오도록 순서를 지켜야 합니다
+4. 조각 파일들은 이어붙여지는 것이 전부입니다 — 각 파일은 완결된 문서가 아니라
+   원본 HTML의 연속된 절편입니다. `page/`가 태그의 여닫이를 담당합니다
 
 ---
 
@@ -64,23 +77,23 @@ cd gpai2.0
 주소 끝에 해시를 붙이면 해당 화면으로 이동합니다.
 **해시는 초기화 시점에만 읽히므로, 이동 후에는 반드시 새로고침해야 합니다.**
 
-| 구분 | 해시 | 화면 |
-|---|---|---|
-| 핵심 | `#master` | 나의 마스터 AI |
-| | `#drive` / `#drive-list` | AI 드라이브 (그리드 / 리스트) |
-| | `#project-p1` | 프로젝트 채널 |
-| 툴 | `#solver` | 문제 풀이 |
-| | `#generator` | 문제 생성 (BETA) |
-| | `#figure` | 시각화 (도식화) |
-| | `#canvas` | 캔버스 |
-| | `#chat` | 채팅 |
-| | — | **문서 작성 — 아직 화면이 없음** |
-| 편집기 | `#edit-doc` | DOCX · 실험 보고서 |
-| | `#edit-xlsx` | XLSX · 성적 관리 |
-| | `#edit-ppt` | PPTX · 물리학 발표 |
-| | `#edit-pdf` | PDF · 중간고사 기출 |
-| | `#edit-yt` | YouTube 뷰어 |
-| 기타 | `#guide` | 「Q의 의견」 드로어 자동 열림 |
+| 구분 | 해시 | 화면 | 마크업 파일 (`src/views/`) |
+|---|---|---|---|
+| 핵심 | `#master` | 나의 마스터 AI | `view-master.html` |
+| | `#drive` / `#drive-list` | AI 드라이브 (그리드 / 리스트) | `view-drive.html` |
+| | `#project-p1` | 프로젝트 채널 | `view-project.html` (JS가 동적 렌더) |
+| 툴 | `#solver` | 문제 풀이 | `view-solver.html` |
+| | `#generator` | 문제 생성 (BETA) | `view-generator.html` |
+| | `#figure` | 시각화 (도식화) | `view-figure.html` |
+| | `#canvas` | 캔버스 | `view-canvas.html` |
+| | `#chat` | 채팅 | `view-chat.html` |
+| | — | **문서 작성 — 아직 화면이 없음** | — (`view-generic.html`이 대신 뜸) |
+| 편집기 | `#edit-doc` | DOCX · 실험 보고서 | `editor.html` (5종 공통) |
+| | `#edit-xlsx` | XLSX · 성적 관리 | `editor.html` |
+| | `#edit-ppt` | PPTX · 물리학 발표 | `editor.html` |
+| | `#edit-pdf` | PDF · 중간고사 기출 | `editor.html` |
+| | `#edit-yt` | YouTube 뷰어 | `editor.html` |
+| 기타 | `#guide` | 「Q의 의견」 드로어 자동 열림 | `note-drawer.html` |
 
 **문서 작성(`report-writer`)** 은 사이드바 버튼과 드로어 메모는 있지만 `VIEWS` 배열에
 등록되지 않아 실제 화면이 없습니다. 유일하게 설계되지 않은 에이전트이며,
@@ -107,20 +120,23 @@ cd gpai2.0
 문서보다 코드가 우선입니다. **이 문서와 코드가 다르면 코드가 맞습니다.**
 작업 시작 전 반드시 다음 세 가지를 확인하세요.
 
-1. **파일 최상단 주석의 버전 로그** — v1부터 현재까지 무엇이 언제 왜 추가됐는지 전부
-2. **브라우저로 열고 우하단 「Q의 의견」 버튼** — 제품 정의, 포지셔닝, 3단 위계,
-   설계 원칙, 아직 목업인 영역, 받고 싶은 피드백
-3. **각 화면의 드로어 "지금 화면" 섹션** — 14개 화면마다 설명 · **왜 이렇게 만들었나** ·
-   해볼 것 · 작성자의 질문. **화면별 설계 의도의 정본입니다**
+1. **버전 로그** (`src/page/00-head.html` 최상단 주석) — v1부터 현재까지 전부
+2. **빌드해서 브라우저로 열고 우하단 「Q의 의견」 버튼** — 제품 정의, 포지셔닝,
+   3단 위계, 설계 원칙, 아직 목업인 영역, 받고 싶은 피드백
+3. **각 화면의 드로어 "지금 화면" 섹션** (`src/js/08-notes.js`의 `NOTE_CTX`) —
+   14개 화면마다 설명 · **왜 이렇게 만들었나** · 해볼 것 · 작성자의 질문.
+   **화면별 설계 의도의 정본입니다**
 
 ### 절대 원칙
 
-1. **단일 HTML 유지.** CSS·JS·SVG 전부 인라인, 외부 의존은 Google Fonts 링크 하나뿐
+1. **산출물은 단일 HTML.** CSS·JS·SVG 전부 인라인으로 조립되며, 외부 의존은
+   Google Fonts 링크 하나뿐입니다. 소스가 모듈화됐어도 이 성질은 불변입니다
 2. **이미지 파일 금지.** 아이콘·썸네일·문서 목업·다이어그램·분자구조 — 모든 그래픽은
    인라인 SVG로 직접 그립니다
 3. **기준 환경은 1920×1080 PC 크롬**
-4. **버전 로그를 남깁니다.** 수정할 때마다 최상단 주석에 한 줄 추가:
-   `vX.Y (YYYY-MM-DD): 변경 요약`
+4. **버전 로그를 남깁니다.** 수정할 때마다 `src/page/00-head.html` 주석에 한 줄 추가:
+   `vX.Y (YYYY-MM-DD): 변경 요약`. 드로어 헤더의 버전 배지
+   (`src/views/note-drawer.html`의 `note-ver`)도 같이 올립니다
 5. **새 화면을 추가하면 `NOTE_CTX`에 항목을 반드시 추가합니다.**
    필드는 `name / desc / why / try[] / ask`. 드로어에 설명이 없는 화면이 있으면 안 됩니다
 6. **하단 기밀 문구 바를 제거하거나 가리지 않습니다.** 모든 화면에 고정 노출됩니다
@@ -132,73 +148,96 @@ cd gpai2.0
 
 ## 코드 지도
 
-### `<style>` 섹션 순서
+### `src/page/` — 문서 뼈대 (5)
 
-토큰 → 사이드바 → 드라이브 → 챗 패널 → 업로드 토스트 → **3단 위계(마스터·프로젝트)** →
-파일 트리 → 기밀 바 → Q의 의견 드로어 → 솔버 → 제너레이터 → visuals →
-Chat → 편집기 → GPAI Chat → 첨부/피커. 각 섹션에 주석이 달려 있습니다.
+`00-head.html`(doctype · 버전 로그 · 메타 · 폰트 · `<style>` 열기) →
+`01-body-open.html`(`</style></head><body>` · `.app` 열기) → `02-main-open.html` →
+`03-script-open.html`(`<script>`) → `04-tail.html`(`</script></body></html>`)
 
-### `<body>` 구조
+### `src/styles/` — CSS (16)
 
-`.app`(사이드바 + 뷰들 + 드라이브 챗) → `#editor` 오버레이(공통 프레임 + 본문 5종 +
-GPAI Chat) → 기밀 바 → 업로드 토스트 → Q의 의견 드로어 →
-첨부 메뉴 / 드라이브 피커 / 새 프로젝트 모달
-
-### 주요 자료구조
-
-| 이름 | 역할 |
+| 파일 | 담당 |
 |---|---|
-| `driveItems` | 드라이브 항목 |
-| `PROJECTS` | 프로젝트 + 파일 트리 + `memory` + `pins` |
-| `FOLDER_FILES` | 신규 프로젝트 생성 시 폴더별 프리셋 |
-| `CV_ITEMS` | 캔버스 갤러리 |
-| `NOTE_CTX` | 화면별 드로어 메모 |
-| `MODELS` | 챗 모델 선택지 |
-| `VIEWS` / `AGENTS` | 라우팅 대상 목록 |
-| `state` | `view / project / pjTab / editor / layout / q` |
+| `00-base.css` | 리셋 · 토큰(`:root` 색/폰트 변수, `color-scheme`) · `.app`/`.main`/`.view` |
+| `01-sidebar.css` ~ `04-upload-toast.css` | 사이드바 · 드라이브 · 챗 패널 · 업로드 토스트 |
+| `05-hierarchy.css` | **3단 위계(마스터·프로젝트·파일 트리) — 가장 큼** |
+| `06-confid-bar.css` · `07-note-drawer.css` | 기밀 바 · Q의 의견 드로어 |
+| `08-solver.css` ~ `12-chat.css` | 툴 화면들 (솔버 · 제너레이터 · visuals · 캔버스 · 챗) |
+| `13-editor.css` | 편집기 5종 + GPAI Chat |
+| `14-attach-picker.css` · `15-generic.css` | 첨부 메뉴/피커 · 플레이스홀더 |
 
-### 주요 함수
+### `src/views/` — 마크업 (19)
 
-| 영역 | 함수 |
-|---|---|
-| 라우팅 | `go` · `sync` |
-| 드라이브 | `renderDrive` |
-| 프로젝트 | `renderProjects` · `renderProject` · `pjTreeFlat` · `renderPjfList` · `pjSendMsg` |
-| 편집기 | `openEditor` · `edSend` |
-| 첨부 | `openAttMenu` · `openPicker` |
-| 업로드 | `startDriveUpload` · `upFinish` |
-| 드로어 | `renderNoteCtx` |
+`sidebar.html` · `view-*.html` 8종 · `drive-chat.html`(드라이브 우측 챗 패널) ·
+`editor.html`(편집기 오버레이: 공통 프레임 + 본문 5종 + GPAI Chat) ·
+`confid-bar.html` · `upload-toast.html` · `note-drawer.html` ·
+`attach-menu.html` · `drive-picker.html` · `project-modal.html`
+
+### `src/js/` — 스크립트 (15)
+
+| 파일 | 담당 | 주요 심볼 |
+|---|---|---|
+| `00-helpers.js` | DOM 헬퍼 | `$` `$$` |
+| `01-assets-drive.js` | 드라이브 아이콘·썸네일 SVG | `SVG_*` `fIcon` |
+| `02-canvas.js` | 캔버스 갤러리 | `CV_ITEMS` `renderCanvas` |
+| `03-data.js` | **핵심 상태·라우팅 데이터** | `driveItems` `AGENTS` `VIEWS` `state` |
+| `04-drive.js` | 드라이브 렌더 | `renderDrive` |
+| `05-router.js` | **뷰 전환** | `sync` `go` |
+| `06-misc-controls.js` | 챗 패널·보기 토글·전송 버튼 | |
+| `07-editor-open.js` | 편집기 열기/닫기 · ESC 체인 | `openEditor` `closeEditor` |
+| `08-notes.js` | **드로어 메모(화면별 설계 의도)** | `NOTE_CTX` `renderNoteCtx` |
+| `09-editor-body.js` | 편집기 본문(시트·PPT·PDF·YT) · 모델 선택 · 챗 | `MODELS` `edSend` |
+| `10-attach-picker.js` | 첨부 메뉴 · 드라이브 피커 | `openAttMenu` `openPicker` |
+| `11-projects.js` | **프로젝트 전체** — 채널·쓰레드·파일 트리·새 프로젝트 모달 | `PROJECTS` `FOLDER_FILES` `renderProject` `pjTreeFlat` `pjSendMsg` |
+| `12-master.js` | 마스터 AI 입력 | `maSend` |
+| `13-upload.js` | 업로드 라우팅(드라이브/프로젝트) | `startDriveUpload` `upFinish` |
+| `14-init.js` | 해시 처리 · 초기 구동 | |
 
 ---
 
 ## 수정 방식
 
-3,300줄이 넘는 단일 파일이므로 대규모 편집은 **파이썬 치환 스크립트**로 처리하는 것이
-안전합니다. 핵심은 한 가지입니다.
-
-> **각 치환마다 매칭 횟수를 세고, 기대값과 다르면 파일을 쓰지 말고 즉시 중단하세요.**
-> 긴 파일에서 일부만 적용된 채 넘어가는 것이 가장 나쁜 실패 모드입니다.
+- 이제 파일이 작으므로 **일반적인 편집 도구로 직접 수정**하면 됩니다.
+  어느 파일을 고칠지는 위 코드 지도에서 찾으세요
+- 수정 후 반드시 `python3 build.py` → 검증 루틴을 돌립니다
+- 여러 파일에 걸친 대규모 치환을 할 때는 여전히 **매칭 횟수를 세고, 기대값과 다르면
+  파일을 쓰지 않는** 방식이 안전합니다:
 
 ```python
-R=[]                      # (old, new, expected_count)
-def rep(o,n,c=1): R.append((o,n,c))
-
-rep('<원본 문자열>', '<새 문자열>')
-
+import sys
+h=open(path,encoding='utf-8').read()
+R=[('<원본 문자열>','<새 문자열>',1)]   # (old, new, expected_count)
 n=0
 for o,new,c in R:
     got=h.count(o)
     if got!=c: print('MISMATCH(%d/%d): %r'%(got,c,o[:70])); n+=1
     else: h=h.replace(o,new)
-if n: sys.exit(1)          # 하나라도 어긋나면 파일을 쓰지 않는다
+if n: sys.exit(1)                        # 하나라도 어긋나면 파일을 쓰지 않는다
+open(path,'w',encoding='utf-8').write(h)
 ```
 
 문자열 앵커는 **공백과 줄바꿈까지 정확히** 일치해야 합니다.
 매칭에 실패하면 추측하지 말고 `grep -n` / `sed -n 'X,Yp'`로 실제 바이트를 먼저 확인하세요.
 
+### 새 화면 추가 절차 (전부 해야 함)
+
+1. `src/views/view-이름.html` 생성, `src/manifest.txt`의 뷰 구간에 등록
+2. 전용 스타일이 있으면 `src/styles/`에 추가하고 manifest에 등록
+3. `src/js/03-data.js`의 `VIEWS` 배열 + `05-router.js`의 `sync()`/`go()` +
+   `14-init.js`의 해시 처리 블록
+4. `src/js/08-notes.js`의 `NOTE_CTX`에 항목 추가
+5. 사이드바(`src/views/sidebar.html`)에 진입점 추가
+6. 버전 로그 + 드로어 버전 배지 갱신 → 빌드 → 검증
+
 ---
 
 ## 검증 루틴 — 수정 후 매번 실행
+
+### ⓪ 빌드와 동기화
+
+```bash
+python3 build.py && python3 build.py --check
+```
 
 ### ① 구문 체크
 
@@ -209,7 +248,15 @@ node --check /tmp/c.js
 
 ### ② 렌더 확인 — 헤드리스 크로미움 1920×1080 스크린샷을 찍어 **눈으로 봅니다**
 
-**`page.goto(FILE+'#master')` 뒤에 반드시 `reload()`를 호출하세요.**
+크로미움을 직접 쓰면 (새 로드이므로 해시가 바로 적용됩니다):
+
+```bash
+chrome --headless=new --disable-gpu --no-sandbox --window-size=1920,1080 \
+  --hide-scrollbars --virtual-time-budget=4000 \
+  --screenshot=/tmp/shot.png "file://$PWD/gpai-prototype.html#master"
+```
+
+Playwright 등으로 **로드 후 해시를 바꾸는 경우에는 반드시 `reload()`를 호출하세요.**
 해시 라우팅은 초기화 시점에만 읽히므로, 빠뜨리면 이전 화면이 찍히고 "정상"으로
 오판하게 됩니다.
 
@@ -231,31 +278,35 @@ node --check /tmp/c.js
 
 ## 손대면 깨지기 쉬운 것 (실제로 겪은 지뢰)
 
-1. **클래스명 충돌.** 최상위 레이아웃이 `.app { height:100vh }`를 씁니다. `.app` 같은
+1. **manifest 순서 = 로드 순서.** JS 조각들은 하나의 `<script>` 전역 스코프로 이어붙여
+   집니다. 정의(`const`)가 사용보다 뒤에 오면 산출물이 통째로 죽습니다. 새 JS 파일은
+   의존하는 파일 뒤에 넣으세요
+2. **클래스명 충돌.** 최상위 레이아웃이 `.app { height:100vh }`를 씁니다. `.app` 같은
    흔한 이름을 새 배지·칩에 붙이면 그 전역 규칙에 걸려 작은 배지가 화면 전체 크기로
    부풀어 오릅니다. 새 클래스에는 반드시 접두사를 붙이세요
    (`.pj-`, `.ma-`, `.pjf-`, `.confid-`)
-2. **하단 고정 기밀 바(높이 약 35px)와의 겹침.** 화면 하단에 붙는 UI — 프로젝트 채널
+3. **하단 고정 기밀 바(높이 약 35px)와의 겹침.** 화면 하단에 붙는 UI — 프로젝트 채널
    컴포저 힌트, 채팅 입력바 — 는 하단 여백을 확보해야 합니다. 바의 높이를 바꾸면
    이 여백들도 같이 조정해야 합니다
-3. **동적 렌더 후 이벤트 재바인딩.** `renderProject()`는 `innerHTML`을 통째로 교체합니다.
+4. **동적 렌더 후 이벤트 재바인딩.** `renderProject()`는 `innerHTML`을 통째로 교체합니다.
    그 안의 버튼·탭·입력 리스너는 렌더 직후 다시 붙여야 합니다. 렌더를 다시 호출하는
    모든 경로(이름 변경, 탭 전환, 업로드 완료)에서 유지되는지 확인하세요
-4. **전역 셀렉터의 스코프.** `$$('.sugg')` 같은 전역 수집은 나중에 만든 다른 화면의
-   동명 요소까지 잡습니다. `$$('#editor .sugg')`처럼 스코프를 좁히세요
-5. **뷰 전환 상태.** 새 화면을 추가하면 **`VIEWS` 배열 · `sync()` · `go()` ·
-   init의 해시 처리 블록** 네 군데를 같이 손봐야 합니다
-6. **ESC 우선순위 체인.** 현재 순서는 드라이브 피커 → 첨부 메뉴 → 새 프로젝트 모달 →
-   Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를 만들면 이 체인에 끼워 넣으세요
-7. **업로드 목적지 라우팅.** 업로드는 드라이브로 갈 수도, 특정 프로젝트 폴더로 갈 수도
-   있습니다(`dest`). 목적지에 따라 토스트 문구·완료 후 이동 버튼·개수 동기화 대상이
-   달라집니다. 업로드 관련 수정 시 두 경로를 모두 확인하세요
+5. **전역 셀렉터의 스코프.** `$$('.sugg')` 같은 전역 수집은 다른 화면의 동명 요소까지
+   잡습니다. `$$('#editor .sugg')`처럼 스코프를 좁히세요
+6. **뷰 전환 상태.** 새 화면 추가 시 **`VIEWS` 배열(`03-data.js`) · `sync()`/`go()`
+   (`05-router.js`) · init 해시 블록(`14-init.js`)** 을 같이 손봐야 합니다
+7. **ESC 우선순위 체인** (`07-editor-open.js`). 현재 순서는 드라이브 피커 → 첨부 메뉴 →
+   새 프로젝트 모달 → Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를 만들면
+   이 체인에 끼워 넣으세요
+8. **업로드 목적지 라우팅** (`13-upload.js`). 업로드는 드라이브로 갈 수도, 특정 프로젝트
+   폴더로 갈 수도 있습니다(`dest`). 목적지에 따라 토스트 문구·완료 후 이동 버튼·개수
+   동기화 대상이 달라집니다. 업로드 관련 수정 시 두 경로를 모두 확인하세요
 
 ### CSS `color-scheme` 을 지우지 마세요
 
-`:root { color-scheme: light }` 는 **다크 모드 뷰어에서 폼 컨트롤이 어두워지는 것을
-막는 장치**입니다. `<head>`의 `<meta name="color-scheme">`가 제거되는 환경을 대비해
-CSS로 옮겨 둔 것이므로 삭제하면 안 됩니다.
+`src/styles/00-base.css`의 `:root { color-scheme: light }` 는 **다크 모드 뷰어에서
+폼 컨트롤이 어두워지는 것을 막는 장치**입니다. `<head>`의 `<meta name="color-scheme">`가
+제거되는 환경을 대비해 CSS로 옮겨 둔 것이므로 삭제하면 안 됩니다.
 
 ---
 
@@ -266,8 +317,8 @@ CSS로 옮겨 둔 것이므로 삭제하면 안 됩니다.
 | `main` | 기본 브랜치 |
 | `claude/*` | 작업 브랜치. 여기서 개발하고 검토 후 병합 |
 
-수정 → 검증 루틴 통과 → 버전 로그 한 줄 추가 → 커밋 → **푸시**.
-푸시하지 않은 작업은 남지 않습니다.
+`src/` 수정 → 빌드 → 검증 루틴 통과 → 버전 로그 한 줄 추가 → **src와 산출물 함께 커밋**
+→ **푸시**. 푸시하지 않은 작업은 남지 않습니다.
 
 ### 다음 이터레이션 후보
 

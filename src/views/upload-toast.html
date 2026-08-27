@@ -1,0 +1,20 @@
+<!-- ===== Drive upload toast (사이드바 업로드) ===== -->
+<div class="uptoast" id="upToast" style="display:none">
+  <div class="uptoast-h">
+    <b id="upTitle">업로드 준비 중…</b>
+    <button class="up-hbtn" id="upChev" title="접기/펼치기">
+      <svg class="chv" viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12.5 10 8l4.5 4.5"/></svg>
+    </button>
+    <button class="up-hbtn" id="upClose" title="닫기">
+      <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
+    </button>
+  </div>
+  <div class="uptoast-body" id="upBody"></div>
+  <div class="uptoast-f" id="upFoot" style="display:none">
+    <span id="upFootLbl">AI 드라이브에 저장됐어요</span>
+    <button id="upGoDrive">드라이브에서 보기</button>
+  </div>
+</div>
+<input type="file" id="driveUp" style="display:none" multiple>
+<input type="file" id="pjUpFile" style="display:none" multiple>
+

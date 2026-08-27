@@ -1,0 +1,22 @@
+<!-- ===== AI Drive file picker ===== -->
+<div class="modal-dim" id="pickDim">
+  <div class="pickbox">
+    <div class="pick-h">
+      <span class="logo-sq">g(π)</span>AI 드라이브에서 선택
+      <button class="icbtn" id="pickClose" title="닫기">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="pick-search">
+      <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.2 13.2 3.3 3.3"/></svg>
+      <input id="pickSearch" placeholder="파일 검색">
+    </div>
+    <div class="pick-list" id="pickList"></div>
+    <div class="pick-f">
+      <span class="hint">업로드한 파일과 AI 에이전트 결과물이 자동 저장돼 있어요</span>
+      <button class="btn-ghost" id="pickCancel">취소</button>
+      <button class="btn-primary" id="pickAdd" disabled>추가</button>
+    </div>
+  </div>
+</div>
+
