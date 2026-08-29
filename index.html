@@ -16,6 +16,7 @@
   v4.4 (2026-08-27): 우하단 드로어 명칭 "Q의 요청" → "Q의 의견"으로 변경
   v5.0 (2026-08-27): 프로젝트 구조 개편 — 단일 파일을 src/(styles·views·js·page) 54개 모듈로 분할, build.py로 단일 HTML 조립. 산출물은 기능·바이트 수준에서 v4.4와 동일
   v6.0 (2026-08-27): 정적 멀티파일 구조로 전환 — build.py·단일 산출물 폐지. index.html + css/ 16개 + js/ 15개를 그대로 서빙(GitHub Pages 배포 전제). 단일 파일 공유 방식 종료
+  v7.2 (2026-08-29): LNB 정돈 — "나" 카드 다이어트: 서브라벨·내부 구분선·저장용량 제거(역할 설명은 hover 툴팁으로), 카드가 계정·마스터 AI·드라이브 세 줄로 축소. 저장용량 게이지는 드라이브 화면 상단 배너로 이동
   v7.1 (2026-08-29): LNB 개편 — 계정 정보를 좌상단 "나" 카드로 이동, 나 = 마스터 AI = AI 드라이브(1단)를 카드 하나로 묶어 위계를 시각화. 항목별 역할 서브라벨, 저장용량 카드 편입, 하단 프로필/구분선 제거
   v7.0 (2026-08-29): 온보딩 도입 — 회원가입 → LMS 연결(eTL·Canvas·Moodle 등) → 과목 스캔 → 드라이브 자동 정리 + 과목별 프로젝트 자동 생성(#onboarding, 해시 없으면 자동 표시). 드라이브·프로젝트 데이터를 학기 자료(과목 5개) 기준으로 개편
   key color: #EE7732
@@ -73,27 +74,20 @@
         <div class="sb-me-who"><b>김튜링</b><span>turing@snu.ac.kr</span></div>
       </div>
       <nav class="nav">
-        <button class="nav-item" data-nav="master">
+        <button class="nav-item" data-nav="master" title="나를 의인화한 AI — 내 모든 데이터와 맥락에 접근해요">
           <span class="sb-ma"><svg viewBox="0 0 20 20" width="12" height="12" fill="currentColor"><path d="M10 2.4l1.9 5.2 5.2 1.9-5.2 1.9L10 16.6l-1.9-5.2-5.2-1.9 5.2-1.9z"/></svg></span>
-          <span class="sb-me-lb"><span>나의 마스터 AI</span><em>나를 의인화한 AI · 내 모든 맥락</em></span>
+          <span>나의 마스터 AI</span>
         </button>
         <div class="nav-drow">
-          <button class="nav-item on" data-nav="drive">
+          <button class="nav-item on" data-nav="drive" title="내 모든 자료가 모이는 곳">
             <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.75" y="3.75" width="14.5" height="12.5" rx="2.5"/><path d="M2.75 11h3.7l1.3 1.9h4.5l1.3-1.9h3.7"/></svg>
-            <span class="sb-me-lb"><span>AI 드라이브</span><em>내 모든 자료가 모이는 곳</em></span>
+            <span>AI 드라이브</span>
           </button>
           <button class="sb-up" id="sbUpload" title="AI 드라이브에 파일 업로드">
             <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13.2V4.6M6.6 8 10 4.6 13.4 8"/><path d="M4 13.5V15a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 16 15v-1.5"/></svg>
           </button>
         </div>
       </nav>
-      <div class="sb-me-store">
-        <div class="storage-row">
-          <span>저장용량</span>
-          <span class="storage-val"><b>8GB</b><em> / 10GB</em></span>
-        </div>
-        <div class="sbar"><i></i></div>
-      </div>
     </div>
 
     <div class="sb-sec">프로젝트</div>
@@ -159,6 +153,10 @@
           <div>
             <b>저장 공간이 얼마 남지 않았어요.</b>
             <span>85% 사용 중 — 공간을 확보하거나 플랜을 업그레이드하세요.</span>
+          </div>
+          <div class="banner-store">
+            <div class="banner-store-num"><b>8GB</b><em> / 10GB</em></div>
+            <div class="sbar"><i></i></div>
           </div>
         </div>
 
@@ -1378,7 +1376,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.1 · 2026.08.29</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.2 · 2026.08.29</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
