@@ -19,5 +19,5 @@ let driveLast=[];
 const AGENTS={'report-writer':'문서 작성'};
 const VIEWS=['drive','master','solver','generator','figure','canvas','chat'];
 
-const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg'};
+const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[]};
 

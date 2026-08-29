@@ -20,15 +20,67 @@ function rowHTML(it,i){
     +'<span class="lcell lc-loc">'+LOC_IC+'AI 드라이브</span>'
     +'<button class="tdots">'+ICON_DOTS+'</button></div>';
 }
+/* 폴더 내부 탐색 — state.drivePath가 현재 위치 (빈 배열 = 루트).
+   1단계 폴더의 내용물은 연결 프로젝트의 files가 정본이고, 미연결 폴더는 FOLDER_FILES를 쓴다 */
+function driveResolve(){
+  let list=driveItems;
+  const path=state.drivePath||[];
+  for(let d=0;d<path.length;d++){
+    if(d===0){
+      const p=PROJECTS.find(x=>x.folder===path[0]);
+      list=p?(p.files||[]):(FOLDER_FILES[path[0]]||[]);
+    }else{
+      const f=list.find(x=>x.type==='folder'&&x.name===path[d]);
+      list=f?(f.children||[]):[];
+    }
+  }
+  return list;
+}
+function driveOpenFolder(name){
+  state.drivePath=(state.drivePath||[]).concat(name);
+  renderDrive();
+  $('#main').scrollTop=0;
+}
 function renderDrive(){
-  const list=driveItems.filter(i=>i.name.toLowerCase().includes(state.q));
+  const path=state.drivePath||[];
+  const src=path.length?driveResolve():driveItems;
+  const list=src.filter(i=>i.name.toLowerCase().includes(state.q));
   driveLast=list;
+  /* 브레드크럼 · 타이틀 · 프로젝트 관장 배지 */
+  const crumb=$('#driveCrumb');
+  if(path.length){
+    crumb.innerHTML='<span class="crumb-seg" data-ci="-1">AI 드라이브</span>'
+      +path.map((nm,i)=>'<span class="crumb-sep">›</span>'
+        +(i===path.length-1?'<span class="crumb-cur">'+escapeHtml(nm)+'</span>'
+          :'<span class="crumb-seg" data-ci="'+i+'">'+escapeHtml(nm)+'</span>')).join('');
+  }else crumb.textContent='AI 드라이브';
+  $('#driveTitle').textContent=path.length?path[path.length-1]:'AI 드라이브';
+  const pjEl=$('#drivePj');
+  if(path.length){
+    const p=PROJECTS.find(x=>x.folder===path[0]);
+    pjEl.style.display='inline-flex';
+    if(p){
+      pjEl.innerHTML='<span class="pj-mini">g(π)</span>'+escapeHtml(p.agent)+'가 관장 · #'+escapeHtml(p.name)+' 채널 열기';
+      pjEl.onclick=()=>go('project-'+p.id);
+    }else{
+      pjEl.innerHTML='프로젝트 미연결 — 이 폴더로 새 프로젝트 만들기';
+      pjEl.onclick=()=>openProjModal();
+    }
+  }else{pjEl.style.display='none';pjEl.onclick=null;}
   const box=$('#driveItems');
   box.className=state.layout==='grid'?'grid':'listwrap';
   if(state.layout==='grid')box.innerHTML=list.map(tileHTML).join('');
   else box.innerHTML=LIST_HEAD+list.map(rowHTML).join('');
   const empty=$('#driveEmpty');
   empty.style.display=list.length?'none':'block';
-  if(!list.length)empty.textContent='"'+$('#driveSearch').value+'" 검색 결과가 없어요';
+  if(!list.length)empty.textContent=state.q
+    ?('"'+$('#driveSearch').value+'" 검색 결과가 없어요')
+    :'폴더가 비어 있어요 — 업로드하거나 에이전트 결과물이 쌓이면 여기에 보여요';
 }
+$('#driveCrumb').addEventListener('click',e=>{
+  const s=e.target.closest('.crumb-seg');if(!s)return;
+  const ci=+s.dataset.ci;
+  state.drivePath=ci<0?[]:(state.drivePath||[]).slice(0,ci+1);
+  renderDrive();
+});
 
