@@ -16,6 +16,7 @@
   v4.4 (2026-08-27): 우하단 드로어 명칭 "Q의 요청" → "Q의 의견"으로 변경
   v5.0 (2026-08-27): 프로젝트 구조 개편 — 단일 파일을 src/(styles·views·js·page) 54개 모듈로 분할, build.py로 단일 HTML 조립. 산출물은 기능·바이트 수준에서 v4.4와 동일
   v6.0 (2026-08-27): 정적 멀티파일 구조로 전환 — build.py·단일 산출물 폐지. index.html + css/ 16개 + js/ 15개를 그대로 서빙(GitHub Pages 배포 전제). 단일 파일 공유 방식 종료
+  v7.4 (2026-08-29): 드라이브 「신규」 메뉴에 "Google Drive에서 가져오기" 추가 — 계정 연결 연출 → 파일 다중 선택 모달 → 기존 업로드 토스트로 드라이브 안착. 비대학생 유저의 개인 자료 반입 경로 (#gdrive 해시로 모달 직행)
   v7.3 (2026-08-29): LMS 연동을 옵션화 — 온보딩 스텝1을 "어떻게 시작할까요?"로 바꾸고 「LMS 없이 시작하기」를 동급 카드로 승격(대학생 아닌 유저 경로). 드라이브 「신규」 버튼을 실제 메뉴로 만들어 "LMS에서 가져오기" 재진입점 추가
   v7.2 (2026-08-29): LNB 정돈 — "나" 카드 다이어트: 서브라벨·내부 구분선·저장용량 제거(역할 설명은 hover 툴팁으로), 카드가 계정·마스터 AI·드라이브 세 줄로 축소. 저장용량 게이지는 드라이브 화면 상단 배너로 이동
   v7.1 (2026-08-29): LNB 개편 — 계정 정보를 좌상단 "나" 카드로 이동, 나 = 마스터 AI = AI 드라이브(1단)를 카드 하나로 묶어 위계를 시각화. 항목별 역할 서브라벨, 저장용량 카드 편입, 하단 프로필/구분선 제거
@@ -1382,7 +1383,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.3 · 2026.08.29</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.4 · 2026.08.29</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1456,7 +1457,27 @@
   </div>
 </aside>
 
-<!-- ===== 드라이브 「신규」 메뉴 — 업로드 / LMS 가져오기 (js/15-onboarding.js가 구동) ===== -->
+<!-- ===== Google Drive 가져오기 모달 (js/16-gdrive.js가 구동) ===== -->
+<div class="modal-dim" id="gdDim">
+  <div class="pickbox" style="width:560px">
+    <div class="pick-h">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.7 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.2 6.9-10.3 6.9-17.7z"/><path fill="#FBBC05" d="M10.5 28.6a14.5 14.5 0 0 1 0-9.2l-7.9-6.2a24 24 0 0 0 0 21.6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.8 2.3-7.5 2.3-6.3 0-11.6-4-13.5-9.6l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/></svg>
+      Google Drive에서 가져오기
+      <button class="icbtn" id="gdClose" title="닫기">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="gd-acct" id="gdAcct"></div>
+    <div class="pick-list" id="gdList" style="min-height:280px"></div>
+    <div class="pick-f">
+      <span class="hint">읽기 전용으로 가져와요 · 원본은 Google Drive에 그대로 남아요</span>
+      <button class="btn-ghost" id="gdCancel">취소</button>
+      <button class="btn-primary" id="gdGo" disabled>가져오기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 드라이브 「신규」 메뉴 — 업로드 / LMS·Google Drive 가져오기 (js/15·16이 구동) ===== -->
 <div class="attmenu" id="dnMenu">
   <button class="attitem" id="dnUpload">
     <span class="aic">
@@ -1469,6 +1490,12 @@
       <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 11.5 4.9 15a2.4 2.4 0 0 1-3.4-3.4l3.6-3.5"/><path d="m11.5 8.5 3.6-3.6a2.4 2.4 0 0 1 3.4 3.4l-3.6 3.6"/><path d="m7.6 12.4 4.8-4.8"/></svg>
     </span>
     <div><b>LMS에서 가져오기</b><span>eTL · Canvas · Moodle — 과목별로 자동 정리</span></div>
+  </button>
+  <button class="attitem" id="dnGd">
+    <span class="aic">
+      <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.7 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.2 6.9-10.3 6.9-17.7z"/><path fill="#FBBC05" d="M10.5 28.6a14.5 14.5 0 0 1 0-9.2l-7.9-6.2a24 24 0 0 0 0 21.6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.8 2.3-7.5 2.3-6.3 0-11.6-4-13.5-9.6l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/></svg>
+    </span>
+    <div><b>Google Drive에서 가져오기</b><span>구글 드라이브의 파일을 그대로 복사해요</span></div>
   </button>
 </div>
 
@@ -1551,5 +1578,6 @@
 <script src="js/13-upload.js"></script>
 <script src="js/14-init.js"></script>
 <script src="js/15-onboarding.js"></script>
+<script src="js/16-gdrive.js"></script>
 </body>
 </html>

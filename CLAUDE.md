@@ -25,7 +25,7 @@ gpai2.0/
 ├── .nojekyll       GitHub Pages가 Jekyll 처리를 건너뛰게 하는 빈 파일
 ├── index.html      마크업 전체 (~1,530줄) — head · 사이드바 · 화면 9종 · 편집기 · 온보딩 · 오버레이
 ├── css/            스타일 17개 — 화면/컴포넌트 섹션별
-└── js/             스크립트 16개 — 데이터 · 라우팅 · 화면별 로직
+└── js/             스크립트 17개 — 데이터 · 라우팅 · 화면별 로직
 ```
 
 ### 실행
@@ -133,7 +133,8 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
   파일 임포트 → 과목별 폴더 정리 → 과목별 프로젝트 생성까지 자동으로 해줍니다.
   임포트가 끝난 상태가 프로토타입의 기본 데이터이고, 온보딩은 그 과정을 연출합니다.
   단, **LMS 연결은 옵션입니다** — 대학생이 아닌 유저를 위해 「LMS 없이 시작하기」가
-  동급 경로로 제공되고, 드라이브 「신규」 메뉴의 "LMS에서 가져오기"가 재진입점입니다
+  동급 경로로 제공되고, 드라이브 「신규」 메뉴의 "LMS에서 가져오기"(학교 자료)와
+  "Google Drive에서 가져오기"(개인 자료)가 나중 반입 경로입니다
 
 ---
 
@@ -177,7 +178,7 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
 버전 로그 주석 → `<head>`(메타 · 폰트 · css 17개 링크) → `.app`(사이드바 →
 `view-*` 섹션 9종 → 드라이브 챗 패널) → `#editor` 오버레이(공통 프레임 + 본문 5종 +
 GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 토스트 → Q의 의견 드로어 →
-첨부 메뉴 / 드라이브 피커 / 새 프로젝트 모달 → js 16개 스크립트 태그
+첨부 메뉴 / 드라이브 피커 / 새 프로젝트 모달 / Google Drive 모달 → js 17개 스크립트 태그
 
 ### `css/` — 스타일 (17)
 
@@ -192,7 +193,7 @@ GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 �
 | `14-attach-picker.css` · `15-generic.css` | 첨부 메뉴/피커 · 플레이스홀더 |
 | `16-onboarding.css` | 온보딩 오버레이 + 드라이브 재진입 배너 (`.ob-` 접두사) |
 
-### `js/` — 스크립트 (16, 로드 순서대로)
+### `js/` — 스크립트 (17, 로드 순서대로)
 
 | 파일 | 담당 | 주요 심볼 |
 |---|---|---|
@@ -211,7 +212,8 @@ GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 �
 | `12-master.js` | 마스터 AI 입력 | `maSend` |
 | `13-upload.js` | 업로드 라우팅(드라이브/프로젝트) | `startDriveUpload` `upFinish` |
 | `14-init.js` | 해시 처리 · 초기 구동 | |
-| `15-onboarding.js` | **온보딩 전체** — 스텝 전환·LMS 폼·임포트 연출·진입 판단(자체 해시 처리) | `OB_COURSES` `openOnboard` `closeOnboard` `obGo` |
+| `15-onboarding.js` | **온보딩 전체** — 스텝 전환·LMS 폼·임포트 연출·진입 판단(자체 해시 처리) + 드라이브 「신규」 메뉴 | `OB_COURSES` `openOnboard` `closeOnboard` `obGo` |
+| `16-gdrive.js` | Google Drive 가져오기 모달 — 연결 연출·다중 선택 → 업로드 토스트로 전달 (`#gdrive` 해시 처리) | `GD_FILES` `openGdPicker` `closeGdPicker` |
 
 ---
 
@@ -281,7 +283,7 @@ Claude Code 클라우드 세션에는 크로미움이 미리 설치돼 있습니
 최소 확인 해시:
 `#drive` `#drive-list` `#master` `#project-p1` `#project-p2` `#solver` `#generator`
 `#figure` `#canvas` `#chat` `#edit-doc` `#edit-xlsx` `#edit-ppt` `#edit-pdf` `#edit-yt`
-`#guide` `#onboarding` `#onboarding-3` `#onboarding-5`
+`#guide` `#onboarding` `#onboarding-3` `#onboarding-5` `#gdrive`
 
 JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니다
 (예: 드라이브 타일이 렌더됐는지 `grep -o 'class="tile"' | wc -l` → 11).
@@ -318,7 +320,8 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
 6. **뷰 전환 상태.** 새 화면 추가 시 **`VIEWS` 배열(`js/03-data.js`) · `sync()`/`go()`
    (`js/05-router.js`) · init 해시 블록(`js/14-init.js`)** 을 같이 손봐야 합니다
 7. **ESC 우선순위 체인** (`js/07-editor-open.js`). 현재 순서는 드라이브 피커 →
-   새 프로젝트 모달 → 드라이브 신규 메뉴 → 첨부 메뉴 → Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를
+   Google Drive 모달 → 새 프로젝트 모달 → 드라이브 신규 메뉴 → 첨부 메뉴 →
+   Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를
    만들면 이 체인에 끼워 넣으세요. **온보딩 오버레이는 의도적으로 이 체인에 없습니다**
    — 버튼(건너뛰기·완료)으로만 닫습니다
 8. **업로드 목적지 라우팅** (`js/13-upload.js`). 업로드는 드라이브로 갈 수도, 특정
