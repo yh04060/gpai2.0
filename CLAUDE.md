@@ -23,7 +23,7 @@ GitHub Pages 같은 정적 호스팅에 저장소를 그대로 올리면 동작�
 gpai2.0/
 ├── CLAUDE.md       이 문서
 ├── .nojekyll       GitHub Pages가 Jekyll 처리를 건너뛰게 하는 빈 파일
-├── index.html      마크업 전체 (~1,530줄) — head · 사이드바 · 화면 9종 · 편집기 · 온보딩 · 오버레이
+├── index.html      마크업 전체 (~1,600줄) — head · 사이드바 · 화면 9종 · 편집기 · 온보딩 · 오버레이
 ├── css/            스타일 17개 — 화면/컴포넌트 섹션별
 └── js/             스크립트 17개 — 데이터 · 라우팅 · 화면별 로직
 ```
@@ -112,6 +112,11 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
 | 기타 | `#onboarding` (해시 없음도 동일) | 온보딩 — 가입 → LMS 연결 → 자동 임포트 | `#obRoot` 오버레이 · `#onboarding-0`~`-5`로 스텝 직행 |
 | | `#guide` | 「Q의 의견」 드로어 자동 열림 | `#noteDrawer` |
 
+드라이브의 **폴더 내부 뷰는 별도 화면이 아니라 `state.drivePath` 상태**입니다
+(해시 없음 · `#drive`에서 폴더 클릭). 1단계 폴더의 내용물은 연결 프로젝트의
+`files`가 정본이라 프로젝트 파일 탭과 항상 일치하고, 미연결 폴더만 `FOLDER_FILES`를
+씁니다 — 폴더 관련 수정 시 두 출처를 함께 확인하세요.
+
 라우팅 채널은 `VIEWS` 배열 하나가 아니라 둘입니다. `AGENTS`(`js/03-data.js`)에 등록된
 키는 `VIEWS`에 없어도 해시로 라우팅되며, 이때 `sync()`(`js/05-router.js`)가
 `#view-generic` 플레이스홀더를 켜고 제목만 갈아끼웁니다 — 문서 작성이 이 경로입니다.
@@ -178,7 +183,8 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
 버전 로그 주석 → `<head>`(메타 · 폰트 · css 17개 링크) → `.app`(사이드바 →
 `view-*` 섹션 9종 → 드라이브 챗 패널) → `#editor` 오버레이(공통 프레임 + 본문 5종 +
 GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 토스트 → Q의 의견 드로어 →
-첨부 메뉴 / 드라이브 피커 / 새 프로젝트 모달 / Google Drive 모달 → js 17개 스크립트 태그
+Google Drive 모달 / 「신규」 메뉴 / 파일 ⋯ 메뉴 / 첨부 메뉴 / 드라이브 피커 /
+새 프로젝트 모달 → js 17개 스크립트 태그
 
 ### `css/` — 스타일 (17)
 
@@ -208,7 +214,7 @@ GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 �
 | `08-notes.js` | **드로어 메모(화면별 설계 의도)** | `NOTE_CTX` `renderNoteCtx` |
 | `09-editor-body.js` | 편집기 본문(시트·PPT·PDF·YT) · 모델 선택 · 챗 | `MODELS` `edSend` |
 | `10-attach-picker.js` | 첨부 메뉴 · 드라이브 피커 | `openAttMenu` `openPicker` |
-| `11-projects.js` | **프로젝트 전체** — 채널·쓰레드·파일 트리·새 프로젝트 모달 | `PROJECTS` `FOLDER_FILES` `renderProject` `pjTreeFlat` `pjSendMsg` |
+| `11-projects.js` | **프로젝트 전체** — 채널·쓰레드(라이브 툴 호출)·파일 트리·새 프로젝트 모달 | `PROJECTS` `FOLDER_FILES` `PJ_ROUTES` `renderProject` `pjSendMsg` |
 | `12-master.js` | 마스터 AI 입력 | `maSend` |
 | `13-upload.js` | 업로드 라우팅(드라이브/프로젝트) | `startDriveUpload` `upFinish` |
 | `14-init.js` | 해시 처리 · 초기 구동 | |
