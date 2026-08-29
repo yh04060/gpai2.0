@@ -166,7 +166,38 @@ function pjLiveThreadHTML(p){
    +'</div>';
 }
 function pjStoredMsgs(p){
-  return (p.msgs||[]).map(m=>pjUserPost(p,'오늘',m.text,'<div class="pj-slot">'+(m.replied?pjLiveThreadHTML(p):'')+'</div>')).join('');
+  return (p.msgs||[]).map(m=>{
+    const inner=m.replied?(m.route!=null?pjRoutedThreadHTML(p,m):pjLiveThreadHTML(p)):'';
+    return pjUserPost(p,'오늘',m.text,'<div class="pj-slot" id="pjSlot'+m.idx+'">'+inner+'</div>');
+  }).join('');
+}
+
+/* ---- 라이브 툴 호출 — 메시지 키워드에 따라 툴 카드·결과 파일·메모리 반영을 연출 ----
+   구체적인 라우트가 먼저 오도록 순서 유지 (보고서 → 요약 → 시각화 → 문제) */
+const PJ_ROUTES=[
+ {re:/보고서|리포트|초안/,tool:'문서 작성 툴',kind:'doc',base:'보고서 초안',param:'폴더 자료·메모리 기준 구성 · 개요 → 본문',size:26624},
+ {re:/요약|정리/,tool:'문서 작성 툴',kind:'doc',base:'요약 노트',param:'핵심 개념 위주 · 폴더 자료 기준',size:22528},
+ {re:/그래프|도식|다이어그램|시각화|그림/,tool:'시각화 툴',kind:'png',base:'개념 다이어그램',param:'편집 가능한 SVG · 강의 자료 참조',size:98304},
+ {re:/변형|문제|퀴즈|기출|연습/,tool:'문제 생성 툴',kind:'pdf',base:'변형문제 세트',param:'난이도 혼합 · 20문항',size:90112},
+];
+const PJ_BADGE={pdf:'#E2574C',doc:'#4E86D8',xlsx:'#2E9E5B',ppt:'#D8681B',png:'#8A65C9'};
+function pjToolCardHTML(p,route){
+  return '<div class="tool-card" style="margin-top:2px"><b>'+SVG_TOOL+escapeHtml(route.tool)+' 실행</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(route.param)+' — '+escapeHtml(p.agent)+'가 호출</div></div>';
+}
+function pjFileChipHTML(f){
+  const ext=ED_EXT[f.kind]?ED_EXT[f.kind].replace('.','').toUpperCase():f.kind.toUpperCase();
+  const openable=!!OPEN_KINDS[f.kind];
+  return '<span class="file-chip"'+(openable?' data-open="'+f.kind+'" data-name="'+escapeHtml(f.name+(ED_EXT[f.kind]||''))+'" title="열기"':' style="cursor:default" title="저장됨"')
+   +'><span class="ed-badge" style="background:'+(PJ_BADGE[f.kind]||'#8A8A88')+';font-size:8px">'+ext+'</span>'
+   +escapeHtml(f.name)+(ED_EXT[f.kind]||'')+' · 프로젝트 폴더에 저장됨'+(openable?' — 클릭해서 열기':'')+'</span>';
+}
+function pjRoutedThreadHTML(p,m){
+  const route=PJ_ROUTES[m.route];
+  return '<div class="pj-thread">'
+   +pjThreadReply(p,'방금','확인했어요 — "'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 <b>'+escapeHtml(route.tool)+'</b>을 호출할게요.')
+   +pjThreadReply(p,'방금',pjToolCardHTML(p,route)+pjFileChipHTML({kind:route.kind,name:m.fname}))
+   +pjThreadReply(p,'방금','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "'+escapeHtml(m.fname)+'" 요청·결과를 반영했어요 · 다음 대화부터 적용돼요</span></div>')
+   +'</div>';
 }
 function pjRailHTML(p){
   const mem=(p.memory&&p.memory.length)?p.memory.map(m=>'<div>'+escapeHtml(m)+'</div>').join(''):'<div style="color:#9C9C9A">아직 비어 있어요 — 대화할수록 채워져요</div>';
@@ -318,7 +349,11 @@ function renderProject(p){
     const f=(p.pins||[])[+r.dataset.fi];
     if(f&&OPEN_KINDS[f.kind])openEditor(f.kind,f.name+(ED_EXT[f.kind]||''));
   });
-  $$('#view-project .file-chip[data-open]').forEach(c=>c.addEventListener('click',()=>openEditor(c.dataset.open,c.dataset.name)));
+  const mw0=$('#pjMsgs');
+  if(mw0)mw0.addEventListener('click',e=>{
+    const c=e.target.closest('.file-chip[data-open]');
+    if(c)openEditor(c.dataset.open,c.dataset.name);
+  });
   $$('#view-project [data-nav]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.nav)));
   $('#pjSeeFiles').addEventListener('click',()=>{state.pjTab='files';renderProject(p);});
   const nameEl=$('#pjAgName');
@@ -333,17 +368,65 @@ function renderProject(p){
 }
 function pjSendMsg(p,text){
   p.msgs=p.msgs||[];
-  const entry={text:text,replied:false};
-  p.msgs.push(entry);
   const idx=++pjSeq;
+  const entry={text:text,replied:false,idx:idx};
+  const ri=PJ_ROUTES.findIndex(r=>r.re.test(text));
+  if(ri>=0){
+    entry.route=ri;
+    const base=PJ_ROUTES[ri].base;
+    let nm=base,k=2;
+    while((p.files||[]).some(f=>f.name===nm))nm=base+' '+(k++);
+    entry.fname=nm;
+  }
+  p.msgs.push(entry);
   const wrap=$('#pjMsgs');
   wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava">김</div><div class="pj-body"><div class="pj-who"><b>김튜링</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
   wrap.scrollTop=wrap.scrollHeight;
+  const scrollDn=()=>{const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;};
+  /* 스테이지 사이에 재렌더가 끼어도 데이터 변형은 항상 수행하고 DOM은 있을 때만 갱신한다 */
   setTimeout(()=>{
-    entry.replied=true;
-    const slot=$('#pjSlot'+idx);
-    if(slot)slot.innerHTML=pjLiveThreadHTML(p);
-    const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;
+    if(entry.route==null){
+      entry.replied=true;
+      const s=$('#pjSlot'+idx);
+      if(s)s.innerHTML=pjLiveThreadHTML(p);
+      scrollDn();return;
+    }
+    const route=PJ_ROUTES[entry.route];
+    const s=$('#pjSlot'+idx);
+    if(s)s.innerHTML='<div class="pj-thread" id="pjTh'+idx+'">'
+      +pjThreadReply(p,'방금','확인했어요 — "'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 <b>'+escapeHtml(route.tool)+'</b>을 호출할게요.')+'</div>';
+    scrollDn();
+    setTimeout(()=>{
+      const th=$('#pjTh'+idx);
+      if(th)th.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금',pjToolCardHTML(p,route)));
+      scrollDn();
+      setTimeout(()=>{
+        /* 결과 파일이 프로젝트 폴더(= 드라이브)에 실제로 쌓인다 */
+        const nf={kind:route.kind,name:entry.fname,meta:(UP_LBL[route.kind]||'파일')+' · '+fmtSize(route.size),time:'방금',ai:p.agent,fresh:true};
+        p.files=p.files||[];p.files.unshift(nf);
+        setTimeout(()=>{nf.fresh=false;},2600);
+        p.items=p.files.length;
+        const df=driveItems.find(d=>d.type==='folder'&&d.name===p.folder);
+        if(df)df.meta='항목 '+p.items+'개';
+        renderDrive();
+        const em=$('#view-project .pj-tab[data-tab="files"] em');
+        if(em)em.textContent=p.items;
+        const th2=$('#pjTh'+idx);
+        if(th2)th2.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금',pjFileChipHTML(nf)));
+        scrollDn();
+        setTimeout(()=>{
+          p.memory=p.memory||[];
+          p.memory.push('"'+entry.fname+'" 생성 — 채널 요청('+route.tool+')');
+          p.memUpdated='방금';
+          const ul=$('#view-project .mem-ul');
+          if(ul)ul.innerHTML=p.memory.map(t=>'<div>'+escapeHtml(t)+'</div>').join('');
+          const th3=$('#pjTh'+idx);
+          if(th3)th3.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "'+escapeHtml(entry.fname)+'" 요청·결과를 반영했어요 · 다음 대화부터 적용돼요</span></div>'));
+          entry.replied=true;
+          scrollDn();
+        },900);
+      },1500);
+    },1200);
   },750);
 }
 
