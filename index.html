@@ -16,6 +16,7 @@
   v4.4 (2026-08-27): 우하단 드로어 명칭 "Q의 요청" → "Q의 의견"으로 변경
   v5.0 (2026-08-27): 프로젝트 구조 개편 — 단일 파일을 src/(styles·views·js·page) 54개 모듈로 분할, build.py로 단일 HTML 조립. 산출물은 기능·바이트 수준에서 v4.4와 동일
   v6.0 (2026-08-27): 정적 멀티파일 구조로 전환 — build.py·단일 산출물 폐지. index.html + css/ 16개 + js/ 15개를 그대로 서빙(GitHub Pages 배포 전제). 단일 파일 공유 방식 종료
+  v7.3 (2026-08-29): LMS 연동을 옵션화 — 온보딩 스텝1을 "어떻게 시작할까요?"로 바꾸고 「LMS 없이 시작하기」를 동급 카드로 승격(대학생 아닌 유저 경로). 드라이브 「신규」 버튼을 실제 메뉴로 만들어 "LMS에서 가져오기" 재진입점 추가
   v7.2 (2026-08-29): LNB 정돈 — "나" 카드 다이어트: 서브라벨·내부 구분선·저장용량 제거(역할 설명은 hover 툴팁으로), 카드가 계정·마스터 AI·드라이브 세 줄로 축소. 저장용량 게이지는 드라이브 화면 상단 배너로 이동
   v7.1 (2026-08-29): LNB 개편 — 계정 정보를 좌상단 "나" 카드로 이동, 나 = 마스터 AI = AI 드라이브(1단)를 카드 하나로 묶어 위계를 시각화. 항목별 역할 서브라벨, 저장용량 카드 편입, 하단 프로필/구분선 제거
   v7.0 (2026-08-29): 온보딩 도입 — 회원가입 → LMS 연결(eTL·Canvas·Moodle 등) → 과목 스캔 → 드라이브 자동 정리 + 과목별 프로젝트 자동 생성(#onboarding, 해시 없으면 자동 표시). 드라이브·프로젝트 데이터를 학기 자료(과목 5개) 기준으로 개편
@@ -1315,14 +1316,19 @@
   <!-- 1 · LMS 선택 (그리드는 JS 렌더) -->
   <section class="ob-pane" data-ob="1">
     <div class="ob-mid">
-      <h2 class="ob-h2">학교 LMS를 연결할까요?</h2>
+      <h2 class="ob-h2">어떻게 시작할까요?</h2>
       <p class="ob-p" id="obLmsHint"><b>@snu.ac.kr</b> 계정을 확인했어요 — 서울대는 <b>eTL</b>을 써요. 계정을 연결하면 수강 과목과 강의 자료를 통째로 가져와서, 과목별 폴더 정리와 전담 프로젝트 AI 생성까지 한 번에 끝내 드려요.</p>
       <div class="ob-lms" id="obLmsGrid"></div>
       <div class="ob-trust">
         <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="4.5" y="9" width="11" height="8" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/></svg>
         <span>읽기 전용으로 가져와요 · 로그인 정보는 가져오기에만 쓰고 저장하지 않아요</span>
       </div>
-      <button class="ob-later" id="obLater">나중에 할게요 — 빈 드라이브로 시작하기</button>
+      <div class="ob-or" style="margin:24px 0 14px"><i></i><span>또는</span><i></i></div>
+      <button class="ob-nolms" id="obLater">
+        <span class="ob-nolms-ic"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13.2V4.6M6.6 8 10 4.6 13.4 8"/><path d="M4 13.5V15a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 16 15v-1.5"/></svg></span>
+        <span class="ob-nolms-tx"><b>LMS 없이 시작하기</b><span>대학생이 아니거나 학교가 LMS를 안 써도 괜찮아요 — 빈 드라이브에서 직접 올리며 시작하고, 나중에 드라이브의 「신규」 메뉴에서 언제든 가져올 수 있어요</span></span>
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#9C9C9A;flex:none"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg>
+      </button>
     </div>
   </section>
 
@@ -1376,7 +1382,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.2 · 2026.08.29</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.3 · 2026.08.29</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1449,6 +1455,22 @@
     <!-- ★★ Q의 의견 끝 ★★ -->
   </div>
 </aside>
+
+<!-- ===== 드라이브 「신규」 메뉴 — 업로드 / LMS 가져오기 (js/15-onboarding.js가 구동) ===== -->
+<div class="attmenu" id="dnMenu">
+  <button class="attitem" id="dnUpload">
+    <span class="aic">
+      <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13.2V4.6M6.6 8 10 4.6 13.4 8"/><path d="M4 13.5V15a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 16 15v-1.5"/></svg>
+    </span>
+    <div><b>내 컴퓨터에서 업로드</b><span>파일을 드라이브에 올려요</span></div>
+  </button>
+  <button class="attitem" id="dnLms">
+    <span class="aic brand">
+      <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 11.5 4.9 15a2.4 2.4 0 0 1-3.4-3.4l3.6-3.5"/><path d="m11.5 8.5 3.6-3.6a2.4 2.4 0 0 1 3.4 3.4l-3.6 3.6"/><path d="m7.6 12.4 4.8-4.8"/></svg>
+    </span>
+    <div><b>LMS에서 가져오기</b><span>eTL · Canvas · Moodle — 과목별로 자동 정리</span></div>
+  </button>
+</div>
 
 <!-- ===== Attach menu (내 컴퓨터 / AI 드라이브) ===== -->
 <div class="attmenu" id="attMenu">

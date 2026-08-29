@@ -63,8 +63,12 @@
 .ob-lmscard .d{font-size:12px;line-height:1.45;color:var(--ink-3)}
 .ob-recbadge{position:absolute;top:-9px;right:12px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:3px 9px}
 .ob-trust{margin-top:22px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-3)}
-.ob-later{display:inline-block;margin-top:26px;font-size:13px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
-.ob-later:hover{color:var(--ink-2)}
+.ob-nolms{display:flex;align-items:center;gap:13px;width:100%;border:1px solid var(--border);border-radius:14px;background:#fff;padding:14px 18px;text-align:left;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.ob-nolms:hover{border-color:#C9C9C7;box-shadow:0 8px 22px rgba(0,0,0,.06)}
+.ob-nolms-ic{width:38px;height:38px;border-radius:10px;background:#F1F1EF;color:#55554F;display:grid;place-items:center;flex:none}
+.ob-nolms-tx{flex:1;min-width:0}
+.ob-nolms-tx b{display:block;font-size:14.5px}
+.ob-nolms-tx>span{display:block;margin-top:2px;font-size:12px;line-height:1.5;color:var(--ink-3)}
 
 /* 2 · 연결 */
 .ob-back{display:flex;align-items:center;gap:6px;margin-bottom:18px;font-size:13px;color:var(--ink-3)}

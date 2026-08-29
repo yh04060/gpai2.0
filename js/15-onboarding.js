@@ -44,7 +44,7 @@ const OB_LOGS={
  '컴퓨팅 기초':['컴퓨팅 기초/실습/week3_loops.py','컴퓨팅 기초/강의 슬라이드/02_변수와_자료형.pdf','컴퓨팅 기초/과제/프로젝트_명세.pdf'],
  '글쓰기의 기초':['글쓰기의 기초/첨삭/에세이1_피드백.docx','글쓰기의 기초/강의자료/인용과_표절.pdf','글쓰기의 기초/최종_에세이_안내.pdf'],
 };
-const OB_STEP_LBL=['계정','LMS 연결','과목 선택','가져오기'];
+const OB_STEP_LBL=['계정','시작 방법','과목 선택','가져오기'];
 const OB_STEP_OF={0:0,1:1,2:1,3:2,4:3,5:3};
 
 let obLms=OB_LMS[0];          /* 선택된 LMS (기본: 추천 eTL) */
@@ -99,8 +99,8 @@ function closeOnboard(dest,skipped){
 function obRenderLms(){
   const snu=obSnu();
   $('#obLmsHint').innerHTML=snu
-    ?'<b>@snu.ac.kr</b> 계정을 확인했어요 — 서울대는 <b>eTL</b>을 써요. 계정을 연결하면 수강 과목과 강의 자료를 통째로 가져와서, 과목별 폴더 정리와 전담 프로젝트 AI 생성까지 한 번에 끝내 드려요.'
-    :'학교에서 쓰는 LMS를 골라 주세요. 계정을 연결하면 수강 과목과 강의 자료를 통째로 가져와서, 과목별 폴더 정리와 전담 프로젝트 AI 생성까지 한 번에 끝내 드려요.';
+    ?'<b>@snu.ac.kr</b> 계정을 확인했어요 — 서울대는 <b>eTL</b>을 써요. 대학생이라면 LMS 연결이 가장 빨라요: 수강 과목과 자료를 통째로 가져와 과목별 폴더와 전담 AI까지 만들어 드려요. 물론 <b>LMS 없이 시작해도</b> 돼요.'
+    :'대학생이라면 학교 LMS 연결이 가장 빨라요 — 수강 과목과 자료를 통째로 가져와 과목별 폴더와 전담 AI까지 만들어 드려요. 대학생이 아니거나 LMS가 없다면 <b>아래에서 바로 시작</b>하세요.';
   $('#obLmsGrid').innerHTML=OB_LMS.map(l=>{
     const rec=snu&&l.id==='etl';
     return '<button class="ob-lmscard'+(rec?' rec':'')+'" data-lms="'+l.id+'">'
@@ -264,6 +264,21 @@ $('#obSkip').addEventListener('click',()=>closeOnboard('drive',true));
 $('#obLater').addEventListener('click',()=>closeOnboard('drive',true));
 $('#obBannerGo').addEventListener('click',()=>openOnboard(1));
 $('#obBannerX').addEventListener('click',()=>$('#obBanner').classList.remove('on'));
+
+/* ---- 드라이브 「신규」 메뉴 — 업로드 / LMS 가져오기 재진입점 ----
+   첨부 메뉴(10-attach-picker.js)와 같은 열기·측정·바깥클릭 닫기 패턴 */
+function closeDnMenu(){$('#dnMenu').classList.remove('open');}
+$('#btnNew').addEventListener('click',()=>{
+  const m=$('#dnMenu'),b=$('#btnNew');
+  if(m.classList.contains('open')){closeDnMenu();return;}
+  m.classList.add('open');
+  const r=b.getBoundingClientRect(),mw=m.offsetWidth;
+  m.style.left=Math.min(r.right-mw,innerWidth-mw-8)+'px';
+  m.style.top=(r.bottom+8)+'px';
+});
+document.addEventListener('click',e=>{if(!e.target.closest('#dnMenu,#btnNew'))closeDnMenu();});
+$('#dnUpload').addEventListener('click',()=>{closeDnMenu();$('#driveUp').click();});
+$('#dnLms').addEventListener('click',()=>{closeDnMenu();$('#obBanner').classList.remove('on');openOnboard(1);});
 
 /* ---- 진입 판단 — 해시는 초기화 시점에만 읽힌다 (라우팅 규칙과 동일) ---- */
 (function(){
