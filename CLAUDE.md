@@ -201,7 +201,7 @@ GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 기밀 바 → 업로드 �
 | `01-assets-drive.js` | 드라이브 아이콘·썸네일 SVG | `SVG_*` `fIcon` |
 | `02-canvas.js` | 캔버스 갤러리 | `CV_ITEMS` `renderCanvas` |
 | `03-data.js` | **핵심 상태·라우팅 데이터** | `driveItems` `AGENTS` `VIEWS` `state` |
-| `04-drive.js` | 드라이브 렌더 | `renderDrive` |
+| `04-drive.js` | 드라이브 렌더 · 폴더 탐색 · 파일 ⋯ 메뉴 | `renderDrive` `driveResolve` `driveOpenFolder` |
 | `05-router.js` | **뷰 전환** | `sync` `go` |
 | `06-misc-controls.js` | 챗 패널·보기 토글·전송 버튼 | |
 | `07-editor-open.js` | 편집기 열기/닫기 · ESC 체인 | `openEditor` `closeEditor` |
@@ -320,8 +320,8 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
 6. **뷰 전환 상태.** 새 화면 추가 시 **`VIEWS` 배열(`js/03-data.js`) · `sync()`/`go()`
    (`js/05-router.js`) · init 해시 블록(`js/14-init.js`)** 을 같이 손봐야 합니다
 7. **ESC 우선순위 체인** (`js/07-editor-open.js`). 현재 순서는 드라이브 피커 →
-   Google Drive 모달 → 새 프로젝트 모달 → 드라이브 신규 메뉴 → 첨부 메뉴 →
-   Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를
+   Google Drive 모달 → 새 프로젝트 모달 → 파일 ⋯ 메뉴 → 드라이브 신규 메뉴 →
+   첨부 메뉴 → Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를
    만들면 이 체인에 끼워 넣으세요. **온보딩 오버레이는 의도적으로 이 체인에 없습니다**
    — 버튼(건너뛰기·완료)으로만 닫습니다
 8. **업로드 목적지 라우팅** (`js/13-upload.js`). 업로드는 드라이브로 갈 수도, 특정

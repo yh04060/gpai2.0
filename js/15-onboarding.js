@@ -278,6 +278,17 @@ $('#btnNew').addEventListener('click',()=>{
 });
 document.addEventListener('click',e=>{if(!e.target.closest('#dnMenu,#btnNew'))closeDnMenu();});
 $('#dnUpload').addEventListener('click',()=>{closeDnMenu();$('#driveUp').click();});
+$('#dnFolder').addEventListener('click',()=>{
+  closeDnMenu();
+  let nm='새 폴더',k=2;
+  while(driveItems.some(d=>d.type==='folder'&&d.name===nm))nm='새 폴더 '+(k++);
+  const it={type:'folder',name:nm,meta:'항목 0개',fresh:true};
+  driveItems.splice(driveItems.filter(d=>d.type==='folder').length,0,it);
+  FOLDER_FILES[nm]=[];
+  state.drivePath=[];
+  renderDrive();
+  obT(()=>{delete it.fresh;renderDrive();},2600);
+});
 $('#dnLms').addEventListener('click',()=>{closeDnMenu();$('#obBanner').classList.remove('on');openOnboard(1);});
 
 /* ---- 진입 판단 — 해시는 초기화 시점에만 읽힌다 (라우팅 규칙과 동일) ---- */

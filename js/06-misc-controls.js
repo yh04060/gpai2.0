@@ -18,3 +18,11 @@ $$('textarea[data-send]').forEach(t=>{
 });
 
 /* ================= File Editor ================= */
+
+
+/* 사이드바 돋보기 → 드라이브 검색으로 */
+$('#sbSearch').addEventListener('click',()=>{
+  go('drive');
+  const s=$('#driveSearch');
+  if(s)s.focus();
+});

@@ -77,6 +77,53 @@ function renderDrive(){
     ?('"'+$('#driveSearch').value+'" 검색 결과가 없어요')
     :'폴더가 비어 있어요 — 업로드하거나 에이전트 결과물이 쌓이면 여기에 보여요';
 }
+/* ---- 파일 ⋯ 메뉴 — 열기 / 삭제 (드라이브 루트·폴더 뷰 공용) ---- */
+let fiIt=null,fiSrc=null;
+function fiClose(){$('#fiMenu').classList.remove('open');}
+function fiOpenMenu(btn,it){
+  fiIt=it;
+  fiSrc=(state.drivePath&&state.drivePath.length)?driveResolve():driveItems;
+  const openable=it.type==='folder'||OPEN_KINDS[it.kind];
+  $('#fiOpen').style.display=openable?'flex':'none';
+  $('#fiOpenLbl').textContent=it.type==='folder'?'폴더 열기':'편집기에서 열기';
+  const m=$('#fiMenu');
+  m.classList.add('open');
+  const r=btn.getBoundingClientRect(),mw=m.offsetWidth,mh=m.offsetHeight;
+  m.style.left=Math.min(r.left,innerWidth-mw-8)+'px';
+  m.style.top=(r.top>innerHeight*0.6?r.top-mh-8:r.bottom+8)+'px';
+}
+document.addEventListener('click',e=>{
+  const td=e.target.closest('#driveItems .tdots');
+  if(td){
+    const row=td.closest('[data-idx]');
+    if(row&&driveLast[+row.dataset.idx]){fiOpenMenu(td,driveLast[+row.dataset.idx]);return;}
+  }
+  if(!e.target.closest('#fiMenu'))fiClose();
+});
+$('#fiOpen').addEventListener('click',()=>{
+  fiClose();
+  if(!fiIt)return;
+  if(fiIt.type==='folder')driveOpenFolder(fiIt.name);
+  else if(OPEN_KINDS[fiIt.kind])openEditor(fiIt.kind,fiIt.name+ED_EXT[fiIt.kind]);
+});
+$('#fiDel').addEventListener('click',()=>{
+  fiClose();
+  if(!fiIt||!fiSrc)return;
+  const i=fiSrc.indexOf(fiIt);
+  if(i>=0)fiSrc.splice(i,1);
+  const path=state.drivePath||[];
+  if(path.length){
+    /* 최상위 항목 수를 프로젝트·드라이브 폴더 meta에 동기화 (upFinish와 같은 규약) */
+    const pj=PROJECTS.find(x=>x.folder===path[0]);
+    const cnt=pj?(pj.files||[]).length:(FOLDER_FILES[path[0]]||[]).length;
+    if(pj)pj.items=cnt;
+    const df=driveItems.find(d=>d.type==='folder'&&d.name===path[0]);
+    if(df)df.meta='항목 '+cnt+'개';
+  }
+  fiIt=null;fiSrc=null;
+  renderDrive();
+});
+
 $('#driveCrumb').addEventListener('click',e=>{
   const s=e.target.closest('.crumb-seg');if(!s)return;
   const ci=+s.dataset.ci;
