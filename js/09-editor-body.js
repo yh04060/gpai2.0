@@ -3,7 +3,9 @@ $('#driveItems').addEventListener('click',e=>{
   if(e.target.closest('.tdots'))return;
   const el=e.target.closest('[data-idx]');if(!el)return;
   const it=driveLast[+el.dataset.idx];
-  if(it&&OPEN_KINDS[it.kind])openEditor(it.kind,it.name+ED_EXT[it.kind]);
+  if(!it)return;
+  if(it.type==='folder'){driveOpenFolder(it.name);return;}
+  if(OPEN_KINDS[it.kind])openEditor(it.kind,it.name+ED_EXT[it.kind]);
 });
 
 /* formatting commands (doc/pdf) */

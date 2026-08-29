@@ -37,7 +37,10 @@ $('#edBack').addEventListener('click',closeEditor);
 document.addEventListener('keydown',e=>{
   if(e.key!=='Escape')return;
   if($('#pickDim').classList.contains('on')){closePicker();return;}
+  if($('#gdDim').classList.contains('on')){closeGdPicker();return;}
   if($('#projDim').classList.contains('on')){closeProjModal();return;}
+  if($('#fiMenu').classList.contains('open')){$('#fiMenu').classList.remove('open');return;}
+  if($('#dnMenu').classList.contains('open')){$('#dnMenu').classList.remove('open');return;}
   if($('#attMenu').classList.contains('open')){$('#attMenu').classList.remove('open');return;}
   if($('#noteDrawer').classList.contains('on')){$('#noteDrawer').classList.remove('on');return;}
   if(state.editor)closeEditor();

@@ -20,6 +20,7 @@ function go(v){
     if(!p)return;
     state.view='project';state.project=p.id;renderProject(p);
   }else{
+    if(v==='drive'&&state.drivePath&&state.drivePath.length){state.drivePath=[];renderDrive();}
     state.view=v;
   }
   try{location.hash=v;}catch(e){}

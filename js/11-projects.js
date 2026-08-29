@@ -27,7 +27,69 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
    {kind:'doc',name:'실험 보고서',meta:'DOCX · 18KB',time:'오늘 09:52',ai:'일반물리학 AI 초안 v2'},
    {kind:'pdf',name:'변형문제_2차',meta:'PDF · 84KB',time:'오늘 1:33',ai:'문제 생성 툴'},
   ],
-  memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00'}];
+  memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00',src:'etl',lmsFiles:24},
+
+ /* p2~p5: 온보딩 eTL 임포트가 만든 과목 프로젝트 — 채널은 웰컴 메시지 상태 */
+ {id:'p2',name:'자료구조',agent:'자료구조 AI',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
+  files:[
+   {type:'folder',name:'강의 슬라이드',meta:'항목 4개',time:'8월 25일',open:true,children:[
+    {kind:'pdf',name:'01 배열과 연결 리스트',meta:'PDF · 2.4MB',time:'8월 18일'},
+    {kind:'pdf',name:'02 스택과 큐',meta:'PDF · 1.9MB',time:'8월 20일'},
+    {kind:'pdf',name:'03 재귀',meta:'PDF · 2.2MB',time:'8월 25일'},
+    {kind:'ppt',name:'04 트리 (예고편)',meta:'PPTX · 4.1MB',time:'8월 25일'},
+   ]},
+   {type:'folder',name:'과제',meta:'항목 2개',time:'8월 24일',children:[
+    {kind:'pdf',name:'HW1 연결 리스트 구현 명세',meta:'PDF · 320KB',time:'8월 19일'},
+    {kind:'pdf',name:'HW1 채점 기준',meta:'PDF · 180KB',time:'8월 24일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 240KB',time:'8월 17일'},
+   {kind:'pdf',name:'C 코딩 스타일 가이드',meta:'PDF · 410KB',time:'8월 17일'},
+   {kind:'pdf',name:'공지 모음 (1~2주차)',meta:'PDF · 96KB',time:'8월 26일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 강의 슬라이드 4 · 과제 2 · 공지·기타 3 정리','실라버스: 과제 30% · 중간 30% · 기말 40%, 지각 제출 하루 -10%'],memUpdated:'8월 17일'},
+
+ {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
+  files:[
+   {type:'folder',name:'주차별 강의노트',meta:'항목 4개',time:'8월 26일',open:true,children:[
+    {kind:'pdf',name:'1주차 라플라스 변환',meta:'PDF · 1.6MB',time:'8월 18일'},
+    {kind:'pdf',name:'2주차 역변환과 초기값 문제',meta:'PDF · 1.4MB',time:'8월 21일'},
+    {kind:'pdf',name:'3주차 선형계 응용',meta:'PDF · 1.7MB',time:'8월 25일'},
+    {kind:'pdf',name:'4주차 푸리에 급수 (예습)',meta:'PDF · 1.3MB',time:'8월 26일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 210KB',time:'8월 17일'},
+   {kind:'pdf',name:'과제 1 문제지',meta:'PDF · 520KB',time:'8월 22일'},
+   {kind:'pdf',name:'연습문제 해답집 (1~3장)',meta:'PDF · 2.8MB',time:'8월 25일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 주차별 노트 4 · 과제 1 · 해답집 1 정리','과제 1 마감: 9월 4일 (금) 23:59 — 실라버스에서 추출'],memUpdated:'8월 17일'},
+
+ {id:'p4',name:'대학영어',agent:'대학영어 AI',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+  files:[
+   {type:'folder',name:'읽기 자료',meta:'항목 3개',time:'8월 24일',children:[
+    {kind:'pdf',name:'Unit 1 — The Science of Habit',meta:'PDF · 880KB',time:'8월 18일'},
+    {kind:'pdf',name:'Unit 2 — Why We Sleep (발췌)',meta:'PDF · 1.1MB',time:'8월 24일'},
+    {kind:'pdf',name:'Academic Word List',meta:'PDF · 340KB',time:'8월 17일'},
+   ]},
+   {kind:'pdf',name:'Syllabus',meta:'PDF · 190KB',time:'8월 17일'},
+   {kind:'doc',name:'에세이 1 과제 안내',meta:'DOCX · 28KB',time:'8월 21일'},
+   {kind:'pdf',name:'발표 평가 루브릭',meta:'PDF · 150KB',time:'8월 21일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 읽기 자료 3 · 과제 1 · 평가 기준 1 정리','에세이 1: 500 단어 · 9월 8일 (화) 마감'],memUpdated:'8월 17일'},
+
+ {id:'p5',name:'심리학개론',agent:'심리학개론 AI',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+  files:[
+   {type:'folder',name:'강의 슬라이드',meta:'항목 3개',time:'8월 26일',children:[
+    {kind:'ppt',name:'1장 심리학의 본질',meta:'PPTX · 6.2MB',time:'8월 19일'},
+    {kind:'ppt',name:'2장 행동의 신경과학',meta:'PPTX · 7.8MB',time:'8월 26일'},
+    {kind:'pdf',name:'용어 정리 핸드아웃',meta:'PDF · 420KB',time:'8월 26일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 200KB',time:'8월 17일'},
+   {kind:'pdf',name:'퀴즈 1 안내 (3주차)',meta:'PDF · 110KB',time:'8월 26일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 슬라이드 3 · 퀴즈 안내 1 정리','퀴즈 1: 1~2장 범위 · 다음 주 수요일 수업 시간'],memUpdated:'8월 17일'}];
 const FOLDER_FILES={
  '중간고사 대비':[
   {kind:'pdf',name:'중간고사 기출 모음',meta:'PDF · 2.4MB',time:'8월 10일'},
@@ -88,11 +150,12 @@ function pjP1HTML(p){
    +pjUserPost(p,'1:30','@일반물리학 AI 다음 주 중간시험 범위(3~5장) 요약하고, 그 범위에서 변형 문제 20개 만들어줘.',thread);
 }
 function pjWelcome(p){
-  return '<div class="pj-day">오늘</div>'
+  const imp=p.src==='etl';
+  return '<div class="pj-day">'+(imp?'8월 17일 — eTL 가져오기':'오늘')+'</div>'
    +'<div class="pj-post"><div class="pj-pava ai">g(π)</div><div class="pj-body">'
-   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">방금</span></div>'
-   +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. 방금 만들어졌어요.</div>'
-   +'<div class="tool-card"><b>'+SVG_MEM+'폴더 파악 완료</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성</div></div>'
+   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">'+(imp?'2:04':'방금')+'</span></div>'
+   +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.')+'</div>'
+   +'<div class="tool-card"><b>'+SVG_MEM+(imp?'과목 자료 정리 완료':'폴더 파악 완료')+'</b><div class="rail-meta" style="margin-top:5px">'+(imp?('eTL 파일 '+(p.lmsFiles||p.items)+'개 → "'+escapeHtml(p.folder)+'" 폴더 항목 '+p.items+'개로 정리 · memory.md 생성'):(escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성'))+'</div></div>'
    +'<div class="pj-text" style="margin-top:8px">이 채널에서 무엇이든 시켜보세요. 게시글마다 쓰레드로 답하고, 대화 요약은 제 메모리에 쌓여요. 저는 이 폴더 밖에는 접근할 수 없어요.</div>'
    +'</div></div>';
 }
@@ -103,7 +166,38 @@ function pjLiveThreadHTML(p){
    +'</div>';
 }
 function pjStoredMsgs(p){
-  return (p.msgs||[]).map(m=>pjUserPost(p,'오늘',m.text,'<div class="pj-slot">'+(m.replied?pjLiveThreadHTML(p):'')+'</div>')).join('');
+  return (p.msgs||[]).map(m=>{
+    const inner=m.replied?(m.route!=null?pjRoutedThreadHTML(p,m):pjLiveThreadHTML(p)):'';
+    return pjUserPost(p,'오늘',m.text,'<div class="pj-slot" id="pjSlot'+m.idx+'">'+inner+'</div>');
+  }).join('');
+}
+
+/* ---- 라이브 툴 호출 — 메시지 키워드에 따라 툴 카드·결과 파일·메모리 반영을 연출 ----
+   구체적인 라우트가 먼저 오도록 순서 유지 (보고서 → 요약 → 시각화 → 문제) */
+const PJ_ROUTES=[
+ {re:/보고서|리포트|초안/,tool:'문서 작성 툴',kind:'doc',base:'보고서 초안',param:'폴더 자료·메모리 기준 구성 · 개요 → 본문',size:26624},
+ {re:/요약|정리/,tool:'문서 작성 툴',kind:'doc',base:'요약 노트',param:'핵심 개념 위주 · 폴더 자료 기준',size:22528},
+ {re:/그래프|도식|다이어그램|시각화|그림/,tool:'시각화 툴',kind:'png',base:'개념 다이어그램',param:'편집 가능한 SVG · 강의 자료 참조',size:98304},
+ {re:/변형|문제|퀴즈|기출|연습/,tool:'문제 생성 툴',kind:'pdf',base:'변형문제 세트',param:'난이도 혼합 · 20문항',size:90112},
+];
+const PJ_BADGE={pdf:'#E2574C',doc:'#4E86D8',xlsx:'#2E9E5B',ppt:'#D8681B',png:'#8A65C9'};
+function pjToolCardHTML(p,route){
+  return '<div class="tool-card" style="margin-top:2px"><b>'+SVG_TOOL+escapeHtml(route.tool)+' 실행</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(route.param)+' — '+escapeHtml(p.agent)+'가 호출</div></div>';
+}
+function pjFileChipHTML(f){
+  const ext=ED_EXT[f.kind]?ED_EXT[f.kind].replace('.','').toUpperCase():f.kind.toUpperCase();
+  const openable=!!OPEN_KINDS[f.kind];
+  return '<span class="file-chip"'+(openable?' data-open="'+f.kind+'" data-name="'+escapeHtml(f.name+(ED_EXT[f.kind]||''))+'" title="열기"':' style="cursor:default" title="저장됨"')
+   +'><span class="ed-badge" style="background:'+(PJ_BADGE[f.kind]||'#8A8A88')+';font-size:8px">'+ext+'</span>'
+   +escapeHtml(f.name)+(ED_EXT[f.kind]||'')+' · 프로젝트 폴더에 저장됨'+(openable?' — 클릭해서 열기':'')+'</span>';
+}
+function pjRoutedThreadHTML(p,m){
+  const route=PJ_ROUTES[m.route];
+  return '<div class="pj-thread">'
+   +pjThreadReply(p,'방금','확인했어요 — "'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 <b>'+escapeHtml(route.tool)+'</b>을 호출할게요.')
+   +pjThreadReply(p,'방금',pjToolCardHTML(p,route)+pjFileChipHTML({kind:route.kind,name:m.fname}))
+   +pjThreadReply(p,'방금','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "'+escapeHtml(m.fname)+'" 요청·결과를 반영했어요 · 다음 대화부터 적용돼요</span></div>')
+   +'</div>';
 }
 function pjRailHTML(p){
   const mem=(p.memory&&p.memory.length)?p.memory.map(m=>'<div>'+escapeHtml(m)+'</div>').join(''):'<div style="color:#9C9C9A">아직 비어 있어요 — 대화할수록 채워져요</div>';
@@ -255,7 +349,11 @@ function renderProject(p){
     const f=(p.pins||[])[+r.dataset.fi];
     if(f&&OPEN_KINDS[f.kind])openEditor(f.kind,f.name+(ED_EXT[f.kind]||''));
   });
-  $$('#view-project .file-chip[data-open]').forEach(c=>c.addEventListener('click',()=>openEditor(c.dataset.open,c.dataset.name)));
+  const mw0=$('#pjMsgs');
+  if(mw0)mw0.addEventListener('click',e=>{
+    const c=e.target.closest('.file-chip[data-open]');
+    if(c)openEditor(c.dataset.open,c.dataset.name);
+  });
   $$('#view-project [data-nav]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.nav)));
   $('#pjSeeFiles').addEventListener('click',()=>{state.pjTab='files';renderProject(p);});
   const nameEl=$('#pjAgName');
@@ -270,17 +368,65 @@ function renderProject(p){
 }
 function pjSendMsg(p,text){
   p.msgs=p.msgs||[];
-  const entry={text:text,replied:false};
-  p.msgs.push(entry);
   const idx=++pjSeq;
+  const entry={text:text,replied:false,idx:idx};
+  const ri=PJ_ROUTES.findIndex(r=>r.re.test(text));
+  if(ri>=0){
+    entry.route=ri;
+    const base=PJ_ROUTES[ri].base;
+    let nm=base,k=2;
+    while((p.files||[]).some(f=>f.name===nm))nm=base+' '+(k++);
+    entry.fname=nm;
+  }
+  p.msgs.push(entry);
   const wrap=$('#pjMsgs');
   wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava">김</div><div class="pj-body"><div class="pj-who"><b>김튜링</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
   wrap.scrollTop=wrap.scrollHeight;
+  const scrollDn=()=>{const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;};
+  /* 스테이지 사이에 재렌더가 끼어도 데이터 변형은 항상 수행하고 DOM은 있을 때만 갱신한다 */
   setTimeout(()=>{
-    entry.replied=true;
-    const slot=$('#pjSlot'+idx);
-    if(slot)slot.innerHTML=pjLiveThreadHTML(p);
-    const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;
+    if(entry.route==null){
+      entry.replied=true;
+      const s=$('#pjSlot'+idx);
+      if(s)s.innerHTML=pjLiveThreadHTML(p);
+      scrollDn();return;
+    }
+    const route=PJ_ROUTES[entry.route];
+    const s=$('#pjSlot'+idx);
+    if(s)s.innerHTML='<div class="pj-thread" id="pjTh'+idx+'">'
+      +pjThreadReply(p,'방금','확인했어요 — "'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 <b>'+escapeHtml(route.tool)+'</b>을 호출할게요.')+'</div>';
+    scrollDn();
+    setTimeout(()=>{
+      const th=$('#pjTh'+idx);
+      if(th)th.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금',pjToolCardHTML(p,route)));
+      scrollDn();
+      setTimeout(()=>{
+        /* 결과 파일이 프로젝트 폴더(= 드라이브)에 실제로 쌓인다 */
+        const nf={kind:route.kind,name:entry.fname,meta:(UP_LBL[route.kind]||'파일')+' · '+fmtSize(route.size),time:'방금',ai:p.agent,fresh:true};
+        p.files=p.files||[];p.files.unshift(nf);
+        setTimeout(()=>{nf.fresh=false;},2600);
+        p.items=p.files.length;
+        const df=driveItems.find(d=>d.type==='folder'&&d.name===p.folder);
+        if(df)df.meta='항목 '+p.items+'개';
+        renderDrive();
+        const em=$('#view-project .pj-tab[data-tab="files"] em');
+        if(em)em.textContent=p.items;
+        const th2=$('#pjTh'+idx);
+        if(th2)th2.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금',pjFileChipHTML(nf)));
+        scrollDn();
+        setTimeout(()=>{
+          p.memory=p.memory||[];
+          p.memory.push('"'+entry.fname+'" 생성 — 채널 요청('+route.tool+')');
+          p.memUpdated='방금';
+          const ul=$('#view-project .mem-ul');
+          if(ul)ul.innerHTML=p.memory.map(t=>'<div>'+escapeHtml(t)+'</div>').join('');
+          const th3=$('#pjTh'+idx);
+          if(th3)th3.insertAdjacentHTML('beforeend',pjThreadReply(p,'방금','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "'+escapeHtml(entry.fname)+'" 요청·결과를 반영했어요 · 다음 대화부터 적용돼요</span></div>'));
+          entry.replied=true;
+          scrollDn();
+        },900);
+      },1500);
+    },1200);
   },750);
 }
 

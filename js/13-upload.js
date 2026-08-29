@@ -72,7 +72,6 @@ function startDriveUpload(files,dest){
   upTitleSync();
 }
 $('#sbUpload').addEventListener('click',()=>$('#driveUp').click());
-$('#btnNew').addEventListener('click',()=>$('#driveUp').click());
 $('#driveUp').addEventListener('change',e=>{startDriveUpload([...e.target.files]);e.target.value='';});
 $('#upChev').addEventListener('click',()=>$('#upToast').classList.toggle('min'));
 $('#upClose').addEventListener('click',()=>{$('#upToast').style.display='none';$('#upBody').innerHTML='';upItems=[];});
