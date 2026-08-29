@@ -12,16 +12,26 @@
 .nav-item:hover{background:var(--hover)}
 .nav-item.on{background:var(--active)}
 .sb-sec{font-size:11.5px;color:var(--ink-3);padding:18px 10px 8px}
-.sb-div{height:1px;background:var(--border-soft);margin:14px 6px 0}
-.sb-bottom{margin-top:auto;display:flex;flex-direction:column;gap:14px;padding:0 6px}
 .storage-row{display:flex;align-items:center;gap:3px;font-size:13px;color:#3C3C3A}
-.storage-row .chev{color:#9C9C9A}
 .storage-val{margin-left:auto;font-size:12.5px}
 .storage-val b{font-weight:600}
 .storage-val em{font-style:normal;color:var(--ink-3)}
 .sbar{height:5px;border-radius:99px;background:#EFEFED;overflow:hidden;margin-top:9px}
 .sbar i{display:block;height:100%;width:85%;background:var(--brand);border-radius:99px}
-.profile{display:flex;align-items:center;gap:10px;padding-top:2px}
 .avatar{width:30px;height:30px;border-radius:50%;background:#F4F4F2;border:1px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:600}
-.profile span{font-size:14px}
+
+/* ---- 1단 카드: 나 = 마스터 AI = AI 드라이브 (같은 위계를 컨테인먼트로 표현) ---- */
+.sb-me{border:1px solid var(--border);border-radius:13px;background:#FBFBF9;padding:9px 7px 8px;margin:0 2px}
+.sb-me-head{display:flex;align-items:center;gap:9px;padding:3px 5px 10px;border-bottom:1px solid var(--border-soft);margin-bottom:7px}
+.sb-me-who{min-width:0}
+.sb-me-who b{display:block;font-size:13.5px;line-height:1.2}
+.sb-me-who span{display:block;margin-top:2px;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-me .nav-item{height:auto;padding:7px 8px}
+.sb-me .nav-item:hover{background:#F3F3F0}
+.sb-me .nav-item.on{background:#ECECE9}
+.sb-me-lb{min-width:0;flex:1}
+.sb-me-lb>span{display:block;font-size:13.5px;line-height:1.25}
+.sb-me-lb em{display:block;margin-top:2px;font-style:normal;font-size:10.5px;line-height:1.3;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-me-store{margin-top:7px;padding:9px 6px 3px;border-top:1px solid var(--border-soft)}
+.sb-me-store .storage-row{font-size:11.5px;color:#55554F}
 
