@@ -27,7 +27,69 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
    {kind:'doc',name:'실험 보고서',meta:'DOCX · 18KB',time:'오늘 09:52',ai:'일반물리학 AI 초안 v2'},
    {kind:'pdf',name:'변형문제_2차',meta:'PDF · 84KB',time:'오늘 1:33',ai:'문제 생성 툴'},
   ],
-  memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00'}];
+  memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00',src:'etl',lmsFiles:24},
+
+ /* p2~p5: 온보딩 eTL 임포트가 만든 과목 프로젝트 — 채널은 웰컴 메시지 상태 */
+ {id:'p2',name:'자료구조',agent:'자료구조 AI',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
+  files:[
+   {type:'folder',name:'강의 슬라이드',meta:'항목 4개',time:'8월 25일',open:true,children:[
+    {kind:'pdf',name:'01 배열과 연결 리스트',meta:'PDF · 2.4MB',time:'8월 18일'},
+    {kind:'pdf',name:'02 스택과 큐',meta:'PDF · 1.9MB',time:'8월 20일'},
+    {kind:'pdf',name:'03 재귀',meta:'PDF · 2.2MB',time:'8월 25일'},
+    {kind:'ppt',name:'04 트리 (예고편)',meta:'PPTX · 4.1MB',time:'8월 25일'},
+   ]},
+   {type:'folder',name:'과제',meta:'항목 2개',time:'8월 24일',children:[
+    {kind:'pdf',name:'HW1 연결 리스트 구현 명세',meta:'PDF · 320KB',time:'8월 19일'},
+    {kind:'pdf',name:'HW1 채점 기준',meta:'PDF · 180KB',time:'8월 24일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 240KB',time:'8월 17일'},
+   {kind:'pdf',name:'C 코딩 스타일 가이드',meta:'PDF · 410KB',time:'8월 17일'},
+   {kind:'pdf',name:'공지 모음 (1~2주차)',meta:'PDF · 96KB',time:'8월 26일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 강의 슬라이드 4 · 과제 2 · 공지·기타 3 정리','실라버스: 과제 30% · 중간 30% · 기말 40%, 지각 제출 하루 -10%'],memUpdated:'8월 17일'},
+
+ {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
+  files:[
+   {type:'folder',name:'주차별 강의노트',meta:'항목 4개',time:'8월 26일',open:true,children:[
+    {kind:'pdf',name:'1주차 라플라스 변환',meta:'PDF · 1.6MB',time:'8월 18일'},
+    {kind:'pdf',name:'2주차 역변환과 초기값 문제',meta:'PDF · 1.4MB',time:'8월 21일'},
+    {kind:'pdf',name:'3주차 선형계 응용',meta:'PDF · 1.7MB',time:'8월 25일'},
+    {kind:'pdf',name:'4주차 푸리에 급수 (예습)',meta:'PDF · 1.3MB',time:'8월 26일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 210KB',time:'8월 17일'},
+   {kind:'pdf',name:'과제 1 문제지',meta:'PDF · 520KB',time:'8월 22일'},
+   {kind:'pdf',name:'연습문제 해답집 (1~3장)',meta:'PDF · 2.8MB',time:'8월 25일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 주차별 노트 4 · 과제 1 · 해답집 1 정리','과제 1 마감: 9월 4일 (금) 23:59 — 실라버스에서 추출'],memUpdated:'8월 17일'},
+
+ {id:'p4',name:'대학영어',agent:'대학영어 AI',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+  files:[
+   {type:'folder',name:'읽기 자료',meta:'항목 3개',time:'8월 24일',children:[
+    {kind:'pdf',name:'Unit 1 — The Science of Habit',meta:'PDF · 880KB',time:'8월 18일'},
+    {kind:'pdf',name:'Unit 2 — Why We Sleep (발췌)',meta:'PDF · 1.1MB',time:'8월 24일'},
+    {kind:'pdf',name:'Academic Word List',meta:'PDF · 340KB',time:'8월 17일'},
+   ]},
+   {kind:'pdf',name:'Syllabus',meta:'PDF · 190KB',time:'8월 17일'},
+   {kind:'doc',name:'에세이 1 과제 안내',meta:'DOCX · 28KB',time:'8월 21일'},
+   {kind:'pdf',name:'발표 평가 루브릭',meta:'PDF · 150KB',time:'8월 21일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 읽기 자료 3 · 과제 1 · 평가 기준 1 정리','에세이 1: 500 단어 · 9월 8일 (화) 마감'],memUpdated:'8월 17일'},
+
+ {id:'p5',name:'심리학개론',agent:'심리학개론 AI',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+  files:[
+   {type:'folder',name:'강의 슬라이드',meta:'항목 3개',time:'8월 26일',children:[
+    {kind:'ppt',name:'1장 심리학의 본질',meta:'PPTX · 6.2MB',time:'8월 19일'},
+    {kind:'ppt',name:'2장 행동의 신경과학',meta:'PPTX · 7.8MB',time:'8월 26일'},
+    {kind:'pdf',name:'용어 정리 핸드아웃',meta:'PDF · 420KB',time:'8월 26일'},
+   ]},
+   {kind:'pdf',name:'실라버스',meta:'PDF · 200KB',time:'8월 17일'},
+   {kind:'pdf',name:'퀴즈 1 안내 (3주차)',meta:'PDF · 110KB',time:'8월 26일'},
+  ],
+  pins:[],
+  memory:['eTL 임포트 — 슬라이드 3 · 퀴즈 안내 1 정리','퀴즈 1: 1~2장 범위 · 다음 주 수요일 수업 시간'],memUpdated:'8월 17일'}];
 const FOLDER_FILES={
  '중간고사 대비':[
   {kind:'pdf',name:'중간고사 기출 모음',meta:'PDF · 2.4MB',time:'8월 10일'},
@@ -88,11 +150,12 @@ function pjP1HTML(p){
    +pjUserPost(p,'1:30','@일반물리학 AI 다음 주 중간시험 범위(3~5장) 요약하고, 그 범위에서 변형 문제 20개 만들어줘.',thread);
 }
 function pjWelcome(p){
-  return '<div class="pj-day">오늘</div>'
+  const imp=p.src==='etl';
+  return '<div class="pj-day">'+(imp?'8월 17일 — eTL 가져오기':'오늘')+'</div>'
    +'<div class="pj-post"><div class="pj-pava ai">g(π)</div><div class="pj-body">'
-   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">방금</span></div>'
-   +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. 방금 만들어졌어요.</div>'
-   +'<div class="tool-card"><b>'+SVG_MEM+'폴더 파악 완료</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성</div></div>'
+   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">'+(imp?'2:04':'방금')+'</span></div>'
+   +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.')+'</div>'
+   +'<div class="tool-card"><b>'+SVG_MEM+(imp?'과목 자료 정리 완료':'폴더 파악 완료')+'</b><div class="rail-meta" style="margin-top:5px">'+(imp?('eTL 파일 '+(p.lmsFiles||p.items)+'개 → "'+escapeHtml(p.folder)+'" 폴더 항목 '+p.items+'개로 정리 · memory.md 생성'):(escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성'))+'</div></div>'
    +'<div class="pj-text" style="margin-top:8px">이 채널에서 무엇이든 시켜보세요. 게시글마다 쓰레드로 답하고, 대화 요약은 제 메모리에 쌓여요. 저는 이 폴더 밖에는 접근할 수 없어요.</div>'
    +'</div></div>';
 }

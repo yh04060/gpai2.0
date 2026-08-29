@@ -1,0 +1,134 @@
+/* ---------- 온보딩 오버레이 (회원가입 → LMS 연결 → 자동 임포트) ----------
+   z-index 120: 편집기(90) 위, 노트 버튼(150)·드로어(250)·기밀 바(401) 아래 —
+   온보딩 중에도 「Q의 의견」과 기밀 바는 살아 있어야 한다 */
+.ob{position:fixed;inset:0;z-index:120;background:#FDFCFB;display:none;flex-direction:column}
+.ob.on{display:flex}
+
+/* 상단 바 */
+.ob-top{height:64px;flex:none;display:flex;align-items:center;gap:14px;padding:0 30px;border-bottom:1px solid var(--border-soft);background:#fff}
+.ob-logo{display:flex;align-items:center;gap:10px}
+.ob-mark{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-weight:700;font-size:11.5px}
+.ob-word{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:-.02em}
+.ob-steps{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:30px}
+.ob-step{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink-3)}
+.ob-step .n{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:600}
+.ob-step.on{color:var(--ink)}
+.ob-step.on .n{background:var(--brand);border-color:var(--brand);color:#fff}
+.ob-step.done{color:var(--ink-2)}
+.ob-step.done .n{background:var(--ink);border-color:var(--ink);color:#fff;font-size:10px}
+.ob-skip{margin-left:auto;font-size:12.5px;color:var(--ink-3);padding:8px 4px}
+.ob-skip:hover{color:var(--ink)}
+
+/* 패널 공통 — 하단 기밀 바(≈35px)와 겹치지 않게 여백 확보 */
+.ob-pane{flex:1;display:none;overflow:auto;padding:0 40px 76px}
+.ob-pane.on{display:block}
+.ob-mid{max-width:780px;margin:0 auto;padding-top:56px}
+.ob-nar{max-width:600px}
+.ob-h2{font-family:var(--serif);font-size:34px;font-weight:600;letter-spacing:-.01em}
+.ob-p{margin-top:14px;font-size:14.5px;line-height:1.68;color:var(--ink-2)}
+
+/* 0 · 회원가입 */
+.ob-hero{display:flex;gap:96px;max-width:1080px;margin:0 auto;padding-top:104px;align-items:flex-start}
+.ob-hero-l{flex:1;min-width:0}
+.ob-h1{font-family:var(--serif);font-size:58px;line-height:1.12;font-weight:600;letter-spacing:-.02em}
+.ob-lead{margin-top:22px;font-size:15.5px;line-height:1.68;color:var(--ink-2)}
+.ob-vals{margin-top:36px;list-style:none;display:flex;flex-direction:column;gap:19px}
+.ob-vals li{position:relative;padding-left:35px}
+.ob-vals li::before{content:'✓';position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:7px;background:#FDEEE0;color:#D8681B;font-size:12px;font-weight:700;text-align:center;line-height:22px}
+.ob-vals b{display:block;font-size:14.5px}
+.ob-vals li>span{display:block;margin-top:3px;font-size:13px;color:var(--ink-3)}
+.ob-card{width:402px;flex:none;background:#fff;border:1px solid var(--border);border-radius:16px;padding:30px 30px 24px;box-shadow:0 18px 50px rgba(0,0,0,.06)}
+.ob-card h2{font-size:19px;margin-bottom:20px}
+.ob-oauth{width:100%;height:46px;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:500}
+.ob-oauth:hover{background:var(--hover)}
+.ob-or{display:flex;align-items:center;gap:12px;margin:18px 0 6px;font-size:12px;color:var(--ink-3)}
+.ob-or i{flex:1;height:1px;background:var(--border-soft)}
+.ob-lb{display:block;margin:13px 0 6px;font-size:12px;font-weight:500;color:var(--ink-2)}
+.ob-in{width:100%;height:44px;border:1px solid var(--border);border-radius:10px;padding:0 13px;font-size:14px;background:#fff}
+.ob-in:focus{border-color:var(--brand)}
+.ob-cta{height:47px;border-radius:10px;background:var(--brand);color:#fff;font-weight:600;font-size:14.5px;transition:background .15s}
+.ob-cta:hover{background:#E06A28}
+.ob-cta:disabled{opacity:.65;cursor:default}
+.ob-card .ob-cta{width:100%;margin-top:20px}
+.ob-sub{margin-top:16px;text-align:center;font-size:12.5px;color:var(--ink-3)}
+.ob-sub u{cursor:pointer;text-underline-offset:3px}
+
+/* 1 · LMS 선택 */
+.ob-lms{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ob-lmscard{position:relative;display:flex;flex-direction:column;gap:10px;border:1px solid var(--border);border-radius:14px;background:#fff;padding:18px 16px 15px;text-align:left;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.ob-lmscard:hover{border-color:#C9C9C7;box-shadow:0 8px 22px rgba(0,0,0,.06)}
+.ob-lmscard.rec{border-color:var(--brand);box-shadow:0 0 0 3px #FDEEE0}
+.ob-lmsmk{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:-.02em}
+.ob-lmscard b{font-size:14.5px}
+.ob-lmscard .d{font-size:12px;line-height:1.45;color:var(--ink-3)}
+.ob-recbadge{position:absolute;top:-9px;right:12px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:3px 9px}
+.ob-trust{margin-top:22px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-3)}
+.ob-later{display:inline-block;margin-top:26px;font-size:13px;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
+.ob-later:hover{color:var(--ink-2)}
+
+/* 2 · 연결 */
+.ob-back{display:flex;align-items:center;gap:6px;margin-bottom:18px;font-size:13px;color:var(--ink-3)}
+.ob-back:hover{color:var(--ink)}
+.ob-conn{width:100%}
+.ob-connh{display:flex;align-items:center;gap:13px;margin-bottom:8px}
+.ob-connh b{font-size:17px}
+.ob-connh .sub{display:block;margin-top:2px;font-size:12.5px;color:var(--ink-3)}
+.ob-help{margin-top:8px;font-size:12px;line-height:1.55;color:var(--ink-3)}
+.ob-spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;vertical-align:-3px;margin-right:8px;animation:obspin .7s linear infinite}
+@keyframes obspin{to{transform:rotate(360deg)}}
+
+/* 3 · 과목 선택 */
+.ob-clist{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.ob-sec{margin:20px 0 1px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink-3)}
+.ob-crow{display:flex;align-items:center;gap:13px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:10px 16px;cursor:pointer;text-align:left}
+.ob-crow:hover{background:var(--hover)}
+.ob-ck{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--border);display:grid;place-items:center;color:#fff;flex:none}
+.ob-crow.on .ob-ck{background:var(--brand);border-color:var(--brand)}
+.ob-crow b{font-size:14.5px}
+.ob-crow .sub{display:block;margin-top:2px;font-size:12px;color:var(--ink-3)}
+.ob-crow .cnt{margin-left:auto;font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+.ob-foot{display:flex;align-items:center;gap:14px;margin-top:22px}
+.ob-foot .ob-cta{padding:0 26px}
+.ob-foot .note{font-size:12.5px;color:var(--ink-3)}
+
+/* 4 · 임포트 진행 */
+.ob-ibar{margin-top:30px;height:6px;border-radius:99px;background:var(--border-soft);overflow:hidden}
+.ob-ibar i{display:block;height:100%;width:0;background:var(--brand);transition:width .25s}
+.ob-isum{display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px;color:var(--ink-2)}
+.ob-irows{margin-top:18px}
+.ob-irow{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--border-soft);font-size:14px}
+.ob-irow .nm{font-weight:500}
+.ob-irow .st{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.ob-irow.doing .st{color:#D8681B}
+.ob-irow.ok .st{color:#2E9E5B}
+.ob-dotspin{display:inline-block;width:12px;height:12px;border:2px solid #F4CDAE;border-top-color:#D8681B;border-radius:50%;animation:obspin .7s linear infinite}
+.ob-ilog{margin-top:22px;height:122px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:#FAFAF8;border:1px solid var(--border-soft);border-radius:12px;padding:13px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.8;color:var(--ink-2)}
+.ob-ilog .ok{color:#2E9E5B}
+
+/* 5 · 완료 */
+.ob-done{text-align:center;padding-top:6px}
+.ob-doneic{width:64px;height:64px;margin:0 auto 24px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px rgba(238,119,50,.35)}
+.ob-stats{display:flex;justify-content:center;gap:14px;margin-top:30px}
+.ob-stat{min-width:150px;border:1px solid var(--border);border-radius:14px;background:#fff;padding:16px 26px}
+.ob-stat b{font-family:var(--serif);font-size:26px}
+.ob-stat span{display:block;margin-top:3px;font-size:12px;color:var(--ink-3)}
+.ob-pcards{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:26px}
+.ob-pcard{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:11px 16px;font-size:13px;cursor:pointer}
+.ob-pcard:hover{background:var(--hover)}
+.ob-pcard .hash{color:var(--ink-3)}
+.ob-pcard .ai{font-size:11px;font-weight:600;color:#D8681B;background:#FDEEE0;border-radius:99px;padding:2px 8px}
+.ob-ctas{display:flex;justify-content:center;gap:12px;margin-top:34px}
+.ob-ctas .ob-cta{padding:0 26px}
+.ob-cta2{height:47px;padding:0 24px;border-radius:10px;border:1px solid var(--border);background:#fff;font-size:14px;font-weight:500}
+.ob-cta2:hover{background:var(--hover)}
+
+/* 드라이브 상단 재진입 배너 — 온보딩을 건너뛴 경우에만 표시 */
+.ob-banner{display:none;align-items:center;gap:13px;margin-bottom:18px;border:1px solid var(--border);border-radius:14px;background:#fff;padding:13px 16px;box-shadow:0 4px 14px rgba(0,0,0,.04)}
+.ob-banner.on{display:flex}
+.ob-bn-ic{width:36px;height:36px;border-radius:10px;background:#FDEEE0;color:#D8681B;display:grid;place-items:center;flex:none}
+.ob-bn-tx b{display:block;font-size:13.5px}
+.ob-bn-tx span{display:block;margin-top:1px;font-size:12px;color:var(--ink-3)}
+.ob-bn-go{margin-left:auto;height:36px;padding:0 18px;border-radius:9px;background:var(--brand);color:#fff;font-size:13px;font-weight:600;flex:none}
+.ob-bn-go:hover{background:#E06A28}
+.ob-bn-x{width:30px;height:30px;border-radius:8px;color:var(--ink-3);display:grid;place-items:center;flex:none}
+.ob-bn-x:hover{background:var(--hover);color:var(--ink)}
