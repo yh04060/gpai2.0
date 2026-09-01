@@ -1,5 +1,5 @@
 /* ---------- Sidebar ---------- */
-.sb{width:268px;flex:none;border-right:1px solid var(--border-soft);display:flex;flex-direction:column;padding:14px 12px 18px;background:#fff}
+.sb{width:292px;flex:none;border-right:1px solid var(--border-soft);display:flex;flex-direction:column;padding:14px 12px 18px;background:#fff}
 .sb-top{display:flex;align-items:center;gap:8px;padding:2px 6px 14px}
 .logo{width:30px;height:30px;border-radius:7px;background:var(--brand);display:grid;place-items:center;color:#fff;font-family:var(--serif);font-size:12px;font-weight:600;font-style:italic;letter-spacing:-.02em}
 .wordmark{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:-.01em}
@@ -7,11 +7,20 @@
 .icbtn{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#777775;transition:background .15s}
 .icbtn:hover{background:var(--hover)}
 .nav{display:flex;flex-direction:column;gap:2px}
-.nav-item{display:flex;align-items:center;gap:10px;width:100%;height:36px;padding:0 10px;border-radius:8px;color:#333331;font-size:14px;text-align:left;transition:background .15s}
-.nav-item .ic{color:#61615F}
+.nav-item{display:flex;align-items:flex-start;gap:10px;width:100%;padding:7px 10px;border-radius:8px;color:#333331;font-size:14px;text-align:left;transition:background .15s}
+.nav-item .ic{color:#61615F;margin-top:1px}
+/* 항목 라벨 + 역할 설명 서브라인 (v7.8) — 팀 공유용이라 툴팁 대신 상시 노출.
+   v7.1의 .sb-me-lb와 달리 말줄임 없이 여러 줄로 흐른다 */
+.nav-lb{min-width:0;flex:1}
+.nav-lb>span{display:block;font-size:14px;line-height:1.3}
+.nav-lb em{display:block;margin-top:3px;font-style:normal;font-size:10.5px;line-height:1.45;color:var(--ink-3);letter-spacing:-.01em;word-break:keep-all}
 .nav-item:hover{background:var(--hover)}
 .nav-item.on{background:var(--active)}
-.sb-sec{font-size:11.5px;color:var(--ink-3);padding:18px 10px 8px}
+.sb-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;margin:0 -12px;padding:0 12px 4px}
+.sb-scroll::-webkit-scrollbar{width:8px}
+.sb-scroll::-webkit-scrollbar-thumb{background:#E3E3E1;border-radius:99px;border:2px solid #fff}
+.sb-sec{font-size:11.5px;color:var(--ink-3);padding:14px 10px 7px}
+.sb-sec em{display:block;margin-top:4px;font-style:normal;font-size:10.5px;line-height:1.45;color:#B4B4B2;letter-spacing:-.01em;word-break:keep-all}
 .avatar{width:30px;height:30px;border-radius:50%;background:#F4F4F2;border:1px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:600}
 
 /* ---- 1단 카드: 나 = 마스터 AI = AI 드라이브 (같은 위계를 컨테인먼트로 표현) ---- */

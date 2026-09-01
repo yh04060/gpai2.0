@@ -105,8 +105,8 @@ const FOLD_SVG='<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stro
 let pjSeq=0,pjUpDest=null;
 
 function renderProjects(){
-  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></button>').join('')
-   +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span>새 프로젝트</span></button>';
+  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span><em>'+(p.folder===p.name?'':'「'+escapeHtml(p.folder)+'」 폴더 · ')+escapeHtml(p.agent)+' · 항목 '+p.items+'개</em></span></button>').join('')
+   +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span><em>드라이브 폴더를 하나 지정하면 그 폴더만 관장하는 전담 AI가 만들어져요.</em></span></button>';
   const tier=$('#maTierProj');
   if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box"><b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
    +'<div class="tier-box dashed" id="maNewProj">+ 새 프로젝트</div>';

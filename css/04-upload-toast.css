@@ -1,7 +1,7 @@
 /* ---------- Sidebar upload → Drive toast ---------- */
-.nav-drow{display:flex;align-items:center;gap:4px}
+.nav-drow{display:flex;align-items:flex-start;gap:4px}
 .nav-drow .nav-item{flex:1;min-width:0}
-.sb-up{width:32px;height:32px;border:1px solid var(--border);border-radius:8px;display:grid;place-items:center;color:#55554F;flex:none;background:#fff;transition:background .15s,border-color .15s}
+.sb-up{width:32px;height:32px;margin-top:1px;border:1px solid var(--border);border-radius:8px;display:grid;place-items:center;color:#55554F;flex:none;background:#fff;transition:background .15s,border-color .15s}
 .sb-up:hover{background:var(--hover);border-color:#D2D2D0}
 .uptoast{position:fixed;right:22px;bottom:74px;width:344px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 16px 44px rgba(0,0,0,.18);z-index:160;overflow:hidden}
 .uptoast-h{display:flex;align-items:center;gap:2px;padding:10px 10px 10px 16px;background:#222220;color:#fff}
