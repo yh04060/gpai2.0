@@ -34,7 +34,7 @@ function upFinish(it){
       p.items=p.files.length;
       const df=driveItems.find(d=>d.type==='folder'&&d.name===p.folder);
       if(df)df.meta='항목 '+p.items+'개';
-      renderDrive();
+      renderDrive();renderProjects();
       if(state.view==='project'&&state.project===p.id)renderProject(p);
     }
   }else{

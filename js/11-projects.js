@@ -175,6 +175,7 @@ function pjStoredMsgs(p){
 /* ---- 라이브 툴 호출 — 메시지 키워드에 따라 툴 카드·결과 파일·메모리 반영을 연출 ----
    구체적인 라우트가 먼저 오도록 순서 유지 (보고서 → 요약 → 시각화 → 문제) */
 const PJ_ROUTES=[
+ {re:/발표|슬라이드|피피티|PPT|프레젠/i,tool:'PPT 제작 툴',kind:'ppt',base:'발표자료',param:'개요 8장 → 슬라이드 · 폴더 자료·메모리 기준',size:3565158},
  {re:/보고서|리포트|초안/,tool:'문서 작성 툴',kind:'doc',base:'보고서 초안',param:'폴더 자료·메모리 기준 구성 · 개요 → 본문',size:26624},
  {re:/요약|정리/,tool:'문서 작성 툴',kind:'doc',base:'요약 노트',param:'핵심 개념 위주 · 폴더 자료 기준',size:22528},
  {re:/그래프|도식|다이어그램|시각화|그림/,tool:'시각화 툴',kind:'png',base:'개념 다이어그램',param:'편집 가능한 SVG · 강의 자료 참조',size:98304},
@@ -201,7 +202,7 @@ function pjRoutedThreadHTML(p,m){
 }
 function pjRailHTML(p){
   const mem=(p.memory&&p.memory.length)?p.memory.map(m=>'<div>'+escapeHtml(m)+'</div>').join(''):'<div style="color:#9C9C9A">아직 비어 있어요 — 대화할수록 채워져요</div>';
-  const tools=[['solver','문제 풀이'],['generator','문제 생성'],['figure','시각화'],['canvas','캔버스'],['report-writer','문서 작성'],['chat','채팅']]
+  const tools=[['solver','문제 풀이'],['generator','문제 생성'],['figure','시각화'],['canvas','캔버스'],['report-writer','문서 작성'],['ppt','PPT 제작'],['chat','채팅']]
     .map(t=>'<span class="tool-chip" data-nav="'+t[0]+'">'+t[1]+'</span>').join('');
   return '<aside class="ma-rail">'
    +'<div class="rail-h">프로젝트 정보</div>'
@@ -408,7 +409,7 @@ function pjSendMsg(p,text){
         p.items=p.files.length;
         const df=driveItems.find(d=>d.type==='folder'&&d.name===p.folder);
         if(df)df.meta='항목 '+p.items+'개';
-        renderDrive();
+        renderDrive();renderProjects();
         const em=$('#view-project .pj-tab[data-tab="files"] em');
         if(em)em.textContent=p.items;
         const th2=$('#pjTh'+idx);
