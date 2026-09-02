@@ -9,7 +9,6 @@
 
 /* 큰 사진 — 슬랙 프로필의 정사각 사진 자리 */
 .pf-photo{width:300px;height:300px;margin:0 auto;border-radius:14px;overflow:hidden;background:#F4F4F2;display:grid;place-items:center}
-.pf-photo img,.pf-photo .av{width:100%!important;height:100%!important;object-fit:cover;object-position:50% 30%;border-radius:0!important;display:block}
 .pf-photo .uav-init{font-size:110px;font-weight:700;color:#8A8A88}
 .pf-name{margin-top:18px;font-size:22px;font-weight:700;letter-spacing:-.01em;outline:none;border-radius:6px;line-height:1.3}
 .pf-name[contenteditable="true"]{box-shadow:0 0 0 2px var(--brand);padding:0 6px;margin-left:-6px}
@@ -48,7 +47,17 @@
 .pf-tip{font-size:11.5px;color:#9C9C9A;margin-top:8px;line-height:1.55}
 [data-pf]{cursor:pointer}
 
-/* 내 사진 — 어떤 아바타 컨테이너(.avatar 30 · .lava 20 · .pj-pava 36)에 넣어도 가득 채운다 */
-.uav{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;border-radius:inherit}
+/* ---- 아바타 마스크 — 완벽한 원/정사각에 사진이 꽉 차게, 엔진 무관 ----
+   · 컨테이너: 명시 크기 + aspect-ratio 보강, position:relative, overflow:hidden.
+     테두리는 레이아웃 공간을 먹는 border 대신 inset box-shadow(사진이 덮으면 안 보임)
+   · 사진: position:absolute; inset:0 — grid/flex 자식의 height:100% 해석 차이(Safari)에
+     의존하지 않고 컨테이너 패딩 박스 4변에 밀착. object-fit:cover로 비율 유지 */
+.avatar,.lava,.pj-pava,.pj-mini,.pf-photo{position:relative;overflow:hidden;flex:none;padding:0;box-sizing:border-box}
+.avatar,.lava,.pj-pava,.pj-mini{aspect-ratio:1/1}
+.avatar{border:none;box-shadow:inset 0 0 0 1px var(--border)}
+.pj-pava{border:none;box-shadow:inset 0 0 0 1px var(--border)}
+.pj-pava.ai,.pj-pava.av,.pj-mini.av{box-shadow:none}
+.avatar>img,.lava>img,.pj-pava>img,.pj-mini>img{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:cover;object-position:50% 30%;display:block;border-radius:inherit!important;margin:0}
 .uav-init{display:grid;place-items:center;width:100%;height:100%}
-.avatar,.lava,.pj-pava{overflow:hidden}
+.pf-photo{aspect-ratio:1/1}
+.pf-photo>img,.pf-photo>.av{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:cover;object-position:50% 30%;border-radius:0!important;display:block;margin:0}
