@@ -48,16 +48,18 @@
 [data-pf]{cursor:pointer}
 
 /* ---- 아바타 마스크 — 완벽한 원/정사각에 사진이 꽉 차게, 엔진 무관 ----
-   · 컨테이너: 명시 크기 + aspect-ratio 보강, position:relative, overflow:hidden.
-     테두리는 레이아웃 공간을 먹는 border 대신 inset box-shadow(사진이 덮으면 안 보임)
-   · 사진: position:absolute; inset:0 — grid/flex 자식의 height:100% 해석 차이(Safari)에
-     의존하지 않고 컨테이너 패딩 박스 4변에 밀착. object-fit:cover로 비율 유지 */
+   원칙: 브라우저마다 해석이 갈리는 기제(% 높이 · grid/flex 자식 크기 · absolute inset)를
+   전부 배제한다.
+   · 컨테이너: 명시 px + aspect-ratio + overflow:hidden. 테두리는 공간을 먹는 border 대신
+     inset box-shadow(사진이 덮으면 안 보임)
+   · 사진 <img>: CSS로는 크기를 전혀 지정하지 않는다(width/height:auto·%·100% 모두 금지).
+     userAvatar/avatarSVG가 박는 width/height 픽셀 속성이 컨테이너와 같은 값이라 정확히 채움.
+     CSS에서 크기를 건드리면 속성이 무시돼 원본 크기(846px)로 터진다 — v7.15에서 실제로 겪음 */
 .avatar,.lava,.pj-pava,.pj-mini,.pf-photo{position:relative;overflow:hidden;flex:none;padding:0;box-sizing:border-box}
-.avatar,.lava,.pj-pava,.pj-mini{aspect-ratio:1/1}
+.avatar,.lava,.pj-pava,.pj-mini,.pf-photo{aspect-ratio:1/1}
 .avatar{border:none;box-shadow:inset 0 0 0 1px var(--border)}
 .pj-pava{border:none;box-shadow:inset 0 0 0 1px var(--border)}
 .pj-pava.ai,.pj-pava.av,.pj-mini.av{box-shadow:none}
-.avatar>img,.lava>img,.pj-pava>img,.pj-mini>img{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:cover;object-position:50% 30%;display:block;border-radius:inherit!important;margin:0}
-.uav-init{display:grid;place-items:center;width:100%;height:100%}
-.pf-photo{aspect-ratio:1/1}
-.pf-photo>img,.pf-photo>.av{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:cover;object-position:50% 30%;border-radius:0!important;display:block;margin:0}
+.avatar>img,.lava>img,.pj-pava>img,.pj-mini>img,.pf-photo>img{display:block;max-width:none;max-height:none;object-fit:cover;object-position:50% 30%;border-radius:inherit!important;margin:0;padding:0;border:0;flex:none}
+.uav-init{display:grid;place-items:center;width:100%;height:100%;line-height:1}
+.pf-photo{width:300px!important;height:300px!important;min-width:300px;min-height:300px;max-width:300px;max-height:300px}

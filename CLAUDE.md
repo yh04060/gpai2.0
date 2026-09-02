@@ -392,6 +392,31 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
 | `main` | 기본 브랜치 · **배포 브랜치 · 작업 브랜치**. 개발 · 커밋 · 푸시를 전부 여기서 합니다 |
 | `claude/*` | **평소에는 쓰지 않습니다.** 대규모 리팩터링처럼 "배포 전에 먼저 보고 결정하고 싶은" 작업일 때만 Q가 지시해서 임시로 팝니다 |
 
+### 캐시 버스터 — 코드를 고친 커밋마다 스탬프를 갱신하세요
+
+GitHub Pages는 css/js를 `Cache-Control: max-age=600`으로 내보내서, 브라우저가 **10분간
+재검증 없이 옛 파일을 재사용**합니다(Safari는 일반 새로고침에서도 하위 리소스를 캐시에서
+씁니다). 그래서 `index.html`의 모든 `<link>`·`<script>`에 `?v=YYYYMMDDHHMM` 쿼리가
+붙어 있고, 이 값이 바뀌면 새 URL로 인식해 반드시 다시 받습니다.
+
+**푸시 전에 아래를 실행하세요.** 안 하면 Q가 배포 직후 확인할 때 옛 CSS로 렌더된
+화면을 보고 "아직 안 고쳐졌다"고 판단합니다 — 실제로 v7.15 직전, 마스크 수정을 세 번
+푸시했는데 Q 화면은 계속 옛 CSS였습니다.
+
+```bash
+python3 -c "
+import re,datetime
+p='index.html';h=open(p,encoding='utf-8').read()
+s=datetime.datetime.utcnow().strftime('%Y%m%d%H%M')
+h=re.sub(r'(href=\"css/[^\"?]+\.css)(\?v=\d+)?\"',r'\1?v='+s+'\"',h)
+h=re.sub(r'(src=\"js/[^\"?]+\.js)(\?v=\d+)?\"',r'\1?v='+s+'\"',h)
+open(p,'w',encoding='utf-8').write(h);print('stamp',s)"
+```
+
+Q 쪽 확인법: 드로어(「Q의 의견」) 헤더의 버전 배지가 최신 커밋의 값이면 index.html이
+새것이고, 스탬프 덕에 css/js도 새것입니다. 배지가 옛 값이면 index.html 자체가 캐시된
+것이니 **강력 새로고침(Mac: Cmd+Shift+R · Windows: Ctrl+Shift+R)** 을 안내하세요.
+
 ### main 직접 작업의 안전장치 4개 — 브랜치가 하던 역할을 대신합니다
 
 1. **푸시 = 즉시 배포. 검증 없이 푸시하지 않습니다.** 아래 「검증 루틴」 전체(구문 체크 →
