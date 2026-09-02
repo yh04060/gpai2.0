@@ -60,7 +60,7 @@ function renderDrive(){
     const p=PROJECTS.find(x=>x.folder===path[0]);
     pjEl.style.display='inline-flex';
     if(p){
-      pjEl.innerHTML='<span class="pj-mini">g(π)</span>'+escapeHtml(p.agent)+'가 관장 · #'+escapeHtml(p.name)+' 채널 열기';
+      pjEl.innerHTML='<span class="pj-mini av">'+avatarFor(p,20)+'</span>'+escapeHtml(p.agent)+'가 관장 · #'+escapeHtml(p.name)+' 채널 열기';
       pjEl.onclick=()=>go('project-'+p.id);
     }else{
       pjEl.innerHTML='프로젝트 미연결 — 이 폴더로 새 프로젝트 만들기';

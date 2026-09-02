@@ -20,7 +20,6 @@
 .sb-scroll::-webkit-scrollbar{width:8px}
 .sb-scroll::-webkit-scrollbar-thumb{background:#E3E3E1;border-radius:99px;border:2px solid #fff}
 .sb-sec{font-size:11.5px;color:var(--ink-3);padding:14px 10px 7px}
-.sb-sec em{display:block;margin-top:4px;font-style:normal;font-size:10.5px;line-height:1.45;color:#B4B4B2;letter-spacing:-.01em;word-break:keep-all}
 .avatar{width:30px;height:30px;border-radius:50%;background:#F4F4F2;border:1px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:600}
 
 /* ---- 1단 카드: 나 = 마스터 AI = AI 드라이브 (같은 위계를 컨테인먼트로 표현) ---- */

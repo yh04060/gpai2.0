@@ -6,7 +6,7 @@ const SVG_CK12='<svg width="12" height="12" viewBox="0 0 20 20" fill="none" stro
 const PLUS_SVG='<svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg>';
 const SEND_SVG='<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9"/></svg>';
 
-const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folder:'일반물리학',items:6,msgs:[],cwd:null,fq:'',
+const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avatar:'owl',folder:'일반물리학',items:6,msgs:[],cwd:null,fq:'',
   files:[
    {type:'folder',name:'강의 노트',meta:'항목 4개',time:'8월 24일',open:true,children:[
     {type:'folder',name:'스캔본',meta:'항목 2개',time:'8월 12일',children:[
@@ -30,7 +30,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
   memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00',src:'etl',lmsFiles:24},
 
  /* p2~p5: 온보딩 eTL 임포트가 만든 과목 프로젝트 — 채널은 웰컴 메시지 상태 */
- {id:'p2',name:'자료구조',agent:'자료구조 AI',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
+ {id:'p2',name:'자료구조',agent:'자료구조 AI',avatar:'robot',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
   files:[
    {type:'folder',name:'강의 슬라이드',meta:'항목 4개',time:'8월 25일',open:true,children:[
     {kind:'pdf',name:'01 배열과 연결 리스트',meta:'PDF · 2.4MB',time:'8월 18일'},
@@ -49,7 +49,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
   pins:[],
   memory:['eTL 임포트 — 강의 슬라이드 4 · 과제 2 · 공지·기타 3 정리','실라버스: 과제 30% · 중간 30% · 기말 40%, 지각 제출 하루 -10%'],memUpdated:'8월 17일'},
 
- {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
+ {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',avatar:'fox',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
   files:[
    {type:'folder',name:'주차별 강의노트',meta:'항목 4개',time:'8월 26일',open:true,children:[
     {kind:'pdf',name:'1주차 라플라스 변환',meta:'PDF · 1.6MB',time:'8월 18일'},
@@ -64,7 +64,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
   pins:[],
   memory:['eTL 임포트 — 주차별 노트 4 · 과제 1 · 해답집 1 정리','과제 1 마감: 9월 4일 (금) 23:59 — 실라버스에서 추출'],memUpdated:'8월 17일'},
 
- {id:'p4',name:'대학영어',agent:'대학영어 AI',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+ {id:'p4',name:'대학영어',agent:'대학영어 AI',avatar:'penguin',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
   files:[
    {type:'folder',name:'읽기 자료',meta:'항목 3개',time:'8월 24일',children:[
     {kind:'pdf',name:'Unit 1 — The Science of Habit',meta:'PDF · 880KB',time:'8월 18일'},
@@ -78,7 +78,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',folde
   pins:[],
   memory:['eTL 임포트 — 읽기 자료 3 · 과제 1 · 평가 기준 1 정리','에세이 1: 500 단어 · 9월 8일 (화) 마감'],memUpdated:'8월 17일'},
 
- {id:'p5',name:'심리학개론',agent:'심리학개론 AI',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+ {id:'p5',name:'심리학개론',agent:'심리학개론 AI',avatar:'bear',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
   files:[
    {type:'folder',name:'강의 슬라이드',meta:'항목 3개',time:'8월 26일',children:[
     {kind:'ppt',name:'1장 심리학의 본질',meta:'PPTX · 6.2MB',time:'8월 19일'},
@@ -105,10 +105,10 @@ const FOLD_SVG='<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stro
 let pjSeq=0,pjUpDest=null;
 
 function renderProjects(){
-  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span><em>'+(p.folder===p.name?'':'「'+escapeHtml(p.folder)+'」 폴더 · ')+escapeHtml(p.agent)+' · 항목 '+p.items+'개</em></span></button>').join('')
-   +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span><em>드라이브 폴더를 하나 지정하면 그 폴더만 관장하는 전담 AI가 만들어져요.</em></span></button>';
+  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></span></button>').join('')
+   +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span></span></button>';
   const tier=$('#maTierProj');
-  if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box"><b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
+  if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box">'+avatarFor(p,26)+'<b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
    +'<div class="tier-box dashed" id="maNewProj">+ 새 프로젝트</div>';
 }
 $('#projNav').addEventListener('click',e=>{
@@ -127,11 +127,11 @@ function pjUserPost(p,time,text,extra){
    +'<div class="pj-who"><b>김튜링</b><span class="pj-time">'+time+'</span></div>'
    +'<div class="pj-text">'+pjFmt(p,text)+'</div>'+(extra||'')+'</div></div>';
 }
-function pjTsum(n,when){
-  return '<div class="pj-treply"><span class="pj-mini">g(π)</span>'+n+'개의 답글<em> · 마지막 답글 '+when+'</em></div>';
+function pjTsum(p,n,when){
+  return '<div class="pj-treply"><span class="pj-mini av">'+avatarFor(p,20)+'</span>'+n+'개의 답글<em> · 마지막 답글 '+when+'</em></div>';
 }
 function pjThreadReply(p,time,inner){
-  return '<div><div class="pj-who"><span class="pj-mini">g(π)</span><b>'+escapeHtml(p.agent)+'</b><span class="pj-time">'+time+'</span></div><div class="pj-text">'+inner+'</div></div>';
+  return '<div><div class="pj-who"><span class="pj-mini av">'+avatarFor(p,20)+'</span><b>'+escapeHtml(p.agent)+'</b><span class="pj-time">'+time+'</span></div><div class="pj-text">'+inner+'</div></div>';
 }
 function pjP1HTML(p){
   const thread='<div class="pj-thread">'
@@ -141,10 +141,10 @@ function pjP1HTML(p){
    +pjThreadReply(p,'1:35','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "중간시험 범위 3~5장 · 취약 유형: 포물선 벡터 분해" · 다음 대화부터 반영돼요</span></div>')
    +'</div>';
   return '<div class="pj-day">어제</div>'
-   +pjUserPost(p,'12:31','@일반물리학 AI 실험 데이터.xlsx 기반으로 실험 보고서 초안 잡아줘. 결과 표는 3개로 정리해줘.',pjTsum(2,'어제'))
-   +pjUserPost(p,'4:02','@일반물리학 AI 3장 연습문제에서 내가 자주 틀리는 유형 분석해줘.',pjTsum(3,'어제'))
+   +pjUserPost(p,'12:31','@일반물리학 AI 실험 데이터.xlsx 기반으로 실험 보고서 초안 잡아줘. 결과 표는 3개로 정리해줘.',pjTsum(p,2,'어제'))
+   +pjUserPost(p,'4:02','@일반물리학 AI 3장 연습문제에서 내가 자주 틀리는 유형 분석해줘.',pjTsum(p,3,'어제'))
    +'<div class="pj-day">오늘</div>'
-   +'<div class="pj-post"><div class="pj-pava ai">g(π)</div><div class="pj-body">'
+   +'<div class="pj-post"><div class="pj-pava ai av">'+avatarFor(p,36)+'</div><div class="pj-body">'
    +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">10:00</span></div>'
    +'<div class="pj-text"><span class="mono-badge">memory.md</span> 일일 업데이트 — 어제 대화 2건을 요약해 반영했어요</div></div></div>'
    +pjUserPost(p,'1:30','@일반물리학 AI 다음 주 중간시험 범위(3~5장) 요약하고, 그 범위에서 변형 문제 20개 만들어줘.',thread);
@@ -152,7 +152,7 @@ function pjP1HTML(p){
 function pjWelcome(p){
   const imp=p.src==='etl';
   return '<div class="pj-day">'+(imp?'8월 17일 — eTL 가져오기':'오늘')+'</div>'
-   +'<div class="pj-post"><div class="pj-pava ai">g(π)</div><div class="pj-body">'
+   +'<div class="pj-post"><div class="pj-pava ai av">'+avatarFor(p,36)+'</div><div class="pj-body">'
    +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">'+(imp?'2:04':'방금')+'</span></div>'
    +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.')+'</div>'
    +'<div class="tool-card"><b>'+SVG_MEM+(imp?'과목 자료 정리 완료':'폴더 파악 완료')+'</b><div class="rail-meta" style="margin-top:5px">'+(imp?('eTL 파일 '+(p.lmsFiles||p.items)+'개 → "'+escapeHtml(p.folder)+'" 폴더 항목 '+p.items+'개로 정리 · memory.md 생성'):(escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성'))+'</div></div>'
@@ -206,7 +206,7 @@ function pjRailHTML(p){
     .map(t=>'<span class="tool-chip" data-nav="'+t[0]+'">'+t[1]+'</span>').join('');
   return '<aside class="ma-rail">'
    +'<div class="rail-h">프로젝트 정보</div>'
-   +'<div class="rail-card" style="margin-top:12px"><div style="display:flex;gap:10px;align-items:center"><div class="pj-pava ai" style="width:34px;height:34px">g(π)</div><div style="min-width:0"><b id="pjAgName" style="font-size:13.5px;outline:none">'+escapeHtml(p.agent)+'</b><div class="rail-meta" style="margin-top:2px">이 프로젝트를 관장하는 AI · 온라인</div></div></div>'
+   +'<div class="rail-card" style="margin-top:12px"><div style="display:flex;gap:10px;align-items:center"><div class="pj-pava ai av" style="width:34px;height:34px">'+avatarFor(p,34)+'</div><div style="min-width:0"><b id="pjAgName" style="font-size:13.5px;outline:none">'+escapeHtml(p.agent)+'</b><div class="rail-meta" style="margin-top:2px">이 프로젝트를 관장하는 AI · 온라인</div></div></div>'
    +'<div class="rail-btns"><button class="b1" id="pjRename">이름 수정</button></div></div>'
    +'<div class="rail-card"><b style="display:flex;align-items:center;gap:7px">'+SVG_FLD+'연결 폴더</b><div class="rail-meta">'+escapeHtml(p.folder)+' — 하위 항목 '+p.items+'개 접근</div>'
    +'<div class="rail-btns"><button class="b1" id="pjSeeFiles">프로젝트 파일 보기</button></div></div>'
@@ -291,7 +291,7 @@ function renderProject(p){
   const tab=state.pjTab||'msg';
   const head='<div class="pj-head">'
    +'<div class="pj-title"><span class="hash">#</span>'+escapeHtml(p.name)
-   +'<span class="pj-badge ai" style="margin-left:8px"><span class="pj-mini" style="width:16px;height:16px;font-size:6px">g(π)</span>'+escapeHtml(p.agent)+'</span></div>'
+   +'<span class="pj-badge ai" style="margin-left:8px"><span class="pj-mini av" style="width:16px;height:16px">'+avatarFor(p,16)+'</span>'+escapeHtml(p.agent)+'</span></div>'
    +'<div class="pj-badges">'
    +'<span class="pj-badge" id="pjBadgeFolder" style="cursor:pointer" title="프로젝트 파일 보기">'+SVG_FLD+escapeHtml(p.folder)+' 폴더 연결</span>'
    +'<span class="pj-badge">하위 항목 '+p.items+'개 접근</span>'
@@ -432,10 +432,18 @@ function pjSendMsg(p,text){
 }
 
 /* 새 프로젝트 만들기 */
-let projSel=null;
+let projSel=null,projAvatar=null;
+function renderProjAvGrid(){
+  const cur=projAvatar||avatarDefault(projSel||'');
+  $('#projAvGrid').innerHTML=AVATARS.map(a=>'<button type="button" class="proj-av-btn'+(a.k===cur?' on':'')+'" data-k="'+a.k+'" title="'+a.n+'">'+avatarSVG(a.k,34)+'</button>').join('');
+}
+$('#projAvGrid').addEventListener('click',e=>{
+  const b=e.target.closest('.proj-av-btn');if(!b)return;
+  projAvatar=b.dataset.k;renderProjAvGrid();
+});
 function openProjModal(){
-  projSel=null;
-  $('#projName').value='';
+  projSel=null;projAvatar=null;
+  $('#projName').value='';renderProjAvGrid();
   $('#projCreate').disabled=true;
   const linked={};PROJECTS.forEach(p=>linked[p.folder]=p.agent);
   const folders=driveItems.filter(i=>i.type==='folder');
@@ -458,6 +466,7 @@ $('#projFolders').addEventListener('click',e=>{
   r.classList.add('on');
   projSel=r.dataset.f;
   $('#projName').value=projSel+' AI';
+  if(!projAvatar)renderProjAvGrid(); /* 직접 고르기 전엔 폴더 이름 기준 기본 캐릭터가 따라온다 */
   $('#projCreate').disabled=false;
 });
 $('#projClose').addEventListener('click',closeProjModal);
@@ -471,7 +480,7 @@ $('#projCreate').addEventListener('click',()=>{
   const agent=($('#projName').value.trim()||projSel+' AI');
   const preset=(FOLDER_FILES[projSel]||[]).map(f=>Object.assign({},f));
   const cnt=preset.length||items;
-  PROJECTS.push({id:id,name:projSel,agent:agent,folder:projSel,items:cnt,msgs:[],files:preset,pins:[],cwd:null,fq:'',
+  PROJECTS.push({id:id,name:projSel,agent:agent,avatar:projAvatar||avatarDefault(projSel),folder:projSel,items:cnt,msgs:[],files:preset,pins:[],cwd:null,fq:'',
     memory:[projSel+' 폴더 구조 파악 완료 — 하위 항목 '+cnt+'개'],memUpdated:'방금'});
   renderProjects();
   closeProjModal();

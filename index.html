@@ -76,7 +76,7 @@
       </nav>
     </div>
 
-    <div class="sb-sec">프로젝트<em>드라이브 폴더 하나에 권한을 준 2단 에이전트예요. 지정된 폴더 하위 전체를 보고, 그 밖은 접근하지 못해요.</em></div>
+    <div class="sb-sec">프로젝트</div>
     <nav class="nav" id="projNav"></nav>
 
     <div class="sb-sec">툴 에이전트</div>
@@ -1426,7 +1426,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.11 · 2026.09.01</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.12 · 2026.09.01</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1618,6 +1618,10 @@
       <input id="projName" placeholder="폴더를 선택하면 자동으로 지어져요">
       <span class="hint2">루트 폴더 이름을 따라 자동으로 지어져요 — 원하면 바꿀 수 있어요</span>
     </div>
+    <div class="proj-av">
+      <label>프로젝트 AI 프로필<span class="opt">선택 사항 — 안 고르면 기본 캐릭터가 자동으로 정해져요</span></label>
+      <div class="proj-av-grid" id="projAvGrid"></div>
+    </div>
     <div class="pick-f">
       <span class="hint">폴더 1개 = 프로젝트 1개 · 프로젝트 AI는 폴더 밖 데이터에 접근할 수 없어요</span>
       <button class="btn-ghost" id="projCancel">취소</button>
@@ -1628,6 +1632,7 @@
 
 <script src="js/00-helpers.js"></script>
 <script src="js/01-assets-drive.js"></script>
+<script src="js/01-assets-avatars.js"></script>
 <script src="js/02-canvas.js"></script>
 <script src="js/03-data.js"></script>
 <script src="js/04-drive.js"></script>

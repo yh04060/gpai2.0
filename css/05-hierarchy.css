@@ -92,6 +92,10 @@
 .pj-post:hover{background:#FAFAF8}
 .pj-pava{width:36px;height:36px;border-radius:9px;flex:none;display:grid;place-items:center;font-size:14px;font-weight:600;background:#F4F4F2;border:1px solid var(--border)}
 .pj-pava.ai{background:var(--brand);color:#fff;border:none;font-family:var(--serif);font-style:italic;font-size:10.5px}
+/* 프로필 캐릭터가 들어가면 컨테이너 배경은 SVG가 대신한다 */
+.pj-pava.av,.pj-mini.av{background:transparent;border:none;padding:0;overflow:hidden}
+.pj-pava.av svg,.pj-mini.av svg{display:block;width:100%;height:100%}
+.tier-box .av{margin:1px 0 3px;border-radius:7px}
 .pj-body{flex:1;min-width:0}
 .pj-who{display:flex;align-items:center;gap:7px}
 .pj-who b{font-size:13.5px}
@@ -119,6 +123,14 @@
 .proj-name label{font-size:12.5px;font-weight:600;display:block;margin-bottom:7px}
 .proj-name input{width:100%;border:1px solid var(--border);border-radius:9px;height:38px;padding:0 12px;font-size:13.5px}
 .proj-name .hint2{display:block;font-size:11.5px;color:#9C9C9A;margin-top:6px}
+.proj-av{padding:12px 18px 6px;border-top:1px solid var(--border-soft);margin-top:10px}
+.proj-av label{font-size:12.5px;font-weight:600;display:block;margin-bottom:8px}
+.proj-av .opt{font-weight:400;font-size:11.5px;color:#9C9C9A;margin-left:7px}
+.proj-av-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.proj-av-btn{padding:3px;border-radius:11px;border:2px solid transparent;display:grid;place-items:center;transition:border-color .12s,background .12s}
+.proj-av-btn:hover{background:var(--hover)}
+.proj-av-btn.on{border-color:var(--brand);background:#FDEEE0}
+.proj-av-btn svg{display:block}
 .pj-pane{flex:1;min-width:0;display:none;flex-direction:column;min-height:0}
 .pj-pane.on{display:flex}
 .pj-tab em{font-style:normal;color:#ABABA9;font-size:11.5px;margin-left:3px}

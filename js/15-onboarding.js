@@ -237,7 +237,7 @@ function obRenderDone(){
   const files=list.reduce((s,c)=>s+c.files,0);
   const cards=list.map(c=>{
     const nav=c.pj?' data-nav="project-'+c.pj+'"':'';
-    return '<button class="ob-pcard"'+nav+'><span class="hash">#</span><b>'+c.name+'</b><span class="ai">'+c.name+' AI</span></button>';
+    return '<button class="ob-pcard"'+nav+'><span class="hash">#</span><b>'+c.name+'</b>'+avatarFor(PROJECTS.find(x=>x.id===c.pj)||{name:c.name},20)+'<span class="ai">'+c.name+' AI</span></button>';
   }).join('');
   $('#obDonePane').innerHTML='<div class="ob-done">'
    +'<div class="ob-doneic"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 10.5 4 4 8-8.5"/></svg></div>'
