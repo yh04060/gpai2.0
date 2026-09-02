@@ -36,6 +36,12 @@ function avatarSVG(k,size){
   if(a.src)return '<img class="av" src="'+a.src+'" width="'+size+'" height="'+size+'" alt="'+a.n+'" draggable="false" style="border-radius:25%;display:block;object-fit:cover">';
   return '<svg class="av" viewBox="0 0 64 64" width="'+size+'" height="'+size+'" aria-label="'+a.n+'">'+a.draw()+'</svg>';
 }
+/* 내(유저) 아바타 — 사진이 있으면 <img>, 없으면 이니셜. 컨테이너가 크기를 정한다 */
+function userAvatar(size){
+  size=size||36;
+  if(USER.photo)return '<img class="uav" src="'+USER.photo+'" width="'+size+'" height="'+size+'" alt="'+USER.name+'" draggable="false">';
+  return '<span class="uav-init">'+USER.initial+'</span>';
+}
 /* 프로젝트/에이전트 객체에서 바로 — avatar가 없으면 이름으로 기본 배정 */
 function avatarFor(o,size){return avatarSVG((o&&o.avatar)||avatarDefault(o&&o.name),size);}
 /* 프로필을 안 고르면 이름으로 결정적 배정 — 같은 이름은 항상 같은 캐릭터 */

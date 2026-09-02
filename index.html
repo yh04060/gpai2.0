@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="css/15-generic.css">
 <link rel="stylesheet" href="css/16-onboarding.css">
 <link rel="stylesheet" href="css/17-ppt.css">
+<link rel="stylesheet" href="css/18-profile.css">
 </head>
 <body>
 <div class="app">
@@ -55,9 +56,9 @@
     <!-- 1단: 나 = 마스터 AI = AI 드라이브 — 마스터 AI는 나를 의인화한 것이므로
          계정과 같은 위계다. 그 등가를 카드 하나(컨테인먼트)로 보여준다 -->
     <div class="sb-me">
-      <div class="sb-me-head">
-        <div class="avatar">김</div>
-        <div class="sb-me-who"><b>김튜링</b><span>turing@snu.ac.kr</span></div>
+      <div class="sb-me-head" data-pf="user" title="내 프로필">
+        <div class="avatar" id="sbMeAva"></div>
+        <div class="sb-me-who"><b id="sbMeName"></b><span id="sbMeMail"></span></div>
       </div>
       <nav class="nav">
         <button class="nav-item" data-nav="master">
@@ -968,6 +969,17 @@
     </div>
   </aside>
 
+  <!-- ===== 프로필 패널 (슬랙형) — js/18-profile.js가 채움. .app의 flex 자식이라 열리면 본문을 밀어낸다 ===== -->
+  <aside class="pf" id="pfPanel" style="display:none">
+    <div class="pf-h"><b>프로필</b>
+      <button class="icbtn" id="pfClose" title="닫기">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="pf-body" id="pfBody"></div>
+    <input type="file" id="pfFile" accept="image/*" style="display:none">
+  </aside>
+
   <button class="fab" id="chatFab" style="display:none" title="채팅 열기">
     <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.75c3.7 0 6.75 2.6 6.75 5.75S13.7 15.25 10 15.25c-.75 0-1.5-.1-2.2-.3L4.25 16l.85-2.5A5.5 5.5 0 0 1 3.25 9.5c0-3.15 3.05-5.75 6.75-5.75Z"/></svg>
   </button>
@@ -984,7 +996,7 @@
     <nav class="ed-menus" id="edMenus"></nav>
     <div class="ed-top-right">
       <span class="autosave"><span class="as-track"></span>자동 저장</span>
-      <div class="avatar" style="width:28px;height:28px;font-size:12px">김</div>
+      <div class="avatar" id="edUserAva" style="width:28px;height:28px;font-size:12px"></div>
     </div>
   </div>
 
@@ -1122,7 +1134,7 @@
         <div class="doc-wrap">
           <div class="doc-page" contenteditable="true" spellcheck="false">
             <h1>포물선 운동 실험 보고서</h1>
-            <p class="doc-meta">김튜링 · 물리학Ⅰ · 2026년 8월 27일</p>
+            <p class="doc-meta">최민규 · 물리학Ⅰ · 2026년 8월 27일</p>
             <h2>1. 실험 목적</h2>
             <p>포물선 운동에서 발사각과 초기 속도가 수평 도달 거리에 미치는 영향을 정량적으로 분석하고, 이론값과 측정값의 오차 원인을 논의한다.</p>
             <h2>2. 이론적 배경</h2>
@@ -1353,7 +1365,7 @@
         </button>
         <div class="ob-or"><i></i><span>또는</span><i></i></div>
         <label class="ob-lb">학교 이메일</label>
-        <input class="ob-in" id="obEmail" value="turing@snu.ac.kr" spellcheck="false" autocomplete="off">
+        <input class="ob-in" id="obEmail" value="theminq@teamturing.com" spellcheck="false" autocomplete="off">
         <label class="ob-lb">비밀번호</label>
         <input class="ob-in" type="password" value="prototype-demo" readonly>
         <button class="ob-cta" id="obSignup">학교 이메일로 시작하기</button>
@@ -1426,7 +1438,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.12 · 2026.09.01</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.13 · 2026.09.02</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1649,5 +1661,6 @@
 <script src="js/15-onboarding.js"></script>
 <script src="js/16-gdrive.js"></script>
 <script src="js/17-ppt.js"></script>
+<script src="js/18-profile.js"></script>
 </body>
 </html>

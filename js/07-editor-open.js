@@ -43,6 +43,7 @@ document.addEventListener('keydown',e=>{
   if($('#dnMenu').classList.contains('open')){$('#dnMenu').classList.remove('open');return;}
   if($('#attMenu').classList.contains('open')){$('#attMenu').classList.remove('open');return;}
   if($('#noteDrawer').classList.contains('on')){$('#noteDrawer').classList.remove('on');return;}
+  if(state.profile){closeProfile();return;}
   if(state.editor)closeEditor();
 });
 

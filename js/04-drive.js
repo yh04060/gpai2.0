@@ -16,7 +16,7 @@ function rowHTML(it,i){
     +'<span class="lic">'+ic+'</span>'
     +'<span class="lname">'+it.name+'</span>'
     +'<span class="lcell lc-meta">'+it.meta+'</span>'
-    +'<span class="lcell lc-owner"><span class="lava">김</span>나</span>'
+    +'<span class="lcell lc-owner"><span class="lava">'+userAvatar(20)+'</span>나</span>'
     +'<span class="lcell lc-loc">'+LOC_IC+'AI 드라이브</span>'
     +'<button class="tdots">'+ICON_DOTS+'</button></div>';
 }

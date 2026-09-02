@@ -8,7 +8,8 @@ function sync(){
   $('#view-generic').classList.toggle('on',!!g);
   if(g)$('#gName').textContent=g;
   const drive=state.view==='drive';
-  $('#chatPanel').style.display=drive&&state.chat?'flex':'none';
+  $('#chatPanel').style.display=drive&&state.chat&&!state.profile?'flex':'none';
+  $('#pfPanel').style.display=state.profile?'flex':'none';
   $('#chatFab').style.display=drive&&!state.chat?'grid':'none';
   $('#main').scrollTop=0;
   renderNoteCtx();

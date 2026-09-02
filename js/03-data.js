@@ -19,5 +19,7 @@ let driveLast=[];
 const AGENTS={'report-writer':'문서 작성'};
 const VIEWS=['drive','master','solver','generator','figure','canvas','chat','ppt'];
 
-const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[]};
+/* 데모 계정 — 사진은 파일 경로 또는 업로드한 data URL, null이면 이니셜 */
+const USER={name:'최민규',email:'theminq@teamturing.com',initial:'최',photo:null};
+const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[],profile:null};
 

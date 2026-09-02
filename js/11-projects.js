@@ -108,7 +108,7 @@ function renderProjects(){
   $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></span></button>').join('')
    +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span></span></button>';
   const tier=$('#maTierProj');
-  if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box">'+avatarFor(p,26)+'<b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
+  if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box" data-pf="agent" data-pid="'+p.id+'">'+avatarFor(p,26)+'<b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
    +'<div class="tier-box dashed" id="maNewProj">+ 새 프로젝트</div>';
 }
 $('#projNav').addEventListener('click',e=>{
@@ -123,15 +123,15 @@ function pjFmt(p,t){
   return s.split(m).join('<span class="mention">'+m+'</span>');
 }
 function pjUserPost(p,time,text,extra){
-  return '<div class="pj-post"><div class="pj-pava">김</div><div class="pj-body">'
-   +'<div class="pj-who"><b>김튜링</b><span class="pj-time">'+time+'</span></div>'
+  return '<div class="pj-post"><div class="pj-pava user" data-pf="user">'+userAvatar(36)+'</div><div class="pj-body">'
+   +'<div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.name)+'</b><span class="pj-time">'+time+'</span></div>'
    +'<div class="pj-text">'+pjFmt(p,text)+'</div>'+(extra||'')+'</div></div>';
 }
 function pjTsum(p,n,when){
-  return '<div class="pj-treply"><span class="pj-mini av">'+avatarFor(p,20)+'</span>'+n+'개의 답글<em> · 마지막 답글 '+when+'</em></div>';
+  return '<div class="pj-treply"><span class="pj-mini av" data-pf="agent">'+avatarFor(p,20)+'</span>'+n+'개의 답글<em> · 마지막 답글 '+when+'</em></div>';
 }
 function pjThreadReply(p,time,inner){
-  return '<div><div class="pj-who"><span class="pj-mini av">'+avatarFor(p,20)+'</span><b>'+escapeHtml(p.agent)+'</b><span class="pj-time">'+time+'</span></div><div class="pj-text">'+inner+'</div></div>';
+  return '<div><div class="pj-who"><span class="pj-mini av" data-pf="agent">'+avatarFor(p,20)+'</span><b data-pf="agent" class="pf-link">'+escapeHtml(p.agent)+'</b><span class="pj-time">'+time+'</span></div><div class="pj-text">'+inner+'</div></div>';
 }
 function pjP1HTML(p){
   const thread='<div class="pj-thread">'
@@ -144,16 +144,16 @@ function pjP1HTML(p){
    +pjUserPost(p,'12:31','@일반물리학 AI 실험 데이터.xlsx 기반으로 실험 보고서 초안 잡아줘. 결과 표는 3개로 정리해줘.',pjTsum(p,2,'어제'))
    +pjUserPost(p,'4:02','@일반물리학 AI 3장 연습문제에서 내가 자주 틀리는 유형 분석해줘.',pjTsum(p,3,'어제'))
    +'<div class="pj-day">오늘</div>'
-   +'<div class="pj-post"><div class="pj-pava ai av">'+avatarFor(p,36)+'</div><div class="pj-body">'
-   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">10:00</span></div>'
+   +'<div class="pj-post"><div class="pj-pava ai av" data-pf="agent">'+avatarFor(p,36)+'</div><div class="pj-body">'
+   +'<div class="pj-who"><b data-pf="agent" class="pf-link">'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">10:00</span></div>'
    +'<div class="pj-text"><span class="mono-badge">memory.md</span> 일일 업데이트 — 어제 대화 2건을 요약해 반영했어요</div></div></div>'
    +pjUserPost(p,'1:30','@일반물리학 AI 다음 주 중간시험 범위(3~5장) 요약하고, 그 범위에서 변형 문제 20개 만들어줘.',thread);
 }
 function pjWelcome(p){
   const imp=p.src==='etl';
   return '<div class="pj-day">'+(imp?'8월 17일 — eTL 가져오기':'오늘')+'</div>'
-   +'<div class="pj-post"><div class="pj-pava ai av">'+avatarFor(p,36)+'</div><div class="pj-body">'
-   +'<div class="pj-who"><b>'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">'+(imp?'2:04':'방금')+'</span></div>'
+   +'<div class="pj-post"><div class="pj-pava ai av" data-pf="agent">'+avatarFor(p,36)+'</div><div class="pj-body">'
+   +'<div class="pj-who"><b data-pf="agent" class="pf-link">'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span><span class="pj-time">'+(imp?'2:04':'방금')+'</span></div>'
    +'<div class="pj-text">안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.')+'</div>'
    +'<div class="tool-card"><b>'+SVG_MEM+(imp?'과목 자료 정리 완료':'폴더 파악 완료')+'</b><div class="rail-meta" style="margin-top:5px">'+(imp?('eTL 파일 '+(p.lmsFiles||p.items)+'개 → "'+escapeHtml(p.folder)+'" 폴더 항목 '+p.items+'개로 정리 · memory.md 생성'):(escapeHtml(p.folder)+' 폴더 하위 항목 '+p.items+'개 인덱싱 · memory.md 생성'))+'</div></div>'
    +'<div class="pj-text" style="margin-top:8px">이 채널에서 무엇이든 시켜보세요. 게시글마다 쓰레드로 답하고, 대화 요약은 제 메모리에 쌓여요. 저는 이 폴더 밖에는 접근할 수 없어요.</div>'
@@ -199,23 +199,6 @@ function pjRoutedThreadHTML(p,m){
    +pjThreadReply(p,'방금',pjToolCardHTML(p,route)+pjFileChipHTML({kind:route.kind,name:m.fname}))
    +pjThreadReply(p,'방금','<div class="mem-note" style="margin-top:2px">'+SVG_MEM+'<span>메모리 업데이트 — "'+escapeHtml(m.fname)+'" 요청·결과를 반영했어요 · 다음 대화부터 적용돼요</span></div>')
    +'</div>';
-}
-function pjRailHTML(p){
-  const mem=(p.memory&&p.memory.length)?p.memory.map(m=>'<div>'+escapeHtml(m)+'</div>').join(''):'<div style="color:#9C9C9A">아직 비어 있어요 — 대화할수록 채워져요</div>';
-  const tools=[['solver','문제 풀이'],['generator','문제 생성'],['figure','시각화'],['canvas','캔버스'],['report-writer','문서 작성'],['ppt','PPT 제작'],['chat','채팅']]
-    .map(t=>'<span class="tool-chip" data-nav="'+t[0]+'">'+t[1]+'</span>').join('');
-  return '<aside class="ma-rail">'
-   +'<div class="rail-h">프로젝트 정보</div>'
-   +'<div class="rail-card" style="margin-top:12px"><div style="display:flex;gap:10px;align-items:center"><div class="pj-pava ai av" style="width:34px;height:34px">'+avatarFor(p,34)+'</div><div style="min-width:0"><b id="pjAgName" style="font-size:13.5px;outline:none">'+escapeHtml(p.agent)+'</b><div class="rail-meta" style="margin-top:2px">이 프로젝트를 관장하는 AI · 온라인</div></div></div>'
-   +'<div class="rail-btns"><button class="b1" id="pjRename">이름 수정</button></div></div>'
-   +'<div class="rail-card"><b style="display:flex;align-items:center;gap:7px">'+SVG_FLD+'연결 폴더</b><div class="rail-meta">'+escapeHtml(p.folder)+' — 하위 항목 '+p.items+'개 접근</div>'
-   +'<div class="rail-btns"><button class="b1" id="pjSeeFiles">프로젝트 파일 보기</button></div></div>'
-   +'<div class="rail-card" style="background:#FAFAF8"><b style="display:flex;align-items:center;gap:7px">'+SVG_LOCK+'접근 범위</b><div class="rail-meta">이 폴더 밖 데이터에는 접근할 수 없어요. 맥락은 이 채널에서 나눈 대화만 사용해요.</div></div>'
-   +'<div class="rail-sec">에이전트 메모리 <span class="mono-badge">memory.md</span></div>'
-   +'<div class="rail-card"><div class="mem-ul">'+mem+'</div><div class="rail-meta" style="margin-top:10px">대화가 끝나면 요약이 자동 반영돼요 · 마지막 업데이트 '+(p.memUpdated||'방금')+'</div></div>'
-   +'<div class="rail-sec">부리는 툴 에이전트</div>'
-   +'<div class="tier-tools" style="justify-content:flex-start">'+tools+'</div>'
-   +'</aside>';
 }
 function pjFileRow(f,i){
   const ic=f.type==='folder'?MINI_FOLDER:fIcon(f.kind,f.kind==='yt'?22:18);
@@ -291,7 +274,7 @@ function renderProject(p){
   const tab=state.pjTab||'msg';
   const head='<div class="pj-head">'
    +'<div class="pj-title"><span class="hash">#</span>'+escapeHtml(p.name)
-   +'<span class="pj-badge ai" style="margin-left:8px"><span class="pj-mini av" style="width:16px;height:16px">'+avatarFor(p,16)+'</span>'+escapeHtml(p.agent)+'</span></div>'
+   +'<span class="pj-badge ai" style="margin-left:8px" data-pf="agent" title="프로필 보기"><span class="pj-mini av" style="width:16px;height:16px">'+avatarFor(p,16)+'</span>'+escapeHtml(p.agent)+'</span></div>'
    +'<div class="pj-badges">'
    +'<span class="pj-badge" id="pjBadgeFolder" style="cursor:pointer" title="프로젝트 파일 보기">'+SVG_FLD+escapeHtml(p.folder)+' 폴더 연결</span>'
    +'<span class="pj-badge">하위 항목 '+p.items+'개 접근</span>'
@@ -311,7 +294,7 @@ function renderProject(p){
    +'<div class="pj-pane'+(tab==='msg'?' on':'')+'"><div class="pj-msgs" id="pjMsgs">'+msgs+'</div>'+composer+'</div>'
    +'<div class="pj-pane'+(tab==='files'?' on':'')+'">'+pjFilesPaneHTML(p)+'</div>'
    +'<div class="pj-pane'+(tab==='pins'?' on':'')+'"><div class="pjf-hint" style="padding-top:14px">채널에서 고정한 항목이 모여요 — 시험 전에 바로 찾는 용도예요</div><div class="pjf-list" id="pjPinList"></div></div>'
-   +'</div>'+pjRailHTML(p);
+   +'</div>';
   if(tab==='files')renderPjfList(p);
   if(tab==='pins')$('#pjPinList').innerHTML=((p.pins&&p.pins.length)?p.pins.map(pjFileRow).join(''):'<div class="pjf-empty">아직 고정한 항목이 없어요</div>');
   $$('#view-project .pj-tab').forEach(t=>t.addEventListener('click',()=>{state.pjTab=t.dataset.tab;renderProject(p);}));
@@ -356,15 +339,6 @@ function renderProject(p){
     if(c)openEditor(c.dataset.open,c.dataset.name);
   });
   $$('#view-project [data-nav]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.nav)));
-  $('#pjSeeFiles').addEventListener('click',()=>{state.pjTab='files';renderProject(p);});
-  const nameEl=$('#pjAgName');
-  $('#pjRename').addEventListener('click',()=>{nameEl.contentEditable='true';nameEl.focus();});
-  nameEl.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();nameEl.blur();}});
-  nameEl.addEventListener('blur',()=>{
-    nameEl.contentEditable='false';
-    const v=nameEl.textContent.trim();
-    if(v&&v!==p.agent){p.agent=v;renderProjects();renderProject(p);sync();}
-  });
   if(tab==='msg'){const mw=$('#pjMsgs');mw.scrollTop=mw.scrollHeight;}
 }
 function pjSendMsg(p,text){
@@ -381,7 +355,7 @@ function pjSendMsg(p,text){
   }
   p.msgs.push(entry);
   const wrap=$('#pjMsgs');
-  wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava">김</div><div class="pj-body"><div class="pj-who"><b>김튜링</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
+  wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava user" data-pf="user">'+userAvatar(36)+'</div><div class="pj-body"><div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.name)+'</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
   wrap.scrollTop=wrap.scrollHeight;
   const scrollDn=()=>{const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;};
   /* 스테이지 사이에 재렌더가 끼어도 데이터 변형은 항상 수행하고 DOM은 있을 때만 갱신한다 */

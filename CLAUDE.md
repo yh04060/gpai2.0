@@ -25,8 +25,8 @@ gpai2.0/
 ├── .nojekyll       GitHub Pages가 Jekyll 처리를 건너뛰게 하는 빈 파일
 ├── index.html      마크업 전체 (~1,600줄) — head · 사이드바 · 화면 9종 · 편집기 · 온보딩 · 오버레이
 ├── assets/         이미지 파일 — avatars/a01~a20.png (프로젝트 AI 프로필, 512×512)
-├── css/            스타일 17개 — 화면/컴포넌트 섹션별 (06번은 결번)
-└── js/             스크립트 19개 — 데이터 · 라우팅 · 화면별 로직
+├── css/            스타일 18개 — 화면/컴포넌트 섹션별 (06번은 결번)
+└── js/             스크립트 20개 — 데이터 · 라우팅 · 화면별 로직
 ```
 
 ### 실행
@@ -43,7 +43,7 @@ python3 -m http.server 8000   # → http://localhost:8000  (배포 환경과 동
 
 ### 파일 로드 규칙 — 가장 중요한 구조 지식
 
-- **js 19개는 하나의 전역 스코프를 공유하는 클래식 스크립트**입니다 (모듈 아님).
+- **js 20개는 하나의 전역 스코프를 공유하는 클래식 스크립트**입니다 (모듈 아님).
   `index.html` 하단의 `<script src>` 나열 순서가 곧 실행 순서이고,
   **정의(`const`·`function`)가 사용보다 먼저 오도록 순서를 지켜야 합니다**
 - 숫자 접두사(`00-` ~ `16-`)는 이 로드 순서를 파일명에 드러낸 것입니다.
@@ -178,13 +178,13 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
 
 ### `index.html` — 마크업 (위에서 아래로)
 
-버전 로그 주석 → `<head>`(메타 · 폰트 · css 17개 링크) → `.app`(사이드바 →
-`view-*` 섹션 9종 → 드라이브 챗 패널) → `#editor` 오버레이(공통 프레임 + 본문 5종 +
+버전 로그 주석 → `<head>`(메타 · 폰트 · css 18개 링크) → `.app`(사이드바 →
+`view-*` 섹션 9종 → 드라이브 챗 패널 → 프로필 패널 `#pfPanel`) → `#editor` 오버레이(공통 프레임 + 본문 5종 +
 GPAI Chat) → 온보딩 오버레이(`#obRoot`) → 업로드 토스트 → Q의 의견 드로어(기밀 공지 포함) →
 Google Drive 모달 / 「신규」 메뉴 / 파일 ⋯ 메뉴 / 첨부 메뉴 / 드라이브 피커 /
-새 프로젝트 모달 → js 19개 스크립트 태그
+새 프로젝트 모달 → js 20개 스크립트 태그
 
-### `css/` — 스타일 (17 · `06-` 결번)
+### `css/` — 스타일 (18 · `06-` 결번)
 
 | 파일 | 담당 |
 |---|---|
@@ -197,16 +197,17 @@ Google Drive 모달 / 「신규」 메뉴 / 파일 ⋯ 메뉴 / 첨부 메뉴 / 
 | `14-attach-picker.css` · `15-generic.css` | 첨부 메뉴/피커 · 플레이스홀더 |
 | `16-onboarding.css` | 온보딩 오버레이 + 드라이브 재진입 배너 (`.ob-` 접두사) |
 | `17-ppt.css` | PPT 제작 (`.pmk-` 접두사 — `.ppt-`는 편집기가 사용 중) |
+| `18-profile.css` | 슬랙형 프로필 패널(`.pf-`) + 유저 사진 `<img>` 채움 규칙(`.uav`) |
 
-### `js/` — 스크립트 (19, 로드 순서대로)
+### `js/` — 스크립트 (20, 로드 순서대로)
 
 | 파일 | 담당 | 주요 심볼 |
 |---|---|---|
 | `00-helpers.js` | DOM 헬퍼 | `$` `$$` |
 | `01-assets-drive.js` | 드라이브 아이콘·썸네일 SVG | `SVG_*` `fIcon` |
-| `01-assets-avatars.js` | **프로젝트 AI 프로필 20종** — `assets/avatars/*.png` 레지스트리 + 렌더러(`<img>`). 같은 01번대(자산)라 순서 무관 | `AVATARS` `avatarSVG` `avatarFor` `avatarDefault` |
+| `01-assets-avatars.js` | **프로젝트 AI 프로필 20종** — `assets/avatars/*.png` 레지스트리 + 렌더러(`<img>`) + 내 아바타. 같은 01번대(자산)라 순서 무관 | `AVATARS` `avatarSVG` `avatarFor` `avatarDefault` `userAvatar` |
 | `02-canvas.js` | 캔버스 갤러리 | `CV_ITEMS` `renderCanvas` |
-| `03-data.js` | **핵심 상태·라우팅 데이터** | `driveItems` `AGENTS` `VIEWS` `state` |
+| `03-data.js` | **핵심 상태·라우팅 데이터** + 데모 계정 | `driveItems` `AGENTS` `VIEWS` `state` `USER` |
 | `04-drive.js` | 드라이브 렌더 · 폴더 탐색 · 파일 ⋯ 메뉴 | `renderDrive` `driveResolve` `driveOpenFolder` |
 | `05-router.js` | **뷰 전환** | `sync` `go` |
 | `06-misc-controls.js` | 챗 패널·보기 토글·전송 버튼 | |
@@ -221,6 +222,7 @@ Google Drive 모달 / 「신규」 메뉴 / 파일 ⋯ 메뉴 / 첨부 메뉴 / 
 | `15-onboarding.js` | **온보딩 전체** — 스텝 전환·LMS 폼·임포트 연출·진입 판단(자체 해시 처리) + 드라이브 「신규」 메뉴 | `OB_COURSES` `openOnboard` `closeOnboard` `obGo` |
 | `16-gdrive.js` | Google Drive 가져오기 모달 — 연결 연출·다중 선택 → 업로드 토스트로 전달 (`#gdrive` 해시 처리) | `GD_FILES` `openGdPicker` `closeGdPicker` |
 | `17-ppt.js` | **PPT 제작** — 랜딩(내 덱)·개요 생성 연출·덱 스타일/템플릿·슬라이드 생성→드라이브 저장·진행 로그 레일 | `PMK_OUTLINE` `PMK_TPLS` `pmkStart` `pmkGenerate` |
+| `18-profile.js` | **프로필 패널** — AI 프로필(온라인·담당 폴더·메모리·툴·사진/이름 변경) · 내 프로필(사진 업로드/캐릭터 선택). `data-pf` 클릭 위임, `state.profile`이 정본 | `openProfile` `closeProfile` `renderUser` |
 
 ---
 
@@ -272,9 +274,12 @@ UI 아이콘·썸네일·문서 목업은 **인라인 SVG**로 그립니다(빌�
 **제약 두 가지** — ①Claude 클라우드 세션은 **이미지를 생성할 수도, 외부에서 내려받을
 수도 없습니다**(프록시가 외부 HTTPS 차단). 파일은 Q가 채팅에 첨부(zip 가능 — `unzip`
 있음)하거나 저장소에 직접 커밋하고, Claude는 배치·레지스트리 연결·화면 반영을 맡습니다.
-②샌드박스에 PIL·ImageMagick이 없어 **리사이즈·최적화를 못 합니다.** 파일은 올린
-크기 그대로 커밋되니, 용량이 신경 쓰이면 Q 쪽에서 미리 줄여 주세요(현재 512px ·
-개당 약 150KB · 20개 3MB — 프로토타입엔 문제없는 수준). 이모지는 OS마다 생김새가
+②샌드박스에 PIL·ImageMagick이 없지만 **헤드리스 크로미움 스크린샷으로 리사이즈·정사각
+크롭은 됩니다** — `<img style="width:512px;height:512px;object-fit:cover;object-position:50% 30%">`
+하나짜리 HTML을 `--window-size=512,512 --screenshot`으로 찍으면 그 PNG가 결과물입니다
+(a01.png 512→128px 테스트: 2.2KB). 손실 압축·포맷 변환은 못 하니 그건 Q 쪽에서.
+③**채팅 메시지에 인라인으로 붙인 이미지는 디스크에 안 옵니다.** zip이나 파일 첨부로
+올려야 `/root/.claude/uploads/<세션>/`에 떨어집니다. 이모지는 OS마다 생김새가
 달라 프로필용으로는 쓰지 않습니다.
 
 ### 새 화면 추가 절차 (전부 해야 함)
@@ -339,7 +344,7 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
 
 ## 손대면 깨지기 쉬운 것 (실제로 겪은 지뢰)
 
-1. **스크립트 태그 순서 = 전역 정의 순서.** js 19개는 하나의 전역 스코프입니다.
+1. **스크립트 태그 순서 = 전역 정의 순서.** js 20개는 하나의 전역 스코프입니다.
    `index.html` 하단의 로드 순서에서 정의(`const`)가 사용보다 뒤로 가면 통째로
    죽습니다. 새 JS 파일은 의존하는 파일 뒤에 넣으세요
 2. **클래스명 충돌.** 최상위 레이아웃이 `.app { height:100vh }`를 씁니다. `.app` 같은
@@ -360,7 +365,7 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
    (`js/05-router.js`) · init 해시 블록(`js/14-init.js`)** 을 같이 손봐야 합니다
 7. **ESC 우선순위 체인** (`js/07-editor-open.js`). 현재 순서는 드라이브 피커 →
    Google Drive 모달 → 새 프로젝트 모달 → 파일 ⋯ 메뉴 → 드라이브 신규 메뉴 →
-   첨부 메뉴 → Q의 의견 드로어 → 편집기입니다. 새 모달·오버레이를
+   첨부 메뉴 → Q의 의견 드로어 → 프로필 패널 → 편집기입니다. 새 모달·오버레이를
    만들면 이 체인에 끼워 넣으세요. **온보딩 오버레이는 의도적으로 이 체인에 없습니다**
    — 버튼(건너뛰기·완료)으로만 닫습니다
 8. **업로드 목적지 라우팅** (`js/13-upload.js`). 업로드는 드라이브로 갈 수도, 특정
