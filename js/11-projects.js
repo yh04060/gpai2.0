@@ -6,7 +6,7 @@ const SVG_CK12='<svg width="12" height="12" viewBox="0 0 20 20" fill="none" stro
 const PLUS_SVG='<svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg>';
 const SEND_SVG='<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9"/></svg>';
 
-const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avatar:'owl',folder:'일반물리학',items:6,msgs:[],cwd:null,fq:'',
+const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avatar:'a07',folder:'일반물리학',items:6,msgs:[],cwd:null,fq:'',
   files:[
    {type:'folder',name:'강의 노트',meta:'항목 4개',time:'8월 24일',open:true,children:[
     {type:'folder',name:'스캔본',meta:'항목 2개',time:'8월 12일',children:[
@@ -30,7 +30,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avata
   memory:['중간시험 범위: 3~5장 (지난주 대화)','실험 보고서 — 금요일(8/28) 마감','취약 유형: 포물선 운동 벡터 분해','보고서 결과 표는 3개 구성 선호'],memUpdated:'오늘 10:00',src:'etl',lmsFiles:24},
 
  /* p2~p5: 온보딩 eTL 임포트가 만든 과목 프로젝트 — 채널은 웰컴 메시지 상태 */
- {id:'p2',name:'자료구조',agent:'자료구조 AI',avatar:'robot',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
+ {id:'p2',name:'자료구조',agent:'자료구조 AI',avatar:'a14',folder:'자료구조',items:5,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:21,
   files:[
    {type:'folder',name:'강의 슬라이드',meta:'항목 4개',time:'8월 25일',open:true,children:[
     {kind:'pdf',name:'01 배열과 연결 리스트',meta:'PDF · 2.4MB',time:'8월 18일'},
@@ -49,7 +49,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avata
   pins:[],
   memory:['eTL 임포트 — 강의 슬라이드 4 · 과제 2 · 공지·기타 3 정리','실라버스: 과제 30% · 중간 30% · 기말 40%, 지각 제출 하루 -10%'],memUpdated:'8월 17일'},
 
- {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',avatar:'fox',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
+ {id:'p3',name:'공학수학 2',agent:'공학수학 2 AI',avatar:'a12',folder:'공학수학 2',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:18,
   files:[
    {type:'folder',name:'주차별 강의노트',meta:'항목 4개',time:'8월 26일',open:true,children:[
     {kind:'pdf',name:'1주차 라플라스 변환',meta:'PDF · 1.6MB',time:'8월 18일'},
@@ -64,7 +64,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avata
   pins:[],
   memory:['eTL 임포트 — 주차별 노트 4 · 과제 1 · 해답집 1 정리','과제 1 마감: 9월 4일 (금) 23:59 — 실라버스에서 추출'],memUpdated:'8월 17일'},
 
- {id:'p4',name:'대학영어',agent:'대학영어 AI',avatar:'penguin',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+ {id:'p4',name:'대학영어',agent:'대학영어 AI',avatar:'a09',folder:'대학영어',items:4,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
   files:[
    {type:'folder',name:'읽기 자료',meta:'항목 3개',time:'8월 24일',children:[
     {kind:'pdf',name:'Unit 1 — The Science of Habit',meta:'PDF · 880KB',time:'8월 18일'},
@@ -78,7 +78,7 @@ const PROJECTS=[{id:'p1',name:'일반물리학',agent:'일반물리학 AI',avata
   pins:[],
   memory:['eTL 임포트 — 읽기 자료 3 · 과제 1 · 평가 기준 1 정리','에세이 1: 500 단어 · 9월 8일 (화) 마감'],memUpdated:'8월 17일'},
 
- {id:'p5',name:'심리학개론',agent:'심리학개론 AI',avatar:'bear',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
+ {id:'p5',name:'심리학개론',agent:'심리학개론 AI',avatar:'a13',folder:'심리학개론',items:3,msgs:[],cwd:null,fq:'',src:'etl',lmsFiles:12,
   files:[
    {type:'folder',name:'강의 슬라이드',meta:'항목 3개',time:'8월 26일',children:[
     {kind:'ppt',name:'1장 심리학의 본질',meta:'PPTX · 6.2MB',time:'8월 19일'},

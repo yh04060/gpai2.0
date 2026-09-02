@@ -94,7 +94,7 @@
 .pj-pava.ai{background:var(--brand);color:#fff;border:none;font-family:var(--serif);font-style:italic;font-size:10.5px}
 /* 프로필 캐릭터가 들어가면 컨테이너 배경은 SVG가 대신한다 */
 .pj-pava.av,.pj-mini.av{background:transparent;border:none;padding:0;overflow:hidden}
-.pj-pava.av svg,.pj-mini.av svg{display:block;width:100%;height:100%}
+.pj-pava.av svg,.pj-mini.av svg,.pj-pava.av img,.pj-mini.av img{display:block;width:100%;height:100%}
 .tier-box .av{margin:1px 0 3px;border-radius:7px}
 .pj-body{flex:1;min-width:0}
 .pj-who{display:flex;align-items:center;gap:7px}
