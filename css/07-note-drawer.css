@@ -1,5 +1,5 @@
 /* ---------- Prototype notes (팀 공유용) ---------- */
-.note-btn{position:fixed;right:22px;bottom:22px;display:flex;align-items:center;gap:7px;height:40px;padding:0 15px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:0 6px 18px rgba(0,0,0,.10);font-size:13px;font-weight:500;color:#2C2C2A;z-index:150}
+.note-btn{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;display:flex;align-items:center;gap:7px;height:40px;padding:0 15px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:0 6px 18px rgba(0,0,0,.10);font-size:13px;font-weight:500;color:#2C2C2A;z-index:150}
 .note-btn:hover{background:var(--hover)}
 .note-btn::after{content:"";position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--brand);border:2px solid #fff}
 .note-drawer{position:fixed;top:0;right:0;bottom:0;width:404px;background:#fff;border-left:1px solid var(--border-soft);box-shadow:-18px 0 44px rgba(0,0,0,.10);z-index:250;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .22s ease}
@@ -8,6 +8,8 @@
 .note-h b{font-size:15px}
 .note-ver{font-size:11px;background:#FDEEE0;color:#D8681B;border-radius:99px;padding:3px 9px;font-weight:600}
 .note-h .icbtn{margin-left:auto}
+.note-notice{flex:none;display:flex;align-items:center;gap:8px;padding:10px 20px;background:#FCEDE6;border-bottom:1px solid #F3D2C2;color:#B23C17;font-size:12px;font-weight:600;line-height:1.45;letter-spacing:-.01em;word-break:keep-all}
+.note-notice svg{flex:none}
 .note-body{flex:1;overflow-y:auto;padding:18px 20px 40px}
 .note-sec{margin-bottom:22px}
 .note-sec h4{font-size:13.5px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}

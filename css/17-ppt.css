@@ -91,7 +91,7 @@
 .pmk-prog{align-self:stretch;border:1px solid var(--border-soft);border-radius:9px;background:#fff;padding:9px 11px;font-size:12px;color:#55554F}
 .pmk-prog-bar{height:4px;border-radius:99px;background:#EFEFED;overflow:hidden;margin-top:7px}
 .pmk-prog-bar i{display:block;height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .3s}
-.pmk-input{border-top:1px solid var(--border-soft);padding:10px 12px 46px;display:flex;align-items:flex-end;gap:8px}
+.pmk-input{border-top:1px solid var(--border-soft);padding:10px 12px 12px;display:flex;align-items:flex-end;gap:8px}
 .pmk-input textarea{flex:1;font-size:13px;max-height:80px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;background:#fff}
 .pmk-input .send{width:30px;height:30px;flex:none;border-radius:8px;background:#F1F1EF;color:#ABABA9;display:grid;place-items:center;transition:background .15s,color .15s}
 .pmk-input .send.on{background:var(--brand);color:#fff}
