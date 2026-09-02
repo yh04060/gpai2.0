@@ -24,7 +24,7 @@ gpai2.0/
 ├── CLAUDE.md       이 문서
 ├── .nojekyll       GitHub Pages가 Jekyll 처리를 건너뛰게 하는 빈 파일
 ├── index.html      마크업 전체 (~1,600줄) — head · 사이드바 · 화면 9종 · 편집기 · 온보딩 · 오버레이
-├── assets/         이미지 파일 — avatars/a01~a20.png (프로젝트 AI 프로필, 512×512)
+├── assets/         이미지 파일 — avatars/a01~a20.png (프로젝트 AI 프로필) · profile/me.png (계정 사진)
 ├── css/            스타일 18개 — 화면/컴포넌트 섹션별 (06번은 결번)
 └── js/             스크립트 20개 — 데이터 · 라우팅 · 화면별 로직
 ```
@@ -278,8 +278,12 @@ UI 아이콘·썸네일·문서 목업은 **인라인 SVG**로 그립니다(빌�
 크롭은 됩니다** — `<img style="width:512px;height:512px;object-fit:cover;object-position:50% 30%">`
 하나짜리 HTML을 `--window-size=512,512 --screenshot`으로 찍으면 그 PNG가 결과물입니다
 (a01.png 512→128px 테스트: 2.2KB). 손실 압축·포맷 변환은 못 하니 그건 Q 쪽에서.
-③**채팅 메시지에 인라인으로 붙인 이미지는 디스크에 안 옵니다.** zip이나 파일 첨부로
-올려야 `/root/.claude/uploads/<세션>/`에 떨어집니다. 이모지는 OS마다 생김새가
+③**채팅에 인라인으로 붙인 이미지는 `uploads/`에 안 옵니다** — 파일/zip 첨부만 거기
+떨어집니다. 다만 인라인 이미지도 **세션 트랜스크립트에 base64로 남아** 있어서 꺼낼 수
+있습니다: `/root/.claude/projects/<프로젝트>/<세션>.jsonl` 을 줄 단위 JSON으로 읽고
+`type=="user"` 메시지의 `content[].type=="image"` → `source.data`를 base64 디코드
+(`source.media_type`이 확장자 · 보통 webp). 계정 사진 `assets/profile/me.png`가 이렇게
+들어왔습니다 — 인라인으로 받았을 때 "파일로 다시 올려달라"고 하기 전에 이걸 먼저 시도하세요. 이모지는 OS마다 생김새가
 달라 프로필용으로는 쓰지 않습니다.
 
 ### 새 화면 추가 절차 (전부 해야 함)

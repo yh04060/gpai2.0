@@ -77,7 +77,8 @@ function pfUserHTML(){
    +'<div id="pfPhotoOpts" style="display:none"><div class="pf-opts">'
    +'<button class="pf-b" id="pfUpload">내 컴퓨터에서 업로드</button>'
    +pfAvGrid(cur?cur.k:null)
-   +'<button class="pf-b" id="pfPhotoReset">기본(이니셜)으로 되돌리기</button>'
+   +'<button class="pf-b" id="pfPhotoReset">기본 사진으로 되돌리기</button>'
+   +'<button class="pf-b" id="pfPhotoClear">사진 없이 이니셜로</button>'
    +'<div class="pf-tip">업로드한 사진은 이 프로토타입 안에서만 쓰이고 어디에도 저장되지 않아요 — 새로고침하면 기본으로 돌아가요</div></div></div>'
    +'<div class="pf-sec"><h4>연락처 정보</h4>'
    +'<div class="pf-info"><span class="pf-ic">'+PF_SVG_MAIL+'</span><div><b>이메일</b><span><a href="mailto:'+escapeHtml(USER.email)+'">'+escapeHtml(USER.email)+'</a></span></div></div></div>'
@@ -87,7 +88,8 @@ function pfBindUser(){
   $('#pfPhoto').addEventListener('click',()=>{const w=$('#pfPhotoOpts');w.style.display=w.style.display==='none'?'block':'none';});
   $('#pfMaster').addEventListener('click',()=>go('master'));
   $('#pfUpload').addEventListener('click',()=>$('#pfFile').click());
-  $('#pfPhotoReset').addEventListener('click',()=>{USER.photo=null;renderUser();});
+  $('#pfPhotoReset').addEventListener('click',()=>{USER.photo=USER.basePhoto;renderUser();});
+  $('#pfPhotoClear').addEventListener('click',()=>{USER.photo=null;renderUser();});
   $$('#pfBody .pf-avb').forEach(b=>b.addEventListener('click',()=>{USER.photo=AVATAR_MAP[b.dataset.k].src;renderUser();}));
 }
 $('#pfFile').addEventListener('change',e=>{

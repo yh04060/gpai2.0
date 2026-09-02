@@ -19,7 +19,9 @@ let driveLast=[];
 const AGENTS={'report-writer':'문서 작성'};
 const VIEWS=['drive','master','solver','generator','figure','canvas','chat','ppt'];
 
-/* 데모 계정 — 사진은 파일 경로 또는 업로드한 data URL, null이면 이니셜 */
-const USER={name:'최민규',email:'theminq@teamturing.com',initial:'최',photo:null};
+/* 데모 계정 — photo는 파일 경로 또는 업로드한 data URL, null이면 이니셜.
+   basePhoto는 「기본 사진으로 되돌리기」가 복원하는 계정 원본 */
+const USER={name:'최민규',email:'theminq@teamturing.com',initial:'최',
+  photo:'assets/profile/me.png',basePhoto:'assets/profile/me.png'};
 const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[],profile:null};
 
