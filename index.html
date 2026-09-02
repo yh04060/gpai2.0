@@ -16,6 +16,7 @@
   v4.4 (2026-08-27): 우하단 드로어 명칭 "Q의 요청" → "Q의 의견"으로 변경
   v5.0 (2026-08-27): 프로젝트 구조 개편 — 단일 파일을 src/(styles·views·js·page) 54개 모듈로 분할, build.py로 단일 HTML 조립. 산출물은 기능·바이트 수준에서 v4.4와 동일
   v6.0 (2026-08-27): 정적 멀티파일 구조로 전환 — build.py·단일 산출물 폐지. index.html + css/ 16개 + js/ 15개를 그대로 서빙(GitHub Pages 배포 전제). 단일 파일 공유 방식 종료
+  v7.10 (2026-09-01): 툴 에이전트 7종의 항목별 설명 서브라인 제거 — 기능명만 남김. 이름이 이미 자기 설명적이라 7줄 × 2행이 사이드바 높이만 먹고 있었음(v7.8에서 추가했던 것 중 이 구간만 되돌림). 3단 위계 설명은 「툴 에이전트」 섹션 헤더가 계속 지고, 1단 카드·프로젝트 항목의 설명은 유지
   v7.9 (2026-09-01): 툴 에이전트 7번째 「PPT 제작(BETA)」 추가(#ppt) — 자료 선택(공용 첨부 메뉴)+요청 → 진행 로그 레일과 함께 개요 8장 생성 연출 → 덱 스타일 4종·템플릿 8종 선택 → 슬라이드 생성 → PPTX가 드라이브에 저장되고 편집기로 열림. 프로젝트 채널 키워드 라우팅에 발표/슬라이드/PPT 추가, 채널·업로드의 항목 수 변경이 사이드바 프로젝트 서브라인에도 동기화
   v7.8 (2026-09-01): LNB 설명 상시 노출 — hover 툴팁(title)으로만 있던 역할 설명을 항목 아래 서브라인으로 내리고, 설명이 아예 없던 툴 에이전트 6종·프로젝트 전체·「새 프로젝트」에도 추가. 팀 공유용이라 시각 밀도보다 정보량 우선(v7.2 결정의 의도적 역전). 늘어난 높이는 사이드바 스크롤 영역(.sb-scroll)으로 흡수
   v7.7 (2026-08-29): 드라이브 잔손질 — 사이드바 돋보기 → 드라이브 검색 포커스, 파일 ⋯ 메뉴(열기·삭제, 폴더 뷰 포함 개수 동기화), 신규 메뉴에 폴더 만들기(새 프로젝트 연결 대상), 드로어 「아직 목업」 목록 최신화
@@ -109,31 +110,31 @@
     <nav class="nav">
       <button class="nav-item" data-nav="solver">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.25" y="6.75" width="13.5" height="9.5" rx="3"/><path d="M10 4.2v2.55"/><circle cx="10" cy="3.6" r="0.6" fill="currentColor" stroke="none"/><circle cx="7.4" cy="11.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="12.6" cy="11.5" r="0.9" fill="currentColor" stroke="none"/></svg>
-        <span class="nav-lb"><span>문제 풀이</span><em>문제를 올리면 단계별 풀이를 만들어요. 지금은 물리학 솔버로 설정돼 있어요.</em></span>
+        <span class="nav-lb"><span>문제 풀이</span></span>
       </button>
       <button class="nav-item" data-nav="generator">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 11.5h2l2 4.5 3-12h8"/><path d="M12 11.5l4.5 5M16.5 11.5l-4.5 5"/></svg>
-        <span class="nav-lb"><span>문제 생성</span><em>숫자·조건을 바꾼 변형 문제를 뽑아요. 같은 유형 반복 훈련용 BETA 기능이에요.</em></span>
+        <span class="nav-lb"><span>문제 생성</span></span>
       </button>
       <button class="nav-item" data-nav="figure">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.25" y="3.75" width="13.5" height="12.5" rx="2.5"/><circle cx="7.3" cy="7.8" r="1.3"/><path d="M3.75 13.5l3.9-3.4 2.9 2.5 2.6-2.3 3.1 2.8"/></svg>
-        <span class="nav-lb"><span>시각화</span><em>개념·구조를 다이어그램과 그래프로 그려줘요. 결과 이미지는 캔버스에 쌓여요.</em></span>
+        <span class="nav-lb"><span>시각화</span></span>
       </button>
       <button class="nav-item" data-nav="canvas">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.75 2.5v15M13.25 2.5v15M2.5 6.75h15M2.5 13.25h15"/></svg>
-        <span class="nav-lb"><span>캔버스</span><em>생성한 이미지를 보관하고 다시 손보는 공간. 시각화와 같은 셸을 쓰는 두 번째 탭이에요.</em></span>
+        <span class="nav-lb"><span>캔버스</span></span>
       </button>
       <button class="nav-item" data-nav="report-writer">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12.8 3.4 3.8 3.8L7.2 16.6H3.4v-3.8z"/><path d="m10.9 5.3 3.8 3.8"/></svg>
-        <span class="nav-lb"><span>문서 작성</span><em>보고서·요약본 초안을 대신 써줘요. 툴 7종 중 전용 화면이 아직 없는 유일한 항목이에요.</em></span>
+        <span class="nav-lb"><span>문서 작성</span></span>
       </button>
       <button class="nav-item" data-nav="ppt">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.75" y="3.25" width="14.5" height="10" rx="2"/><path d="M10 13.25v3.25M6.9 16.5h6.2"/><path d="M6.4 10.4V8.3M10 10.4V6.3M13.6 10.4V7.4"/></svg>
-        <span class="nav-lb"><span>PPT 제작</span><em>자료를 고르면 개요를 짜고, 확인 후 슬라이드까지 만들어요. 결과는 PPTX로 저장돼요.</em></span>
+        <span class="nav-lb"><span>PPT 제작</span></span>
       </button>
       <button class="nav-item" data-nav="chat">
         <svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.75c3.7 0 6.75 2.6 6.75 5.75S13.7 15.25 10 15.25c-.75 0-1.5-.1-2.2-.3L4.25 16l.85-2.5A5.5 5.5 0 0 1 3.25 9.5c0-3.15 3.05-5.75 6.75-5.75Z"/></svg>
-        <span class="nav-lb"><span>채팅</span><em>검색과 심층 설명이 되는 범용 챗. 특정 과목 맥락 없이 빠르게 물어볼 때 쓰는 툴이에요.</em></span>
+        <span class="nav-lb"><span>채팅</span></span>
       </button>
     </nav>
 
@@ -1457,7 +1458,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.9 · 2026.09.01</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.10 · 2026.09.01</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
