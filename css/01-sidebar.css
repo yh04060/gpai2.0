@@ -12,7 +12,7 @@
 /* 항목 라벨 + 역할 설명 서브라인 (v7.8) — 팀 공유용이라 툴팁 대신 상시 노출.
    v7.1의 .sb-me-lb와 달리 말줄임 없이 여러 줄로 흐른다 */
 .nav-lb{min-width:0;flex:1}
-.nav-lb>span{display:block;font-size:14px;line-height:1.3}
+.nav-lb>span{display:block;font-size:14px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-lb em{display:block;margin-top:3px;font-style:normal;font-size:10.5px;line-height:1.45;color:var(--ink-3);letter-spacing:-.01em;word-break:keep-all}
 .nav-item:hover{background:var(--hover)}
 .nav-item.on{background:var(--active)}
@@ -26,7 +26,7 @@
 .sb-me{border:1px solid var(--border-soft);border-radius:13px;background:#FBFBF9;padding:7px;margin:0 2px}
 .sb-me-head{display:flex;align-items:center;gap:9px;padding:5px 5px 7px}
 .sb-me-who{min-width:0}
-.sb-me-who b{display:block;font-size:13.5px;line-height:1.2}
+.sb-me-who b{display:block;font-size:13.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-me-who span{display:block;margin-top:2px;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-me .nav-item:hover{background:#F3F3F0}
 .sb-me .nav-item.on{background:#ECECE9}

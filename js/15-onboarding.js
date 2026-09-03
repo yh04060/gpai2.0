@@ -258,15 +258,15 @@ function obRenderDone(){
 
 /* ---- 고정 버튼들 ---- */
 /* ---- 가입 카드의 이름 = username 하나(성·이름 구분 없음) ----
-   이메일을 치면 @ 앞부분이 자동으로 채워지고(이름칸을 직접 친 적이 없을 때만), 비워 두고 시작하면
-   그 값을 쓴다 — 흔한 가입 폼의 기본 UX. 이 이름 + " AI"가 내 AI의 기본 이름이 된다(aiName()).
+   이메일을 치면 @ 앞부분이 자동으로 채워지고(이름칸이 비어 있을 때만 — 직접 친 이름은 안 덮어쓰고,
+   지우면 다시 켜진다), 비워 두고 시작하면 그 값을 쓴다 — 흔한 가입 폼의 기본 UX. 이 이름 + " AI"가 내 AI의 기본 이름이 된다(aiName()).
    Google로 계속하기는 Google 계정 이름을 받아온 것으로 연출한다(데모 계정 그대로) */
 const OB_GOOGLE_ACCOUNT={username:'최민규',email:'theminq@teamturing.com'};
 const obNameEl=$('#obName'),obEmailEl=$('#obEmail');
 function obLocal(){return (obEmailEl.value||'').trim().split('@')[0].trim();}
 function obNameSync(){const l=obLocal();obNameEl.placeholder=l||'이름';if(obNameEl.dataset.touched!=='1')obNameEl.value=l;}
 obEmailEl.addEventListener('input',obNameSync);
-obNameEl.addEventListener('input',()=>{obNameEl.dataset.touched='1';});
+obNameEl.addEventListener('input',()=>{obNameEl.dataset.touched=obNameEl.value.trim()?'1':'0';});
 obNameSync();
 function obSetUser(name,email){
   USER.username=name;if(email)USER.email=email;

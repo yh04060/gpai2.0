@@ -107,16 +107,20 @@ let pjSeq=0,pjUpDest=null;
 function renderProjects(){
   $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></span></button>').join('')
    +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span></span></button>';
-  const tier=$('#maTierProj');
-  if(tier)tier.innerHTML=PROJECTS.map(p=>'<div class="tier-box" data-pf="agent" data-pid="'+p.id+'">'+avatarFor(p,26)+'<b>'+escapeHtml(p.agent)+'</b><span class="sub">폴더: '+escapeHtml(p.folder)+'</span></div>').join('')
-   +'<div class="tier-box dashed" id="maNewProj">+ 새 프로젝트</div>';
+  /* 내 AI 화면 오른쪽 패널의 「부리는 에이전트」 — 세로 목록, 누르면 채널로 */
+  const list=$('#mpProjects');
+  if(list)list.innerHTML=PROJECTS.map(p=>'<div class="pf-li" data-nav="project-'+p.id+'">'+avatarFor(p,22)+'<span>'+escapeHtml(p.agent)+'</span><em>#'+escapeHtml(p.name)+'</em></div>').join('')
+   +'<button class="pf-b mp-newpj" id="maNewProj">+ 새 프로젝트</button>';
 }
 $('#projNav').addEventListener('click',e=>{
   if(e.target.closest('#projNewBtn')){openProjModal();return;}
   const b=e.target.closest('[data-nav]');
   if(b){state.pjTab='msg';go(b.dataset.nav);}
 });
-$('#maTierProj').addEventListener('click',e=>{if(e.target.closest('#maNewProj'))openProjModal();});
+$('#mpProjects').addEventListener('click',e=>{
+  if(e.target.closest('#maNewProj')){openProjModal();return;}
+  const b=e.target.closest('[data-nav]');if(b){state.pjTab='msg';go(b.dataset.nav);}
+});
 
 function pjFmt(p,t){
   const s=escapeHtml(t),m=escapeHtml('@'+p.agent);

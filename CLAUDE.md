@@ -113,9 +113,28 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
   사이드바 `#sbAiName`, 마스터 화면 제목·부제·위계도·입력창 안내문, 말풍선 라벨, 온보딩 완료
   버튼, 문서 메타가 여기에 포함됩니다. **새 문구에 이름을 박아야 하면 하드코딩하지 말고 이
   패턴을 쓰세요**
-- 내 AI에도 프로젝트 AI와 같은 **프로필 패널**이 있습니다(`state.profile.type==='master'`,
-  트리거는 `data-pf="master"`: 마스터 화면 헤더의 아이콘·이름, 위계도 상자, 말풍선 라벨,
-  내 프로필의 「내 AI」 행). 메시지 · 이름 수정 · (직접 정했을 때) 기본 이름으로
+- 내 AI의 프로필은 별도 패널이 아니라 **마스터 화면 오른쪽 「내 AI」 패널**(`.ma-pane`)이
+  겸합니다. 정체성 블록 `#mpId`에서 이름 수정 · (직접 정했을 때) 기본 이름으로.
+  `data-pf="master"`(헤더 아이콘·이름, 말풍선 라벨, 내 프로필의 「내 AI」 행)는 `maFocusPane()`으로
+  이 화면의 패널 맨 위를 가리킵니다 — 오른쪽 패널이 둘 뜨는 일이 없게
+- "기본 이름" 예시처럼 **항상 기본값을 보여야 하는 자리는 `[data-aidefault]`** 를 씁니다.
+  `[data-ainame]`은 현재 이름이라 직접 정한 이름이 있으면 그 값이 나옵니다
+
+### 내 AI 화면 — 가운데는 채팅, 오른쪽은 설명
+
+`#master`는 Claude·ChatGPT식 **1:1 채팅 한 열**(헤더 · 스레드 · 컴포저)과 **오른쪽 「내 AI」 패널**로만
+이루어집니다. 브리핑·질의·위계도·타임라인 카드는 v7.17에서 전부 걷어냈습니다.
+
+- **스레드**의 데모 대화는 `index.html`의 정적 마크업입니다 — 08:30 AI가 먼저 보낸 오늘 브리핑 →
+  09:52 활동 알림 → 10:14 크로스 프로젝트 질의 → 10:16 **위임 카드**(프로젝트 AI에게 시킨 일이
+  단계로 보임). 데모 버튼은 `data-ma="doc|pdf|pj"` 하나로 위임 처리하므로 스레드를 갈아끼워도
+  다시 묶지 않습니다. 「새 대화」는 빈 상태(인사 + `MA_CAPS` 칩 6개)로 바꾸고 「오늘 대화로」가
+  되돌립니다(`maRenderThread`)
+- **패널**(`.ma-pane` 404px)은 이 AI의 프로필을 겸합니다. 정체성 블록 → `<details>` 섹션
+  7개(역할 · 할 수 있는 것 · 지금 하는 일 · 메모리 · 부리는 에이전트 · 경계 · 설정). 「할 수 있는 것」과
+  빈 상태 칩은 같은 `MA_CAPS`를 쓰고, 「부리는 에이전트」의 프로젝트 목록은 `renderProjects()`가
+  채웁니다. 헤더 버튼으로 접고 폅니다(`maPaneToggle`)
+- 컴포저 하단 여백 74px은 「Q의 의견」 버튼 때문입니다(→ 지뢰 3)
 
 ### 화면 목록 (16)
 
@@ -125,7 +144,7 @@ GitHub Pages는 GitHub가 저장소의 정적 파일을 그대로 웹사이트�
 
 | 구분 | 해시 | 화면 | 마크업 위치 (`index.html`) |
 |---|---|---|---|
-| 핵심 | `#master` | 내 AI — 제목은 `aiName()`(예: 최민규 AI) | `#view-master` 섹션 |
+| 핵심 | `#master` | 내 AI — 1:1 채팅 + 오른쪽 「내 AI」 패널(이 AI의 프로필 겸함) | `#view-master` 섹션 |
 | | `#drive` / `#drive-list` | AI 드라이브 (그리드 / 리스트) | `#view-drive` 섹션 |
 | | `#project-p1` | 프로젝트 채널 | `#view-project` (JS가 동적 렌더) |
 | 툴 | `#solver` | 문제 풀이 | `#view-solver` 섹션 |
@@ -245,13 +264,13 @@ Google Drive 모달 / 「신규」 메뉴 / 파일 ⋯ 메뉴 / 첨부 메뉴 / 
 | `09-editor-body.js` | 편집기 본문(시트·PPT·PDF·YT) · 모델 선택 · 챗 | `MODELS` `edSend` |
 | `10-attach-picker.js` | 첨부 메뉴 · 드라이브 피커 | `openAttMenu` `openPicker` |
 | `11-projects.js` | **프로젝트 전체** — 채널·쓰레드(라이브 툴 호출)·파일 트리·새 프로젝트 모달 | `PROJECTS` `FOLDER_FILES` `PJ_ROUTES` `renderProject` `pjSendMsg` |
-| `12-master.js` | 마스터 AI 입력 | `maSend` |
+| `12-master.js` | **내 AI 화면** — 채팅 스레드(정적 데모 ↔ 빈 상태 토글 · 목업 응답 · `data-ma` 버튼 위임) · 오른쪽 「내 AI」 패널(할 수 있는 것 · 메모리 · 접기 · 포커스) | `MA_CAPS` `MA_MEMORY` `maSend` `maRenderThread` `maFocusPane` |
 | `13-upload.js` | 업로드 라우팅(드라이브/프로젝트) | `startDriveUpload` `upFinish` |
 | `14-init.js` | 해시 처리 · 초기 구동 | |
 | `15-onboarding.js` | **온보딩 전체** — 스텝 전환·LMS 폼·가입 카드 이름(username: 이메일 앞부분 자동 채움·빈칸 폴백)·임포트 연출·진입 판단(자체 해시 처리) + 드라이브 「신규」 메뉴 | `OB_COURSES` `openOnboard` `closeOnboard` `obGo` `obSetUser` |
 | `16-gdrive.js` | Google Drive 가져오기 모달 — 연결 연출·다중 선택 → 업로드 토스트로 전달 (`#gdrive` 해시 처리) | `GD_FILES` `openGdPicker` `closeGdPicker` |
 | `17-ppt.js` | **PPT 제작** — 랜딩(내 덱)·개요 생성 연출·덱 스타일/템플릿·슬라이드 생성→드라이브 저장·진행 로그 레일 | `PMK_OUTLINE` `PMK_TPLS` `pmkStart` `pmkGenerate` |
-| `18-profile.js` | **프로필 패널** — 프로젝트 AI 프로필(온라인·담당 폴더·메모리·툴·사진/이름 변경) · **내 AI 프로필**(`type:'master'` — 이름 수정·기본 이름으로, 얼굴은 아이콘 고정) · 내 프로필(사진 업로드/캐릭터 선택·이름 수정). `data-pf` 클릭 위임, `state.profile`이 정본. **`renderUser()`가 이름이 보이는 모든 자리(`[data-ainame]` `[data-uname]` 등)를 채움** | `openProfile` `closeProfile` `renderUser` `aiIcon` |
+| `18-profile.js` | **프로필 패널** — 프로젝트 AI 프로필(온라인·담당 폴더·메모리·툴·사진/이름 변경) · 내 프로필(사진 업로드/캐릭터 선택·이름 수정). `data-pf` 클릭 위임(`master`는 `maFocusPane()`으로), `state.profile`이 정본. 내 AI 패널 정체성 블록의 이름 수정 바인딩(`pfInlineRename` 재사용 · Esc 취소)도 여기. **`renderUser()`가 이름이 보이는 모든 자리(`[data-ainame]` `[data-uname]` `[data-aidefault]` 등)를 채움** | `openProfile` `closeProfile` `renderUser` `aiIcon` `pfInlineRename` |
 
 ---
 
@@ -386,7 +405,7 @@ JS가 끝까지 실행됐는지는 `--dump-dom`으로도 확인할 수 있습니
    (`.pj-`, `.ma-`, `.pjf-`, `.pmk-`)
 3. **하단 중앙 「Q의 의견」 버튼과의 겹침.** v7.11부터 이 버튼이 화면 하단 중앙에
    고정돼 있습니다 (`left:50%` · `bottom:22px` · 높이 40px → 아래에서 62px까지 차지).
-   화면 하단에 붙는 UI — 프로젝트 채널 컴포저 힌트, 채팅 입력바, 마스터 본문 — 는
+   화면 하단에 붙는 UI — 프로젝트 채널 컴포저 힌트, 채팅 입력바, 내 AI 화면 컴포저(`.ma-composer`) — 는
    하단 여백 **74px**을 확보해 12px 간격을 둡니다. 버튼 크기·위치를 바꾸면 이 여백들도
    같이 조정하세요.
 4. **동적 렌더 후 이벤트 재바인딩.** `renderProject()`는 `innerHTML`을 통째로 교체합니다.
