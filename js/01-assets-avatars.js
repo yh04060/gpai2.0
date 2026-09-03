@@ -39,8 +39,8 @@ function avatarSVG(k,size){
 /* 내(유저) 아바타 — 사진이 있으면 <img>, 없으면 이니셜. 컨테이너가 크기를 정한다 */
 function userAvatar(size){
   size=size||36;
-  if(USER.photo)return '<img class="uav" src="'+USER.photo+'" width="'+size+'" height="'+size+'" alt="'+USER.name+'" draggable="false">';
-  return '<span class="uav-init">'+USER.initial+'</span>';
+  if(USER.photo)return '<img class="uav" src="'+USER.photo+'" width="'+size+'" height="'+size+'" alt="'+String(USER.username||'').replace(/"/g,'&quot;')+'" draggable="false">';
+  return '<span class="uav-init">'+userInitial()+'</span>';
 }
 /* 프로젝트/에이전트 객체에서 바로 — avatar가 없으면 이름으로 기본 배정 */
 function avatarFor(o,size){return avatarSVG((o&&o.avatar)||avatarDefault(o&&o.name),size);}

@@ -124,7 +124,7 @@ function pjFmt(p,t){
 }
 function pjUserPost(p,time,text,extra){
   return '<div class="pj-post"><div class="pj-pava user" data-pf="user">'+userAvatar(36)+'</div><div class="pj-body">'
-   +'<div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.name)+'</b><span class="pj-time">'+time+'</span></div>'
+   +'<div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.username)+'</b><span class="pj-time">'+time+'</span></div>'
    +'<div class="pj-text">'+pjFmt(p,text)+'</div>'+(extra||'')+'</div></div>';
 }
 function pjTsum(p,n,when){
@@ -355,7 +355,7 @@ function pjSendMsg(p,text){
   }
   p.msgs.push(entry);
   const wrap=$('#pjMsgs');
-  wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava user" data-pf="user">'+userAvatar(36)+'</div><div class="pj-body"><div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.name)+'</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
+  wrap.insertAdjacentHTML('beforeend','<div class="pj-post"><div class="pj-pava user" data-pf="user">'+userAvatar(36)+'</div><div class="pj-body"><div class="pj-who"><b data-pf="user" class="pf-link">'+escapeHtml(USER.username)+'</b><span class="pj-time">방금</span></div><div class="pj-text">'+pjFmt(p,text)+'</div><div class="pj-slot" id="pjSlot'+idx+'"></div></div></div>');
   wrap.scrollTop=wrap.scrollHeight;
   const scrollDn=()=>{const w=$('#pjMsgs');if(w)w.scrollTop=w.scrollHeight;};
   /* 스테이지 사이에 재렌더가 끼어도 데이터 변형은 항상 수행하고 DOM은 있을 때만 갱신한다 */
@@ -461,4 +461,4 @@ $('#projCreate').addEventListener('click',()=>{
   go('project-'+id);
 });
 
-/* ================= 나의 마스터 AI (1:1 커맨드 센터) ================= */
+/* ================= 내 AI · 마스터 (1:1 커맨드 센터) ================= */

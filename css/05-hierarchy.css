@@ -96,6 +96,7 @@
 .pj-pava.av,.pj-mini.av{background:transparent;border:none;padding:0;overflow:hidden}
 .pj-pava.av svg,.pj-mini.av svg,.pj-pava.av img,.pj-mini.av img{display:block;width:100%;height:100%}
 .tier-box .av{margin:1px 0 3px;border-radius:7px}
+.tier-box .ma-ava{width:26px;height:26px;margin:1px 0 3px}
 .pj-body{flex:1;min-width:0}
 .pj-who{display:flex;align-items:center;gap:7px}
 .pj-who b{font-size:13.5px}

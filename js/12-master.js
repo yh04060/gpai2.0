@@ -4,7 +4,7 @@ function maSend(text){
   const w=$('#maMsgs');
   w.insertAdjacentHTML('beforeend','<div class="ma-bub-u">'+escapeHtml(t)+'</div>');
   setTimeout(()=>{
-    w.insertAdjacentHTML('beforeend','<div class="ma-bub-a"><span class="msg-model"><i style="background:#EE7732"></i>마스터 AI</span><p style="margin-top:6px">'+MA_REPLY+'</p><div><span class="ma-src">근거: 프로젝트 AI 질의</span><span class="ma-src">근거: 드라이브 검색</span></div></div>');
+    w.insertAdjacentHTML('beforeend','<div class="ma-bub-a"><span class="msg-model" data-pf="master" title="내 AI 프로필"><i style="background:#EE7732"></i>'+escapeHtml(aiName())+'</span><p style="margin-top:6px">'+MA_REPLY+'</p><div><span class="ma-src">근거: 프로젝트 AI 질의</span><span class="ma-src">근거: 드라이브 검색</span></div></div>');
     const last=w.lastElementChild;if(last)last.scrollIntoView({block:'nearest'});
   },650);
 }

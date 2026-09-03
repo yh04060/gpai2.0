@@ -249,7 +249,7 @@ function obRenderDone(){
    +'<div class="ob-stat"><b>'+list.length+'</b><span>프로젝트 AI</span></div>'
    +'</div>'
    +'<div class="ob-pcards">'+cards+'</div>'
-   +'<div class="ob-ctas"><button class="ob-cta" id="obDoneDrive">드라이브에서 확인하기</button><button class="ob-cta2" id="obDoneMaster">마스터 AI 브리핑 받기</button></div>'
+   +'<div class="ob-ctas"><button class="ob-cta" id="obDoneDrive">드라이브에서 확인하기</button><button class="ob-cta2" id="obDoneMaster">'+escapeHtml(aiName())+' 브리핑 받기</button></div>'
    +'</div>';
   $('#obDoneDrive').addEventListener('click',()=>closeOnboard('drive'));
   $('#obDoneMaster').addEventListener('click',()=>closeOnboard('master'));
@@ -257,8 +257,26 @@ function obRenderDone(){
 }
 
 /* ---- 고정 버튼들 ---- */
-$('#obGoogle').addEventListener('click',()=>obGo(1));
-$('#obSignup').addEventListener('click',()=>obGo(1));
+/* ---- 가입 카드의 이름 = username 하나(성·이름 구분 없음) ----
+   이메일을 치면 @ 앞부분이 자동으로 채워지고(이름칸을 직접 친 적이 없을 때만), 비워 두고 시작하면
+   그 값을 쓴다 — 흔한 가입 폼의 기본 UX. 이 이름 + " AI"가 내 AI의 기본 이름이 된다(aiName()).
+   Google로 계속하기는 Google 계정 이름을 받아온 것으로 연출한다(데모 계정 그대로) */
+const OB_GOOGLE_ACCOUNT={username:'최민규',email:'theminq@teamturing.com'};
+const obNameEl=$('#obName'),obEmailEl=$('#obEmail');
+function obLocal(){return (obEmailEl.value||'').trim().split('@')[0].trim();}
+function obNameSync(){const l=obLocal();obNameEl.placeholder=l||'이름';if(obNameEl.dataset.touched!=='1')obNameEl.value=l;}
+obEmailEl.addEventListener('input',obNameSync);
+obNameEl.addEventListener('input',()=>{obNameEl.dataset.touched='1';});
+obNameSync();
+function obSetUser(name,email){
+  USER.username=name;if(email)USER.email=email;
+  if(typeof renderUser==='function')renderUser();
+}
+$('#obGoogle').addEventListener('click',()=>{obSetUser(OB_GOOGLE_ACCOUNT.username,OB_GOOGLE_ACCOUNT.email);obGo(1);});
+$('#obSignup').addEventListener('click',()=>{
+  obSetUser(obNameEl.value.trim()||obLocal()||'나',(obEmailEl.value||'').trim()||USER.email);
+  obGo(1);
+});
 $('#obBack').addEventListener('click',()=>obGo(1));
 $('#obSkip').addEventListener('click',()=>closeOnboard('drive',true));
 $('#obLater').addEventListener('click',()=>closeOnboard('drive',true));

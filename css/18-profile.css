@@ -63,3 +63,8 @@
 .avatar>img,.lava>img,.pj-pava>img,.pj-mini>img,.pf-photo>img{display:block;max-width:none;max-height:none;object-fit:cover;object-position:50% 30%;border-radius:inherit!important;margin:0;padding:0;border:0;flex:none}
 .uav-init{display:grid;place-items:center;width:100%;height:100%;line-height:1}
 .pf-photo{width:300px!important;height:300px!important;min-width:300px;min-height:300px;max-width:300px;max-height:300px}
+
+/* ---- 내 AI(마스터) 프로필 — 얼굴은 AI 아이콘 고정(내 사진을 쓰면 나와 구분이 안 됨) ---- */
+.pf-photo.ai{display:grid;place-items:center;background:#FDF6EE}
+.pf-aiic{width:132px;height:132px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px rgba(238,119,50,.22)}
+.pf-li .ma-ava{width:22px;height:22px;border-radius:50%}
