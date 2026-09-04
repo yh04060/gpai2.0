@@ -22,7 +22,7 @@ const MA_CAPS=[
 const MA_MEMORY=['실험 보고서 마감 D-1 · 일반물리학 AI가 초안 v2를 완성해 내 확인 대기','중간고사 기출.pdf 3번 풀이를 이어서 하기로 함 · 중간고사 대비 폴더는 아직 프로젝트 미연결','성적 관리.xlsx에 미입력 점수 2건'];
 const MA_REPLY='확인했어요. 관련 프로젝트 AI에 질의하고 드라이브 전체를 검색해 종합할게요 — 진행 상황은 오른쪽 「지금 하는 일」에, 결과는 이 대화로 보고돼요.';
 
-let maFresh=false,maPaneOpen=true;
+let maFresh=false,maPaneOpen=true,maReplyT=null;
 const maDemoHTML=$('#maMsgs').innerHTML;   /* 정적 데모 스레드 — 「오늘 대화로」가 되돌릴 때 쓴다 */
 
 function maNow(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
@@ -39,7 +39,8 @@ function maSend(text){
   const empty=w.querySelector('.ma-empty');if(empty)empty.remove();
   $('#maChips').style.display='none';
   w.insertAdjacentHTML('beforeend',maMsgMe(t));maScrollEnd();
-  setTimeout(()=>{
+  clearTimeout(maReplyT);
+  maReplyT=setTimeout(()=>{
     w.insertAdjacentHTML('beforeend',maMsgAI('<p>'+MA_REPLY+'</p><div class="ma-srcs"><span class="ma-src">근거: 프로젝트 AI 질의</span><span class="ma-src">근거: 드라이브 검색</span></div>'));
     maScrollEnd();
   },650);
@@ -53,6 +54,7 @@ function maBindDemo(){
   const av=$('#maDcAva');if(av)av.innerHTML=avatarFor(PROJECTS.find(p=>p.id==='p1')||{name:'일반물리학'},20);
 }
 function maRenderThread(){
+  clearTimeout(maReplyT);   /* 스레드를 갈아끼우는데 목업 응답 타이머가 살아 있으면 엉뚱한 스레드에 붙는다 */
   $('#maMsgs').innerHTML=maFresh?maEmptyHTML():maDemoHTML;
   $('#maChips').style.display=maFresh?'none':'flex';
   $('#maNew').innerHTML=maFresh?MA_ICON_BACK+'오늘 대화로':MA_ICON_PLUS+'새 대화';
@@ -61,9 +63,15 @@ function maRenderThread(){
   $('#maThread').scrollTop=0;
 }
 function maAction(k){
-  if(k==='doc')openEditor('doc');
-  else if(k==='pdf')openEditor('pdf');
-  else if(k==='pj'){state.pjTab='msg';go('project-p1');}
+  if(k==='doc')openEditor('doc','실험 보고서.docx');
+  else if(k==='pdf')openEditor('pdf','변형문제_2차.pdf');
+  else if(k==='pj')maGoQuizThread();
+}
+/* "#일반물리학에서 보기" — 채널로 가서 그 위임(10:16 게시글)의 쓰레드를 연다 */
+function maGoQuizThread(){
+  state.pjTab='msg';go('project-p1');
+  const p=PROJECTS.find(x=>x.id==='p1');const post=p&&(p.posts||[]).find(x=>x.key==='quiz');
+  if(post&&typeof openThread==='function')openThread(p,post.id);
 }
 function maPaneToggle(force){
   maPaneOpen=typeof force==='boolean'?force:!maPaneOpen;
@@ -72,6 +80,7 @@ function maPaneToggle(force){
 }
 /* 헤더 아이콘·이름 / 말풍선 라벨 / 내 프로필의 「내 AI」 행 → 이 화면의 패널 맨 위(정체성 블록)로 */
 function maFocusPane(){
+  if(state.profile)closeProfile();   /* 오른쪽 패널이 둘 뜨지 않게 — 내 프로필의 「내 AI」 행에서 올 때 */
   if(state.view!=='master')go('master');
   if(!maPaneOpen)maPaneToggle(true);
   $('#maPane').scrollTop=0;
@@ -96,10 +105,10 @@ function maSubmit(){maSend(maTa.value);maTa.value='';$('#maSendBtn').classList.r
 $('#maSendBtn').addEventListener('click',maSubmit);
 maTa.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();maSubmit();}});
 $$('.ma-sugg').forEach(s=>s.addEventListener('click',()=>maSend(s.textContent.trim())));
-$('#maView1').addEventListener('click',()=>openEditor('doc'));
-$('#tlOpenDoc').addEventListener('click',()=>openEditor('doc'));
-$('#maGoPj1').addEventListener('click',()=>{state.pjTab='msg';go('project-p1');});
-$('#tlSeePj').addEventListener('click',()=>{state.pjTab='msg';go('project-p1');});
+$('#maView1').addEventListener('click',()=>openEditor('doc','실험 보고서.docx'));
+$('#tlOpenDoc').addEventListener('click',()=>openEditor('doc','실험 보고서.docx'));
+$('#maGoPj1').addEventListener('click',maGoQuizThread);
+$('#tlSeePj').addEventListener('click',()=>openEditor('pdf','변형문제_2차.pdf'));
 $('#maOk1').addEventListener('click',()=>{
   $('#maOkCard').innerHTML='<div class="rail-file"><span class="ed-badge" style="background:#2B7CD3">W</span><b>실험 보고서 초안 v2</b></div>'
    +'<div class="rail-done">'+SVG_CK12+'확인 완료 — 일반물리학 AI에 전달됐어요</div>';

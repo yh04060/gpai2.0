@@ -10,6 +10,8 @@ function sync(){
   const drive=state.view==='drive';
   $('#chatPanel').style.display=drive&&state.chat&&!state.profile?'flex':'none';
   $('#pfPanel').style.display=state.profile?'flex':'none';
+  /* 쓰레드 패널 — 프로젝트 화면 + 그 프로젝트의 쓰레드일 때만. 프로필이 열리면 잠시 숨고 닫히면 돌아온다(오른쪽 슬롯 하나) */
+  const th=$('#thPanel');if(th)th.style.display=(state.view==='project'&&state.thread&&state.thread.pid===state.project&&!state.profile)?'flex':'none';
   $('#chatFab').style.display=drive&&!state.chat?'grid':'none';
   $('#main').scrollTop=0;
   renderNoteCtx();

@@ -13,24 +13,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/00-base.css?v=202609031058">
-<link rel="stylesheet" href="css/01-sidebar.css?v=202609031058">
-<link rel="stylesheet" href="css/02-drive.css?v=202609031058">
-<link rel="stylesheet" href="css/03-chat-panel.css?v=202609031058">
-<link rel="stylesheet" href="css/04-upload-toast.css?v=202609031058">
-<link rel="stylesheet" href="css/05-hierarchy.css?v=202609031058">
-<link rel="stylesheet" href="css/07-note-drawer.css?v=202609031058">
-<link rel="stylesheet" href="css/08-solver.css?v=202609031058">
-<link rel="stylesheet" href="css/09-generator.css?v=202609031058">
-<link rel="stylesheet" href="css/10-visuals.css?v=202609031058">
-<link rel="stylesheet" href="css/11-canvas.css?v=202609031058">
-<link rel="stylesheet" href="css/12-chat.css?v=202609031058">
-<link rel="stylesheet" href="css/13-editor.css?v=202609031058">
-<link rel="stylesheet" href="css/14-attach-picker.css?v=202609031058">
-<link rel="stylesheet" href="css/15-generic.css?v=202609031058">
-<link rel="stylesheet" href="css/16-onboarding.css?v=202609031058">
-<link rel="stylesheet" href="css/17-ppt.css?v=202609031058">
-<link rel="stylesheet" href="css/18-profile.css?v=202609031058">
+<link rel="stylesheet" href="css/00-base.css?v=202609041517">
+<link rel="stylesheet" href="css/01-sidebar.css?v=202609041517">
+<link rel="stylesheet" href="css/02-drive.css?v=202609041517">
+<link rel="stylesheet" href="css/03-chat-panel.css?v=202609041517">
+<link rel="stylesheet" href="css/04-upload-toast.css?v=202609041517">
+<link rel="stylesheet" href="css/05-hierarchy.css?v=202609041517">
+<link rel="stylesheet" href="css/07-note-drawer.css?v=202609041517">
+<link rel="stylesheet" href="css/08-solver.css?v=202609041517">
+<link rel="stylesheet" href="css/09-generator.css?v=202609041517">
+<link rel="stylesheet" href="css/10-visuals.css?v=202609041517">
+<link rel="stylesheet" href="css/11-canvas.css?v=202609041517">
+<link rel="stylesheet" href="css/12-chat.css?v=202609041517">
+<link rel="stylesheet" href="css/13-editor.css?v=202609041517">
+<link rel="stylesheet" href="css/14-attach-picker.css?v=202609041517">
+<link rel="stylesheet" href="css/15-generic.css?v=202609041517">
+<link rel="stylesheet" href="css/16-onboarding.css?v=202609041517">
+<link rel="stylesheet" href="css/17-ppt.css?v=202609041517">
+<link rel="stylesheet" href="css/18-profile.css?v=202609041517">
+<link rel="stylesheet" href="css/19-thread.css?v=202609041517">
 </head>
 <body>
 <div class="app">
@@ -826,10 +827,10 @@
                   <p>좋은 아침이에요, <span data-uname></span>님. 오늘 정리예요.</p>
                   <div class="ma-stats">
                     <div class="ma-stat"><b>2건</b><span>이번 주 마감 과제</span></div>
-                    <div class="ma-stat"><b>1건</b><span>내 확인 대기 중인 결과물</span></div>
+                    <div class="ma-stat"><b>1건</b><span>오늘 확인할 결과물</span></div>
                     <div class="ma-stat hot"><b>1건</b><span>오늘 처리 — 실험 보고서 초안</span></div>
                   </div>
-                  <p><b>#일반물리학</b> — 실험 보고서 마감 D-1. 일반물리학 AI가 초안 v2를 완성해 <b>확인 대기</b> 중이고, 변형 문제 20문항도 준비돼 있어요.</p>
+                  <p><b>#일반물리학</b> — 실험 보고서 마감 D-1. 일반물리학 AI가 초안 v2를 마무리하는 중이라 오전 중 <b>확인 대기</b>에 올라와요. 중간시험 범위 변형 문제도 오늘 만들 수 있어요.</p>
                   <p><b>드라이브</b> — 중간고사 기출.pdf 3번 풀이를 이어서 하기로 했어요. 중간고사 대비 폴더는 아직 프로젝트로 연결되지 않았어요.</p>
                   <div class="ma-acts"><button class="ma-act" data-ma="doc">실험 보고서 초안 확인</button><button class="ma-act" data-ma="pdf">변형 문제 보기</button></div>
                 </div>
@@ -1063,6 +1064,29 @@
           </button>
         </div>
       </div>
+    </div>
+  </aside>
+
+  <!-- ===== 쓰레드 패널 (슬랙형) — 프로젝트 게시글의 답글·아티팩트. js/19-thread.js가 채우고, 프로필 패널과 오른쪽 슬롯을 공유한다 ===== -->
+  <aside class="th" id="thPanel" style="display:none">
+    <div class="th-h"><b>스레드</b><span id="thSub"></span>
+      <button class="icbtn" id="thClose" title="닫기">
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="th-body" id="thBody"></div>
+    <div class="th-comp">
+      <div class="ccard" data-attach><div class="att-row"></div>
+        <textarea id="thTa" placeholder="답글 달기"></textarea>
+        <div class="crow">
+          <button class="plus" title="첨부"><svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg></button>
+          <button class="ctb" type="button" title="서식">Aa</button>
+          <button class="ctb" type="button" title="이모지"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M7 12.2c.8 1 1.8 1.5 3 1.5s2.2-.5 3-1.5"/><path d="M7.8 8h.01M12.2 8h.01" stroke-width="2"/></svg></button>
+          <button class="ctb" type="button" id="thAt" title="@멘션">@</button>
+          <button class="send" id="thSendBtn" style="margin-left:auto" title="보내기"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9"/></svg></button>
+        </div>
+      </div>
+      <div class="pj-hint">AI가 답한 쓰레드에서는 멘션 없이도 이어서 시킬 수 있어요</div>
     </div>
   </aside>
 
@@ -1537,7 +1561,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.17 · 2026.09.03</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.18 · 2026.09.04</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1741,25 +1765,26 @@
   </div>
 </div>
 
-<script src="js/00-helpers.js?v=202609031058"></script>
-<script src="js/01-assets-drive.js?v=202609031058"></script>
-<script src="js/01-assets-avatars.js?v=202609031058"></script>
-<script src="js/02-canvas.js?v=202609031058"></script>
-<script src="js/03-data.js?v=202609031058"></script>
-<script src="js/04-drive.js?v=202609031058"></script>
-<script src="js/05-router.js?v=202609031058"></script>
-<script src="js/06-misc-controls.js?v=202609031058"></script>
-<script src="js/07-editor-open.js?v=202609031058"></script>
-<script src="js/08-notes.js?v=202609031058"></script>
-<script src="js/09-editor-body.js?v=202609031058"></script>
-<script src="js/10-attach-picker.js?v=202609031058"></script>
-<script src="js/11-projects.js?v=202609031058"></script>
-<script src="js/12-master.js?v=202609031058"></script>
-<script src="js/13-upload.js?v=202609031058"></script>
-<script src="js/14-init.js?v=202609031058"></script>
-<script src="js/15-onboarding.js?v=202609031058"></script>
-<script src="js/16-gdrive.js?v=202609031058"></script>
-<script src="js/17-ppt.js?v=202609031058"></script>
-<script src="js/18-profile.js?v=202609031058"></script>
+<script src="js/00-helpers.js?v=202609041517"></script>
+<script src="js/01-assets-drive.js?v=202609041517"></script>
+<script src="js/01-assets-avatars.js?v=202609041517"></script>
+<script src="js/02-canvas.js?v=202609041517"></script>
+<script src="js/03-data.js?v=202609041517"></script>
+<script src="js/04-drive.js?v=202609041517"></script>
+<script src="js/05-router.js?v=202609041517"></script>
+<script src="js/06-misc-controls.js?v=202609041517"></script>
+<script src="js/07-editor-open.js?v=202609041517"></script>
+<script src="js/08-notes.js?v=202609041517"></script>
+<script src="js/09-editor-body.js?v=202609041517"></script>
+<script src="js/10-attach-picker.js?v=202609041517"></script>
+<script src="js/11-projects.js?v=202609041517"></script>
+<script src="js/12-master.js?v=202609041517"></script>
+<script src="js/13-upload.js?v=202609041517"></script>
+<script src="js/14-init.js?v=202609041517"></script>
+<script src="js/15-onboarding.js?v=202609041517"></script>
+<script src="js/16-gdrive.js?v=202609041517"></script>
+<script src="js/17-ppt.js?v=202609041517"></script>
+<script src="js/18-profile.js?v=202609041517"></script>
+<script src="js/19-thread.js?v=202609041517"></script>
 </body>
 </html>

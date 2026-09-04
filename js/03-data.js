@@ -2,7 +2,7 @@
 /* 온보딩(eTL 임포트) 완료 후의 드라이브 상태가 기본값 —
    과목 폴더 5개는 LMS에서 가져온 것, 나머지는 유저 개인 파일 */
 const driveItems=[
-  {type:'folder',name:'일반물리학',meta:'항목 6개 · eTL'},
+  {type:'folder',name:'일반물리학',meta:'항목 7개 · eTL'},
   {type:'folder',name:'자료구조',meta:'항목 5개 · eTL'},
   {type:'folder',name:'공학수학 2',meta:'항목 4개 · eTL'},
   {type:'folder',name:'대학영어',meta:'항목 4개 · eTL'},
@@ -30,5 +30,5 @@ const USER={username:'최민규',email:'theminq@teamturing.com',aiName:null,
 function aiName(){return USER.aiName||(String(USER.username||'').trim()+' AI');}
 /* 사진이 없을 때 쓰는 이니셜 — username의 첫 글자(라틴 문자는 대문자) */
 function userInitial(){const s=String(USER.username||'').trim();return s?Array.from(s)[0].toUpperCase():'?';}
-const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[],profile:null};
+const state={view:'drive',chat:true,layout:'grid',q:'',pjTab:'msg',drivePath:[],profile:null,thread:null};
 

@@ -52,7 +52,7 @@
 .ma-file{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-top:6px;cursor:pointer;background:#fff;font-size:13px;transition:border-color .15s}
 .ma-file:hover{border-color:#D2D2D0}
 .ma-file b{font-weight:600}
-.ma-file span{font-size:11.5px;color:#9C9C9A}
+.ma-file>span:not(.ed-badge){font-size:11.5px;color:#9C9C9A}
 .ma-file em{font-style:normal;font-size:12px;color:#D8681B;margin-left:2px}
 .ma-dcard{margin-top:10px;border:1px solid #F4DEC8;background:#FFFBF7;border-radius:12px;padding:12px 14px}
 .ma-dh{display:flex;align-items:center;gap:8px;font-size:13px}
@@ -107,7 +107,7 @@
 .mp-kv:last-child{border-bottom:none}
 .mp-kv b{font-weight:600;color:#1F1F1D;flex:none}
 .mp-kv span{color:#55554F;text-align:right}
-.mp-newpj{width:100%;margin-top:8px;height:34px;justify-content:center}
+.pf-b.mp-newpj{width:100%;flex:none;margin-top:8px;height:34px;justify-content:center}   /* .pf-b{flex:1}(18-profile.css, 뒤에 로드)보다 특이성을 높여야 column-flex 안에서 20px로 찌그러지지 않는다 */
 .rail-g{font-size:11.5px;color:#9C9C9A;font-weight:600;margin:14px 0 8px}
 .rail-card{border:1px solid var(--border);border-radius:11px;padding:12px 13px;margin-bottom:9px;background:#fff}
 .rail-card>b{font-size:13px;font-weight:600;display:block}
@@ -171,7 +171,6 @@
 .pj-treply{display:inline-flex;align-items:center;gap:7px;margin-top:7px;font-size:12.5px;color:#B45816;font-weight:500;cursor:pointer;border:1px solid transparent;border-radius:8px;padding:5px 9px 5px 6px}
 .pj-treply:hover{background:#fff;border-color:var(--border)}
 .pj-treply em{color:#9C9C9A;font-style:normal;font-weight:400}
-.pj-thread{margin-top:10px;border-left:2px solid #F2C29B;padding:2px 0 2px 14px;display:flex;flex-direction:column;gap:13px}
 .tool-card{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:#FCFCFB;margin-top:7px}
 .tool-card>b{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#2C2C2A}
 .file-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:#fff;border-radius:8px;padding:6px 11px;font-size:12.5px;margin-top:8px;cursor:pointer;transition:background .15s}

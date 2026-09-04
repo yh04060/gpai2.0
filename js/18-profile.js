@@ -70,7 +70,7 @@ function pfAgentHTML(p){
 }
 function pfBindAgent(p){
   const inProj=()=>state.view==='project'&&state.project===p.id;
-  const rerender=()=>{renderProjects();if(inProj())renderProject(p);renderProfile();};
+  const rerender=()=>{renderProjects();if(inProj())renderProject(p);if(state.thread&&typeof renderThread==='function')renderThread();renderProfile();};
   $('#pfMsg').addEventListener('click',()=>{
     if(!inProj()){state.pjTab='msg';go('project-'+p.id);}
     const ta=$('#pjTa');if(ta)ta.focus();
@@ -79,7 +79,7 @@ function pfBindAgent(p){
   $('#pfAvChange').addEventListener('click',()=>{const w=$('#pfAvWrap');w.style.display=w.style.display==='none'?'block':'none';});
   $$('#pfBody .pf-avb').forEach(b=>b.addEventListener('click',()=>{p.avatar=b.dataset.k;rerender();$('#pfAvWrap').style.display='block';}));
   /* 이름 확정은 패널을 통째로 다시 그리지 않는다 — blur 직후 다른 버튼을 누르면 그 버튼이 교체돼 클릭이 삼켜지므로 */
-  pfInlineRename($('#pfRename'),$('#pfAgName'),v=>{if(v!==p.agent){p.agent=v;renderProjects();if(inProj())renderProject(p);}$('#pfAgName').textContent=p.agent;},()=>p.agent);
+  pfInlineRename($('#pfRename'),$('#pfAgName'),v=>{if(v!==p.agent){p.agent=v;renderProjects();if(inProj())renderProject(p);if(state.thread&&typeof renderThread==='function')renderThread();}$('#pfAgName').textContent=p.agent;},()=>p.agent);
 }
 
 /* ---- 내 프로필 ---- */
@@ -150,6 +150,7 @@ function renderUser(){
   const ob=$('#obDoneMaster');if(ob)ob.textContent=ai+' 브리핑 받기';
   const ed=$('#edUserAva');if(ed)ed.innerHTML=userAvatar(28);
   if(state.view==='project'){const p=PROJECTS.find(x=>x.id===state.project);if(p)renderProject(p);}
+  if(state.thread&&typeof renderThread==='function')renderThread();   /* 쓰레드 패널의 내 아바타·이름 */
   if(state.view==='drive'&&state.layout==='list')renderDrive();
   $$('[data-aikind]').forEach(n=>{n.textContent=USER.aiName?'직접 정한 이름':'내 이름 + AI';});
   /* 열려 있는 내 프로필은 통째로 다시 그리지 않고 제자리에서 갱신한다 — 이름 편집 blur 직후의 클릭이 삼켜지지 않게 */
