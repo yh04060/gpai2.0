@@ -44,7 +44,7 @@ document.addEventListener('keydown',e=>{
   if($('#attMenu').classList.contains('open')){$('#attMenu').classList.remove('open');return;}
   if($('#noteDrawer').classList.contains('on')){$('#noteDrawer').classList.remove('on');return;}
   if(state.profile){closeProfile();return;}
-  if(state.thread&&state.view==='project'){closeThread();return;}
+  if(state.thread&&state.view==='project'&&state.thread.pid===state.project&&!state.editor){closeThread();return;}   /* 화면에 보이는 쓰레드만 — 다른 프로젝트의 숨은 쓰레드나 편집기 뒤의 쓰레드가 ESC를 삼키지 않게 */
   if(state.editor)closeEditor();
 });
 

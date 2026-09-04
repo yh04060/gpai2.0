@@ -24,7 +24,7 @@ function artHTML(p,a){
   if(a.file)btns.push('<button data-art-drive>드라이브에서 보기</button>');
   if(a.kind==='solve')btns.push('<button data-nav="solver">문제 풀이에서 열기</button>');
   return '<div class="art art-k-'+a.kind+'"><div class="art-h">'+artIcon(a)+'<b>'+escapeHtml(a.title)+'</b>'
-   +'<span class="art-tool">'+escapeHtml(a.tool||'')+(fn?' · '+escapeHtml(fn)+' · 프로젝트 폴더에 저장됨':'')+'</span></div>'
+   +'<span class="art-tool" title="'+escapeHtml((a.tool||'')+(fn?' · '+fn+' · 프로젝트 폴더에 저장됨':''))+'">'+escapeHtml(a.tool||'')+(fn?' · '+escapeHtml(fn):'')+'</span></div>'
    +'<div class="art-b">'+artBody(p,a)+'</div>'
    +(btns.length?'<div class="art-f">'+btns.join('')+'</div>':'')+'</div>';
 }
@@ -77,9 +77,9 @@ function artFigureSVG(key){
    +'<line x1="40" y1="210" x2="176" y2="210" stroke="#EE7732" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arB)"/>'
    +'<line x1="176" y1="210" x2="176" y2="132" stroke="#EE7732" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arB)"/>'
    +'<path d="M78 210 A 38 38 0 0 0 73 191" fill="none" stroke="#1F1F1D" stroke-width="1.2"/><text x="84" y="200" font-size="12" fill="#1F1F1D">θ = 30°</text>'
-   +'<text x="98" y="160" font-size="12.5" font-weight="600" fill="#B45816">v₀ = 20 m/s</text><text x="96" y="228" font-size="12" fill="#B45816">vₓ = v₀cosθ ≈ 17.3 m/s</text><text x="184" y="176" font-size="12" fill="#B45816">v_y = v₀sinθ = 10 m/s</text>'
+   +'<text x="50" y="140" font-size="12.5" font-weight="600" fill="#B45816">v₀ = 20 m/s</text><text x="96" y="228" font-size="12" fill="#B45816">vₓ = v₀cosθ ≈ 17.3 m/s</text><text x="184" y="176" font-size="12" fill="#B45816">v_y = v₀sinθ = 10 m/s</text>'
    +'<line x1="240" y1="210" x2="240" y2="85" stroke="#9C9C9A" stroke-width="1" stroke-dasharray="3 3"/><text x="246" y="96" font-size="11.5" fill="#55554F">H ≈ 5.1 m</text>'
-   +'<line x1="40" y1="242" x2="440" y2="242" stroke="#9C9C9A" stroke-width="1"/><text x="216" y="238" font-size="11.5" fill="#55554F" text-anchor="middle">R ≈ 35.3 m</text>'
+   +'<line x1="40" y1="242" x2="440" y2="242" stroke="#9C9C9A" stroke-width="1"/><text x="440" y="238" font-size="11.5" fill="#55554F" text-anchor="end">R ≈ 35.3 m</text>'
    +'</svg>';
   return '<svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,system-ui,sans-serif">'
    +'<defs><marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#9C9C9A"/></marker></defs>'
@@ -88,13 +88,20 @@ function artFigureSVG(key){
    +'<text x="260" y="170" font-size="11.5" text-anchor="middle" fill="#9C9C9A">강의 자료 기준 · 편집 가능한 SVG</text></svg>';
 }
 /* 라이브 라우트 → 아티팩트. p1(일반물리학)은 구체적인 내용, 다른 과목은 과목 이름을 채운 일반 템플릿 */
-function artFromRoute(p,route,fname){
+/* p1의 변형 문제 세트(1~3번)에 대응하는 풀이 — 요청 문장의 "n번"을 따른다 */
+const ART_SOLVE_P1={
+ 1:{problem:'1. 포물선 운동에서 발사각이 45°일 때 수평 도달 거리가 최대가 되는 이유를 식으로 보이시오.',steps:[{t:'도달 거리 식',f:'R = v₀² sin2θ / g'},{t:'최대 조건',f:'sin2θ ≤ 1 이고 2θ = 90° 일 때 등호'},{t:'결론',f:'θ = 45° 에서 R_max = v₀² / g'}],answer:'θ = 45°, R_max = v₀² / g'},
+ 2:{problem:'2. 질량 2 kg의 물체가 마찰 없는 30° 경사면을 내려올 때 가속도의 크기는?',steps:[{t:'힘 분해',f:'경사면 방향 힘 = mg sinθ (수직 항력은 운동 방향과 수직)'},{t:'뉴턴 제2법칙',f:'ma = mg sinθ → a = g sinθ'},{t:'대입',f:'a = 9.8 × sin30° = 4.9 m/s²'}],answer:'a = 4.9 m/s² (질량과 무관)'},
+ 3:{problem:'3. 초기 속도 20 m/s, 발사각 30°로 던진 물체의 최고 높이와 수평 도달 거리를 구하시오. (g = 9.8 m/s²)',steps:[{t:'속도 분해',f:'vₓ = 20cos30° ≈ 17.3 m/s · v_y = 20sin30° = 10 m/s'},{t:'최고 높이',f:'H = v_y² / 2g = 100 / 19.6 ≈ 5.10 m'},{t:'비행 시간과 도달 거리',f:'T = 2v_y / g ≈ 2.04 s · R = vₓ·T ≈ 35.3 m'}],answer:'H ≈ 5.1 m, R ≈ 35.3 m'},
+};
+function artFromRoute(p,route,fname,text){
   const phys=p.id==='p1';
-  if(route.art==='solve')return phys
-    ?{kind:'solve',tool:'문제 풀이 툴',title:'3번 풀이',problem:'3. 초기 속도 20 m/s, 발사각 30°로 던진 물체의 최고 높이와 수평 도달 거리를 구하시오. (g = 9.8 m/s²)',
-      steps:[{t:'속도 분해',f:'vₓ = 20cos30° ≈ 17.3 m/s · v_y = 20sin30° = 10 m/s'},{t:'최고 높이',f:'H = v_y² / 2g = 100 / 19.6 ≈ 5.10 m'},{t:'비행 시간과 도달 거리',f:'T = 2v_y / g ≈ 2.04 s · R = vₓ·T ≈ 35.3 m'}],answer:'H ≈ 5.1 m, R ≈ 35.3 m'}
-    :{kind:'solve',tool:'문제 풀이 툴',title:'1번 풀이',problem:'1. '+p.name+' 연습문제 1번 — 폴더의 문제지에서 가져왔어요.',
+  if(route.art==='solve'){
+    const m=String(text||'').match(/(\d+)\s*번/);const n=m?+m[1]:(phys?3:1);
+    if(phys&&ART_SOLVE_P1[n])return Object.assign({kind:'solve',tool:'문제 풀이 툴',title:n+'번 풀이'},ART_SOLVE_P1[n]);
+    return {kind:'solve',tool:'문제 풀이 툴',title:n+'번 풀이',problem:n+'. '+p.name+' 연습문제 '+n+'번 — 폴더의 문제지에서 가져왔어요.',
       steps:[{t:'조건 정리',f:'문제에서 주어진 값과 구할 값을 구분'},{t:'핵심 개념 적용',f:p.name+' 강의 노트의 정의를 그대로 적용'},{t:'검산',f:'단위와 부호 확인 · 극단값 대입'}],answer:'풀이 완료 — 자세한 과정은 문제 풀이 화면에서'};
+  }
   if(route.art==='quiz')return {kind:'quiz',tool:route.tool,title:fname+' · 20문항',total:20,file:{kind:'pdf',name:fname},
     items:phys?[{n:1,q:'포물선 운동에서 발사각이 45°일 때 수평 도달 거리가 최대가 되는 이유를 식으로 보이시오.'},{n:2,q:'질량 2 kg의 물체가 마찰 없는 30° 경사면을 내려올 때 가속도의 크기는?'},{n:3,q:'용수철 상수 200 N/m인 용수철을 0.1 m 압축했을 때 저장된 탄성 퍼텐셜 에너지는?'}]
      :[{n:1,q:p.name+' 핵심 개념의 정의를 쓰고, 성립 조건을 설명하시오.'},{n:2,q:'강의 노트의 예제를 변형한 계산 문제 — 조건이 바뀌면 결과가 어떻게 달라지는가?'},{n:3,q:'두 개념의 차이를 예시와 함께 비교하시오.'}]};
@@ -145,7 +152,9 @@ function thAddReply(p,post,r){
 function openThread(p,postId,opts){
   opts=opts||{};
   if(state.profile)closeProfile();            /* 오른쪽 슬롯은 하나 — 게시글을 눌렀으면 쓰레드가 이긴다 */
+  const changed=!(state.thread&&state.thread.pid===p.id&&state.thread.postId===postId);
   state.thread={pid:p.id,postId:postId};
+  if(changed){const ta=$('#thTa');if(ta){pjMentionPop(p,ta,false);ta.value='';$('#thSendBtn').classList.remove('ready');}}   /* 이전 쓰레드의 초안·멘션 팝업(옛 p를 물고 있음)을 넘기지 않는다 */
   renderThread();sync();pjMarkSel(p);
   const b=$('#thBody');if(b)b.scrollTop=opts.bottom?b.scrollHeight:0;
   if(opts.focus){const ta=$('#thTa');if(ta)ta.focus();}
@@ -170,14 +179,19 @@ function pjRunAI(p,post,text,opts){
   opts=opts||{};
   const ri=PJ_ROUTES.findIndex(r=>r.re.test(text));
   const route=ri>=0?PJ_ROUTES[ri]:null;
+  /* 파일명은 지금 예약한다 — 파일은 3.4초 뒤에야 들어가므로, 같은 라우트 요청이 겹치면 이름이 겹친다(pendingNames) */
   let fname=null;
-  if(route&&route.kind){let nm=route.base,k=2;while((p.files||[]).some(f=>f.name===nm))nm=route.base+' '+(k++);fname=nm;}
+  if(route&&route.kind){
+    p.pendingNames=p.pendingNames||new Set();
+    let nm=route.base,k=2;while((p.files||[]).some(f=>f.name===nm)||p.pendingNames.has(nm))nm=route.base+' '+(k++);
+    fname=nm;p.pendingNames.add(nm);
+  }
   const ai=(type,extra)=>Object.assign({who:'ai',time:pjTime(),type:type},extra);
   setTimeout(()=>{
     thAddReply(p,post,ai('text',{text:route
       ?(opts.inThread?'이어서 볼게요 — ':'확인했어요 — ')+'"'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 <b>'+escapeHtml(route.tool)+'</b>을 호출할게요.'
       :'확인했어요. "'+escapeHtml(p.folder)+'" 폴더의 자료와 메모리를 바탕으로 정리해서 이 쓰레드에 올릴게요.'}));
-    if(opts.autoOpen&&!state.thread&&state.view==='project'&&state.project===p.id)openThread(p,post.id,{bottom:true});
+    if(opts.autoOpen&&!(state.thread&&state.thread.pid===p.id)&&state.view==='project'&&state.project===p.id)openThread(p,post.id,{bottom:true});   /* 다른 프로젝트의 숨은 쓰레드는 무시 */
     if(!route){
       setTimeout(()=>thAddReply(p,post,ai('memory',{text:'메모리 업데이트 — 이 요청의 요약을 반영했어요 · 다음 대화부터 적용돼요'})),1100);
       return;
@@ -187,16 +201,20 @@ function pjRunAI(p,post,text,opts){
       setTimeout(()=>{
         if(route.kind){
           const nf={kind:route.kind,name:fname,meta:(UP_LBL[route.kind]||'파일')+' · '+fmtSize(route.size),time:'방금',ai:p.agent,fresh:true};
-          p.files=p.files||[];p.files.unshift(nf);
+          p.files=p.files||[];p.files.unshift(nf);p.pendingNames.delete(fname);
           setTimeout(()=>{nf.fresh=false;},2600);
           p.items=p.files.length;
           const df=driveItems.find(d=>d.type==='folder'&&d.name===p.folder);
           if(df)df.meta='항목 '+p.items+'개'+(p.src==='etl'?' · eTL':'');
           renderDrive();renderProjects();
-          const em=$('#view-project .pj-tab[data-tab="files"] em');if(em)em.textContent=p.items;
-          const bd=$('#view-project .pj-badges .pj-badge:nth-child(2)');if(bd)bd.textContent='하위 항목 '+p.items+'개 접근';
+          /* 화면에 떠 있는 프로젝트일 때만 헤더·탭·파일 목록을 건드린다 — 다른 채널로 옮겨 갔으면 그쪽 DOM을 덮어쓰지 않게 */
+          if(state.view==='project'&&state.project===p.id){
+            const em=$('#view-project .pj-tab[data-tab="files"] em');if(em)em.textContent=p.items;
+            const bd=$('#view-project .pj-badges .pj-badge:nth-child(2)');if(bd)bd.textContent='하위 항목 '+p.items+'개 접근';
+            if(state.pjTab==='files'&&$('#pjfList')){renderPjfList(p);const cr=$('#view-project .pjf-crumb span:last-child');if(cr)cr.textContent='항목 '+p.items+'개';}
+          }
         }
-        thAddReply(p,post,ai('artifact',{text:route.done||'',art:artFromRoute(p,route,fname)}));
+        thAddReply(p,post,ai('artifact',{text:route.done||'',art:artFromRoute(p,route,fname,text)}));
         setTimeout(()=>{
           p.memory=p.memory||[];
           p.memory.push((fname?'"'+fname+'" 생성':route.tool+' 호출')+' — 채널 요청('+route.tool+')');

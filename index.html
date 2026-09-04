@@ -13,25 +13,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/00-base.css?v=202609041517">
-<link rel="stylesheet" href="css/01-sidebar.css?v=202609041517">
-<link rel="stylesheet" href="css/02-drive.css?v=202609041517">
-<link rel="stylesheet" href="css/03-chat-panel.css?v=202609041517">
-<link rel="stylesheet" href="css/04-upload-toast.css?v=202609041517">
-<link rel="stylesheet" href="css/05-hierarchy.css?v=202609041517">
-<link rel="stylesheet" href="css/07-note-drawer.css?v=202609041517">
-<link rel="stylesheet" href="css/08-solver.css?v=202609041517">
-<link rel="stylesheet" href="css/09-generator.css?v=202609041517">
-<link rel="stylesheet" href="css/10-visuals.css?v=202609041517">
-<link rel="stylesheet" href="css/11-canvas.css?v=202609041517">
-<link rel="stylesheet" href="css/12-chat.css?v=202609041517">
-<link rel="stylesheet" href="css/13-editor.css?v=202609041517">
-<link rel="stylesheet" href="css/14-attach-picker.css?v=202609041517">
-<link rel="stylesheet" href="css/15-generic.css?v=202609041517">
-<link rel="stylesheet" href="css/16-onboarding.css?v=202609041517">
-<link rel="stylesheet" href="css/17-ppt.css?v=202609041517">
-<link rel="stylesheet" href="css/18-profile.css?v=202609041517">
-<link rel="stylesheet" href="css/19-thread.css?v=202609041517">
+<link rel="stylesheet" href="css/00-base.css?v=202609041555">
+<link rel="stylesheet" href="css/01-sidebar.css?v=202609041555">
+<link rel="stylesheet" href="css/02-drive.css?v=202609041555">
+<link rel="stylesheet" href="css/03-chat-panel.css?v=202609041555">
+<link rel="stylesheet" href="css/04-upload-toast.css?v=202609041555">
+<link rel="stylesheet" href="css/05-hierarchy.css?v=202609041555">
+<link rel="stylesheet" href="css/07-note-drawer.css?v=202609041555">
+<link rel="stylesheet" href="css/08-solver.css?v=202609041555">
+<link rel="stylesheet" href="css/09-generator.css?v=202609041555">
+<link rel="stylesheet" href="css/10-visuals.css?v=202609041555">
+<link rel="stylesheet" href="css/11-canvas.css?v=202609041555">
+<link rel="stylesheet" href="css/12-chat.css?v=202609041555">
+<link rel="stylesheet" href="css/13-editor.css?v=202609041555">
+<link rel="stylesheet" href="css/14-attach-picker.css?v=202609041555">
+<link rel="stylesheet" href="css/15-generic.css?v=202609041555">
+<link rel="stylesheet" href="css/16-onboarding.css?v=202609041555">
+<link rel="stylesheet" href="css/17-ppt.css?v=202609041555">
+<link rel="stylesheet" href="css/18-profile.css?v=202609041555">
+<link rel="stylesheet" href="css/19-thread.css?v=202609041555">
 </head>
 <body>
 <div class="app">
@@ -948,7 +948,7 @@
               <div class="rail-bar"><i style="width:82%"></i></div><div class="rail-pct">82%</div>
               <div class="rail-meta">초안 완료 · 내 확인 대기</div>
             </div>
-            <div class="rail-card"><b>자주 틀리는 유형 분석</b><div class="rail-meta">3장 연습문제 기준 · 진행 중</div></div>
+            <div class="rail-card"><b>변형 문제 해설 검산</b><div class="rail-meta">20문항 중 14 · 진행 중</div></div>
             <div class="rail-g">툴 실행</div>
             <div class="rail-card"><b>문제 생성 — 변형 20문항</b><div class="rail-meta">일반물리학 AI가 호출 · 방금 완료</div>
               <div class="rail-done"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>변형문제_2차.pdf 저장됨</div>
@@ -1069,7 +1069,7 @@
 
   <!-- ===== 쓰레드 패널 (슬랙형) — 프로젝트 게시글의 답글·아티팩트. js/19-thread.js가 채우고, 프로필 패널과 오른쪽 슬롯을 공유한다 ===== -->
   <aside class="th" id="thPanel" style="display:none">
-    <div class="th-h"><b>스레드</b><span id="thSub"></span>
+    <div class="th-h"><b>쓰레드</b><span id="thSub"></span>
       <button class="icbtn" id="thClose" title="닫기">
         <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
       </button>
@@ -1561,7 +1561,7 @@
 </button>
 <aside class="note-drawer" id="noteDrawer">
   <div class="note-h">
-    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.18 · 2026.09.04</span>
+    <span class="logo-sq">g(π)</span><b>Q의 의견</b><span class="note-ver">v7.19 · 2026.09.04</span>
     <button class="icbtn" id="noteClose" title="닫기">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>
     </button>
@@ -1616,7 +1616,7 @@
     <div class="note-sec">
       <h4>아직 목업이에요</h4>
       <p><b>문서 작성</b>은 유일하게 화면이 없는 에이전트예요 — 다음 이터레이션에서 함께 설계할 예정이에요.</p>
-      <p>그 밖에 툴 화면들(솔버 · 제너레이터 · 시각화 · 챗)의 실제 생성·전송 동작은 아직 목업이에요. 파일 <code>⋯</code> 메뉴는 열기·삭제만 동작해요. 프로젝트 채널의 툴 호출은 실제로 동작해요 — 채널에 "변형 문제 만들어줘"나 "발표자료 만들어줘"라고 시켜보세요. PPT 제작은 개요 → 생성 → 드라이브 저장까지 연출로 이어져요.</p>
+      <p>그 밖에 툴 화면들(솔버 · 제너레이터 · 시각화 · 챗)의 실제 생성·전송 동작은 아직 목업이에요. 파일 <code>⋯</code> 메뉴는 열기·삭제만 동작해요. 프로젝트 채널의 툴 호출은 실제로 동작해요 — 채널에서 @ 버튼(또는 "@")으로 프로젝트 AI를 멘션한 뒤 "변형 문제 만들어줘"나 "발표자료 만들어줘"라고 시켜보세요. 답은 그 게시글의 쓰레드에 아티팩트로 달려요. PPT 제작은 개요 → 생성 → 드라이브 저장까지 연출로 이어져요.</p>
     </div>
 
     <div class="note-sec">
@@ -1765,26 +1765,26 @@
   </div>
 </div>
 
-<script src="js/00-helpers.js?v=202609041517"></script>
-<script src="js/01-assets-drive.js?v=202609041517"></script>
-<script src="js/01-assets-avatars.js?v=202609041517"></script>
-<script src="js/02-canvas.js?v=202609041517"></script>
-<script src="js/03-data.js?v=202609041517"></script>
-<script src="js/04-drive.js?v=202609041517"></script>
-<script src="js/05-router.js?v=202609041517"></script>
-<script src="js/06-misc-controls.js?v=202609041517"></script>
-<script src="js/07-editor-open.js?v=202609041517"></script>
-<script src="js/08-notes.js?v=202609041517"></script>
-<script src="js/09-editor-body.js?v=202609041517"></script>
-<script src="js/10-attach-picker.js?v=202609041517"></script>
-<script src="js/11-projects.js?v=202609041517"></script>
-<script src="js/12-master.js?v=202609041517"></script>
-<script src="js/13-upload.js?v=202609041517"></script>
-<script src="js/14-init.js?v=202609041517"></script>
-<script src="js/15-onboarding.js?v=202609041517"></script>
-<script src="js/16-gdrive.js?v=202609041517"></script>
-<script src="js/17-ppt.js?v=202609041517"></script>
-<script src="js/18-profile.js?v=202609041517"></script>
-<script src="js/19-thread.js?v=202609041517"></script>
+<script src="js/00-helpers.js?v=202609041555"></script>
+<script src="js/01-assets-drive.js?v=202609041555"></script>
+<script src="js/01-assets-avatars.js?v=202609041555"></script>
+<script src="js/02-canvas.js?v=202609041555"></script>
+<script src="js/03-data.js?v=202609041555"></script>
+<script src="js/04-drive.js?v=202609041555"></script>
+<script src="js/05-router.js?v=202609041555"></script>
+<script src="js/06-misc-controls.js?v=202609041555"></script>
+<script src="js/07-editor-open.js?v=202609041555"></script>
+<script src="js/08-notes.js?v=202609041555"></script>
+<script src="js/09-editor-body.js?v=202609041555"></script>
+<script src="js/10-attach-picker.js?v=202609041555"></script>
+<script src="js/11-projects.js?v=202609041555"></script>
+<script src="js/12-master.js?v=202609041555"></script>
+<script src="js/13-upload.js?v=202609041555"></script>
+<script src="js/14-init.js?v=202609041555"></script>
+<script src="js/15-onboarding.js?v=202609041555"></script>
+<script src="js/16-gdrive.js?v=202609041555"></script>
+<script src="js/17-ppt.js?v=202609041555"></script>
+<script src="js/18-profile.js?v=202609041555"></script>
+<script src="js/19-thread.js?v=202609041555"></script>
 </body>
 </html>

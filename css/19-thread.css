@@ -10,14 +10,14 @@
 .pj-acts button:hover{background:var(--hover)}
 .pj-acts svg{flex:none}
 .pj-pin{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#B45816}
-.pj-treply{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:#B45816;cursor:pointer;border:1px solid transparent;border-radius:8px;padding:4px 9px 4px 5px}
+.pj-treply{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:#B45816;font-weight:500;cursor:pointer;border:1px solid transparent;border-radius:8px;padding:4px 9px 4px 5px}
 .pj-treply:hover{background:#fff;border-color:var(--border)}
 .pj-treply b{font-weight:600}
 .pj-treply em{color:#9C9C9A;font-style:normal;font-weight:400}
 .pj-tavas{display:inline-flex;align-items:center}
 .pj-tavas .pj-mini{width:22px;height:22px;border:2px solid #fff;box-sizing:content-box;margin-right:-7px;border-radius:6px;overflow:hidden}
 .pj-tavas .pj-mini:last-child{margin-right:0}
-.pj-mini.user{background:#F4F4F2;overflow:hidden;border-radius:5px;display:inline-grid;place-items:center;font-family:inherit;font-style:normal;font-size:9px;color:#55554F}
+.pj-mini.user{background:#F4F4F2;overflow:hidden;display:inline-grid;place-items:center;font-family:inherit;font-style:normal;font-size:9px;color:#55554F}
 .pj-mini.user img{width:100%;height:100%;display:block;object-fit:cover}
 .pjf-pin{display:grid;place-items:center;width:22px;height:18px;color:#B45816}
 /* 컴포저 툴바(슬랙: + · Aa · 이모지 · @) + 멘션 팝업 */
@@ -52,7 +52,7 @@
 .art{margin-top:8px;border:1px solid var(--border);border-radius:12px;background:#fff;overflow:hidden}
 .art-h{display:flex;align-items:center;gap:9px;padding:9px 12px;border-bottom:1px solid var(--border-soft);background:#FCFCFB;min-width:0}
 .art-h b{font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.art-h .art-tool{font-size:11px;color:#9C9C9A;margin-left:auto;white-space:nowrap;flex:none;max-width:52%;overflow:hidden;text-overflow:ellipsis}
+.art-h .art-tool{font-size:11px;color:#9C9C9A;margin-left:auto;white-space:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .art-h .ed-badge svg{width:11px;height:11px}
 .art-b{padding:12px 14px}
 .art-f{display:flex;gap:8px;padding:8px 12px 10px;border-top:1px solid var(--border-soft)}

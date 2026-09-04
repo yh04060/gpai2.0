@@ -106,7 +106,7 @@ const FOLD_SVG='<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stro
 let pjSeq=0,pjUpDest=null;
 
 function renderProjects(){
-  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></span></button>').join('')
+  $('#projNav').innerHTML=PROJECTS.map(p=>'<button class="nav-item'+(state.view==='project'&&state.project===p.id?' on':'')+'" data-nav="project-'+p.id+'"><span class="pj-hash">#</span><span class="nav-lb"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+escapeHtml(p.name)+'</span></span></button>').join('')
    +'<button class="nav-item nav-new" id="projNewBtn"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg><span class="nav-lb"><span>새 프로젝트</span></span></button>';
   /* 내 AI 화면 오른쪽 패널의 「부리는 에이전트」 — 세로 목록, 누르면 채널로 */
   const list=$('#mpProjects');
@@ -162,10 +162,10 @@ function pjSeedP1(p){
     PJ_AI('12:36','artifact',{text:'초안 v1이에요. 논의와 결론은 측정값 기준으로 채웠으니 표현만 다듬으면 돼요.',art:{kind:'doc',tool:'문서 작성 툴',title:'포물선 운동 실험 보고서 (초안 v1)',meta:'물리학Ⅰ · 어제',file:{kind:'doc',name:'실험 보고서'},blocks:[{h:'1. 실험 목적'},{p:'발사각과 초기 속도가 수평 도달 거리에 미치는 영향을 정량적으로 분석하고, 이론값과 측정값의 오차 원인을 논의한다.'},{h:'2. 결과'},{table:{head:['발사각','측정 R (m)','이론 R (m)','오차 (%)'],rows:[['30°','35.1','35.3','0.6'],['45°','40.4','40.8','1.0'],['60°','34.9','35.3','1.1']]}},{more:'표 2 · 표 3 · 3. 논의 · 4. 결론 — 이하 본문은 편집기에서 확인하세요'}]}}),
     PJ_AI('12:36','memory',{text:'메모리 업데이트 — "실험 보고서 — 금요일(8/28) 마감" · "보고서 결과 표는 3개 구성 선호" 반영 · 다음 대화부터 적용돼요'}),
   ]});
-  pjPost(p,{key:'analysis',day:'어제',time:'4:02',text:'@'+p.agent+' 3장 연습문제에서 내가 자주 틀리는 유형 분석해줘.',replies:[
-    PJ_AI('4:02','text',{text:'확인했어요 — 3장 연습문제.pdf의 풀이 기록과 오답노트를 대조해서 유형별로 묶어 볼게요.'}),
-    PJ_AI('4:05','artifact',{text:'틀린 문항 12개를 유형별로 묶었어요. 벡터 분해에서 가장 많이 틀렸고, 그중 절반이 부호 실수예요.',art:{kind:'analysis',tool:'문제 풀이 툴',title:'3장 연습문제 · 자주 틀리는 유형',bars:[{l:'포물선 벡터 분해',v:68},{l:'에너지 보존 적용',v:41},{l:'단위 환산',v:23},{l:'마찰력 방향',v:17}],note:'벡터 분해 오답 8건 중 5건이 sin·cos 부호 실수 — 변형 문제를 만들 때 이 유형을 우선 배치할게요.'}}),
-    PJ_AI('4:05','memory',{text:'메모리 업데이트 — "취약 유형: 포물선 운동 벡터 분해" 반영 · 다음 대화부터 적용돼요'}),
+  pjPost(p,{key:'analysis',day:'어제',time:'16:02',text:'@'+p.agent+' 3장 연습문제에서 내가 자주 틀리는 유형 분석해줘.',replies:[
+    PJ_AI('16:02','text',{text:'확인했어요 — 3장 연습문제.pdf의 풀이 기록과 오답노트를 대조해서 유형별로 묶어 볼게요.'}),
+    PJ_AI('16:05','artifact',{text:'틀린 문항 12개를 유형별로 묶었어요. 벡터 분해에서 가장 많이 틀렸고, 그중 절반이 부호 실수예요.',art:{kind:'analysis',tool:'문제 풀이 툴',title:'3장 연습문제 · 자주 틀리는 유형',bars:[{l:'포물선 벡터 분해',v:68},{l:'에너지 보존 적용',v:41},{l:'단위 환산',v:23},{l:'마찰력 방향',v:17}],note:'벡터 분해 오답 8건 중 5건이 sin·cos 부호 실수 — 변형 문제를 만들 때 이 유형을 우선 배치할게요.'}}),
+    PJ_AI('16:05','memory',{text:'메모리 업데이트 — "취약 유형: 포물선 운동 벡터 분해" 반영 · 다음 대화부터 적용돼요'}),
   ]});
   pjPost(p,{key:'memo',who:'ai',day:'오늘',time:'10:00',html:true,text:'<span class="mono-badge">memory.md</span> 일일 업데이트 — 어제 대화 2건을 요약해 반영했어요'});
   pjPost(p,{key:'quiz',day:'오늘',time:'10:16',text:'@'+p.agent+' 다음 주 중간시험 범위(3~5장) 요약하고, 그 범위에서 변형 문제 20개 만들어줘.',replies:[
@@ -182,8 +182,8 @@ function pjSeedP1(p){
 /* p2~p5 — 온보딩 eTL 임포트가 만든 채널의 웰컴 게시글 하나 */
 function pjSeedWelcome(p){
   const imp=p.src==='etl';
-  pjPost(p,{key:'welcome',who:'ai',day:imp?'8월 17일 — eTL 가져오기':'오늘',time:imp?'2:04':'방금',html:true,
-   text:'안녕하세요, <b>'+escapeHtml(p.agent)+'</b>예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.'),
+  pjPost(p,{key:'welcome',who:'ai',day:imp?'8월 17일 — eTL 가져오기':'오늘',time:imp?'14:04':'방금',html:true,
+   text:'안녕하세요. 저는 <b>'+escapeHtml(p.agent)+'</b>, 이 채널의 프로젝트 AI예요. '+(imp?'eTL에서 <b>'+escapeHtml(p.name)+'</b> 과목 자료를 가져오면서 만들어졌어요.':'방금 만들어졌어요.'),
    extra:'<div class="tool-card"><b>'+SVG_MEM+(imp?'과목 자료 정리 완료':'폴더 파악 완료')+'</b><div class="rail-meta" style="margin-top:5px">'+(imp?('eTL 파일 '+(p.lmsFiles||p.items)+'개 → "'+escapeHtml(p.folder)+'" 폴더 항목 '+p.items+'개로 정리 · memory.md 생성'):('"'+escapeHtml(p.folder)+'" 폴더 하위 항목 '+p.items+'개 확인 · memory.md 생성'))+'</div></div>'
     +'<div class="pj-text" style="margin-top:8px">이 채널에서 무엇이든 시켜보세요. @'+escapeHtml(p.agent)+' 멘션으로 일을 시키면 답은 그 게시글의 쓰레드에 달려요. 대화 요약은 제 메모리에 쌓이고, 저는 이 폴더 밖에는 접근할 수 없어요.</div>'});
 }
@@ -202,7 +202,7 @@ function pjPostHTML(p,post,inThread){
   const name=isAI?'<b data-pf="agent" class="pf-link">'+escapeHtml(p.agent)+'</b><span class="pj-app">APP</span>':'<b data-pf="user" class="pf-link" data-uname>'+escapeHtml(USER.username)+'</b>';
   const body=post.html?post.text:pjFmt(p,post.text);
   const sel=!inThread&&state.thread&&state.thread.pid===p.id&&state.thread.postId===post.id;
-  const acts=inThread?'':'<div class="pj-acts"><button type="button" data-act="reply" title="스레드에 답글">'+ICON_REPLY+'<span>답글</span></button><button type="button" data-act="pin" title="'+(post.pinned?'고정 해제':'고정')+'">'+ICON_PIN+'<span>'+(post.pinned?'고정됨':'고정')+'</span></button></div>';
+  const acts=inThread?'':'<div class="pj-acts"><button type="button" data-act="reply" title="쓰레드에 답글">'+ICON_REPLY+'<span>답글</span></button><button type="button" data-act="pin" title="'+(post.pinned?'고정 해제':'고정')+'">'+ICON_PIN+'<span>'+(post.pinned?'고정됨':'고정')+'</span></button></div>';
   return '<div class="pj-post'+(inThread?'':' clickable')+(sel?' sel':'')+'" data-post="'+post.id+'">'+ava+'<div class="pj-body">'
    +'<div class="pj-who">'+name+'<span class="pj-time">'+escapeHtml(post.time)+'</span>'+(post.pinned?'<span class="pj-pin">'+ICON_PIN+'고정됨</span>':'')+'</div>'
    +'<div class="pj-text">'+body+'</div>'+(post.extra||'')+(inThread?'':pjSummaryHTML(p,post))+'</div>'+acts+'</div>';
@@ -217,7 +217,12 @@ function pjPinsList(p){
   const posts=(p.posts||[]).filter(x=>x.pinned).map(x=>({kind:'post',name:(x.html?x.text.replace(/<[^>]+>/g,''):x.text).replace(/\s+/g,' ').slice(0,60),meta:'게시글 · 답글 '+x.replies.length+'개',time:x.time,postId:x.id}));
   return posts.concat(p.pins||[]);
 }
-function pjTogglePin(p,post){post.pinned=!post.pinned;pjRefreshPost(p,post);const em=$('#view-project .pj-tab[data-tab="pins"] em');if(em)em.textContent=pjPinsList(p).length;}
+function pjTogglePin(p,post){
+  post.pinned=!post.pinned;pjRefreshPost(p,post);
+  const em=$('#view-project .pj-tab[data-tab="pins"] em');if(em)em.textContent=pjPinsList(p).length;
+  /* 쓰레드 패널에 떠 있는 원글 사본도 같이 */
+  if(typeof thOpenOn==='function'&&thOpenOn(p,post)){const el=$('#thBody .pj-post[data-post="'+post.id+'"]');if(el)el.outerHTML=pjPostHTML(p,post,true);}
+}
 
 /* ---- 라이브 툴 호출 라우트 — 메시지 키워드로 툴·결과 종류를 고른다(19-thread.js pjRunAI가 연출).
    구체적인 라우트가 먼저 오도록 순서 유지 (풀이 → 발표 → 보고서 → 요약 → 시각화 → 문제) */
@@ -231,7 +236,7 @@ const PJ_ROUTES=[
 ];
 const PJ_BADGE={pdf:'#E2574C',doc:'#4E86D8',xlsx:'#2E9E5B',ppt:'#D8681B',png:'#8A65C9'};
 function pjToolCardHTML(p,route){
-  return '<div class="tool-card" style="margin-top:2px"><b>'+SVG_TOOL+escapeHtml(route.tool)+' 실행</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(route.param)+' — '+escapeHtml(p.agent)+'가 호출</div></div>';
+  return '<div class="tool-card" style="margin-top:2px"><b>'+SVG_TOOL+escapeHtml(route.tool)+' 실행</b><div class="rail-meta" style="margin-top:5px">'+escapeHtml(route.param)+' — '+escapeHtml(p.agent)+' 호출</div></div>';
 }
 function pjFileChipHTML(f){
   const ext=ED_EXT[f.kind]?ED_EXT[f.kind].replace('.','').toUpperCase():f.kind.toUpperCase();
@@ -395,7 +400,7 @@ function renderProject(p){
    그때는 DOMContentLoaded(모든 스크립트 실행 후)까지 미룬다. 파서가 스크립트 사이에서 타이머를 돌릴 수 있어 setTimeout(0)으로는 부족 */
 function pjAutoThread(p){
   const run=()=>{
-    if(state.view!=='project'||state.project!==p.id||state.thread||typeof openThread!=='function')return;
+    if(state.view!=='project'||state.project!==p.id||(state.thread&&state.thread.pid===p.id)||typeof openThread!=='function')return;   /* 다른 프로젝트의 숨은 쓰레드는 무시 */
     const last=[...p.posts].reverse().find(x=>x.replies.length);if(last)openThread(p,last.id);
   };
   if(typeof openThread==='function'||document.readyState!=='loading')setTimeout(run,0);
